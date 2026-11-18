@@ -3,6 +3,7 @@
  * Yayın öncesi yer tutucu denetimi. Bulursa çıkış kodu 1 döner.
  * - src/content/** içinde köşeli parantezli metinler: '[Manşet başlığı …]'
  * - src/content/** içinde PLACEHOLDER_HREF ya da href: '#'
+ * - src/content/** içinde `image: null` (gri kutu çizilir)
  * - src/** içinde gri görsel kutusu: bg-placeholder / #C9CDD3
  * Ayrıntı ve bekleyen içerik listesi: TODO-CONTENT.md
  */
@@ -18,6 +19,7 @@ const walk = (d) =>
 const rules = [
   { dir: 'src/content', re: /(['"`])\[[^\]\n]+\]\1/g, why: 'köşeli parantezli yer tutucu metin' },
   { dir: 'src/content', re: /href:\s*(PLACEHOLDER_HREF|['"]#['"])/g, why: 'boş bağlantı (#)' },
+  { dir: 'src/content', re: /image:\s*null/g, why: 'gri görsel yer tutucusu (görsel yok)' },
   { dir: 'src', re: /bg-placeholder|#C9CDD3/gi, why: 'gri görsel yer tutucusu' },
 ]
 

@@ -5,6 +5,7 @@ import { BreakingBar } from '@/components/header/BreakingBar'
 import { Masthead } from '@/components/header/Masthead'
 import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
+import { Footer } from '@/components/Footer'
 import { breakingPlaceholder, mainNav, site } from '@/content/site'
 import './globals.css'
 
@@ -74,6 +75,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div id="icerik" tabIndex={-1} className="outline-none">
           {children}
         </div>
+
+        <Footer />
       </body>
     </html>
   )

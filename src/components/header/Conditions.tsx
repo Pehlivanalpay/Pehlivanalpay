@@ -19,13 +19,16 @@ const icons: Record<WeatherKind, typeof WxClear> = {
  * Genişlikler em cinsinden: Mono 11px'te bir karakter ≈ 0.6em + 0.14em harf aralığı = 0.74em.
  */
 function Skel({ w }: { w: string }) {
-  // Yükseklik = satır yüksekliği (1.5em); gri çubuk ortadaki %50'lik bantta çizilir.
+  // İçindeki boşluk karakteri sayesinde yüksekliği gerçek metnin satır kutusuyla aynıdır;
+  // gri çubuk ortadaki %50'lik bantta çizilir.
   return (
     <span
       aria-hidden="true"
-      className="inline-block h-[1.5em] bg-[linear-gradient(transparent_25%,rgba(255,255,255,.15)_25%,rgba(255,255,255,.15)_75%,transparent_75%)] align-top"
+      className="inline-block bg-[linear-gradient(transparent_25%,rgba(255,255,255,.15)_25%,rgba(255,255,255,.15)_75%,transparent_75%)]"
       style={{ width: w }}
-    />
+    >
+      &nbsp;
+    </span>
   )
 }
 

@@ -56,3 +56,36 @@ export const breakingPlaceholder: BreakingItem[] = [
   { time: '20:45', title: '[Manşet başlığı buraya gelecek]', href: '/haber' }, // PLACEHOLDER
   { time: '20:30', title: '[İkinci başlık]', href: '/haber' }, // PLACEHOLDER
 ]
+
+/** Footer. `#6E7686` (referans) koyu zeminde 4.26:1 — eşiği geçmiyor; onDark-glass (#AEB5BF) kullanılıyor. */
+export const footer = {
+  tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü saha deneyimi.',
+  columns: [
+    {
+      title: 'Hizmetler',
+      label: 'Alt menü – hizmetler',
+      span: 'lg:col-span-3',
+      links: [
+        { label: 'Fikserlik', href: '/fikserlik' },
+        { label: 'Prodüksiyon', href: '/#hizmetler' },
+        { label: 'Kriz sahası', href: '/#hizmetler' },
+        { label: 'Belgesel', href: '/#belgesel' },
+      ],
+    },
+    {
+      title: 'Kurumsal',
+      label: 'Alt menü – kurumsal',
+      span: 'lg:col-span-2',
+      links: [
+        { label: 'Sahalar', href: '/#sahalar' },
+        { label: 'Haber', href: '/haber' },
+        { label: 'İletişim', href: '/iletisim' },
+      ],
+    },
+  ],
+  bottom: {
+    copyright: `© ${new Date().getFullYear()} ELIS360 NEWS`,
+    lines: ['Research · Fixing', 'Production · Logistics'],
+    motto: ['Real stories,', 'a brighter tomorrow'],
+  },
+}

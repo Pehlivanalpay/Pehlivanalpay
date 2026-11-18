@@ -83,7 +83,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
         </nav>
 
         {locales.length > 0 && (
-          <p className="m-0 flex items-center gap-[9px] font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white">
+          <nav aria-label="Dil" className="flex items-center gap-[9px] font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white">
             {locales.map((l, i) => (
               <span key={l.code} className="contents">
                 {i > 0 && (
@@ -107,7 +107,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
                 )}
               </span>
             ))}
-          </p>
+          </nav>
         )}
       </div>
 

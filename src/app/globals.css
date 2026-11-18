@@ -11,6 +11,11 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* Çapa bağlantıları yapışkan navigasyonun (58px + kenarlar) altında kalmasın */
+    scroll-padding-top: 72px;
+    /* Referans HTML satır yüksekliği vermediği yerlerde tarayıcı varsayılanını (normal)
+       kullanır; Tailwind preflight 1.5 verir. Birebir ölçü için normal'e döndür. */
+    line-height: normal;
   }
   body {
     @apply bg-paper font-sans text-ink antialiased;

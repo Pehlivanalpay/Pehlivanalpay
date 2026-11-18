@@ -17,14 +17,23 @@ Durum: ☐ bekliyor · ☑ tamam
 | ☐ | İngilizce sürüm `/en` | `src/app/layout.tsx` → `StickyNav locales` | EN şu an bağlantısız ("Yakında"). `href: '/en'` verilince bağlantı olur. |
 | ☐ | Yedek konum | `src/content/site.ts` → `site.fallbackLocation` | Konum algılanamazsa İzmir gösterilir. Karar: kalsın mı? |
 
-## Ana sayfa (sıradaki adım)
+## Ana sayfa (Faz 1 — kuruldu, içerik bekliyor)
 
-| # | İçerik | Not |
-|---|---|---|
-| ☐ | Gri görsel kutuları (`#C9CDD3`) | Saha arşivinden gerçek fotoğraflar |
-| ☐ | Hero'daki koordinat ve zaman kodu | Süs — kalacak mı karar verilmeli |
-| ☐ | Köşeli parantezli tüm metinler | Bölümler kuruldukça buraya eklenecek |
+İçerik dosyası: `src/content/home.ts`
 
-## Fikserlik ve İletişim
+| # | İçerik | Nerede | Not |
+|---|---|---|---|
+| ☐ | Haberler bölümü: manşet, 4 son haber, 3 özel dosya | `news` | Tümü `[…]` yer tutucu + `image: null` (gri kutu). Faz 2'de WPGraphQL. Faz 1 yayınında haber yoksa **`<News>` satırını `src/app/page.tsx`'ten kaldırın**. |
+| ☐ | Haber görselleri | `news.*.image` | `image: null` → gri kutu çizilir. `{ src, alt, width, height }` verin. |
+| ☐ | "Biz kimiz" görseli | `about.image` | Şu an hero fotoğrafı tekrar kullanılıyor. Saha arşivinden gerçek kare önerilir. |
+| ☐ | Hero kayıt göstergesi, zaman kodu, koordinat | `hero.telemetry` | Süs. Kalacaksa dokunmayın; kaldırmak için `null` yapın. "Biz kimiz" görselindeki zaman kodu: `about.timecode`. |
+| ☐ | Rakamlar (33 yıl, 11 bölge, 04 başlık) | `hero.panel.stats`, `why.record` | Doğrulanmalı. |
+| ☐ | `/haber` bağlantıları | `news`, `newsBanner` | Faz 2'ye kadar 404. |
+| ☐ | `/fikserlik` bağlantıları | `services.items[0].link`, footer, nav | Sayfa henüz yok — **`fikserlik.html` referansı bekleniyor**. |
 
-Sayfalar kuruldukça eklenecek. Not: `fikserlik.html` ve `haber.html` referans dosyaları depoda yok — yalnızca `index.html` yüklendi.
+## İletişim
+
+| # | İçerik | Nerede | Not |
+|---|---|---|---|
+| ☐ | `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` | Vercel ortam değişkenleri, bkz. `.env.example` | Yayında anahtar yoksa form hata verir ve kullanıcıya doğrudan e-posta adresi gösterilir. `CONTACT_FROM` alan adı Resend'de doğrulanmalı. |
+| ☐ | KVKK aydınlatma metni bağlantısı | form altı | Kişisel veri toplanıyor — hukuki metin gerekir. |
