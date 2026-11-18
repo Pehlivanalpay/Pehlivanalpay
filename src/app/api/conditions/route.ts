@@ -1,4 +1,3 @@
-import { geolocation } from '@vercel/functions'
 import { type NextRequest, NextResponse } from 'next/server'
 import { site } from '@/content/site'
 import { describeWeather, type Conditions } from '@/lib/weather'
@@ -6,23 +5,40 @@ import { describeWeather, type Conditions } from '@/lib/weather'
 /**
  * Ziyaretçinin şehri + anlık hava durumu.
  *
- * Şehir: Vercel'in her isteğe eklediği coğrafi konum başlıkları. Next 15+
- * `request.geo`'yu kaldırdı; resmî yerine geçen `@vercel/functions` →
- * `geolocation()` aynı başlıkları (`x-vercel-ip-city` vb.) okur — ek API çağrısı yok.
- * Yerelde veya başlık yoksa `site.fallbackLocation` (İzmir) kullanılır.
+ * Şehir, barındırma katmanının isteğe eklediği konum başlıklarından okunur — ek API çağrısı yok:
+ *  - Cloudflare (alan adı Cloudflare arkasındaysa; ücretsiz planda "Add visitor location headers"
+ *    yönetilen dönüşümü açık olmalı): cf-ipcity, cf-iplatitude, cf-iplongitude
+ *  - Vercel: x-vercel-ip-city, x-vercel-ip-latitude, x-vercel-ip-longitude
+ * Hiçbiri yoksa (doğrudan cPanel, yerel geliştirme) `site.fallbackLocation` (İzmir).
  *
  * Hava: Open-Meteo, anahtarsız. 15 dk önbellek (koordinata göre ayrı anahtar).
  */
-export async function GET(req: NextRequest) {
-  const geo = geolocation(req)
-  const lat = Number(geo.latitude)
-  const lon = Number(geo.longitude)
-  const hasGeo = Boolean(geo.city) && Number.isFinite(lat) && Number.isFinite(lon) && !(lat === 0 && lon === 0)
+function readGeo(h: Headers): { city: string; lat: number; lon: number } | null {
+  const sources = [
+    ['cf-ipcity', 'cf-iplatitude', 'cf-iplongitude'],
+    ['x-vercel-ip-city', 'x-vercel-ip-latitude', 'x-vercel-ip-longitude'],
+  ]
+  for (const [c, la, lo] of sources) {
+    const raw = h.get(c)
+    const lat = Number(h.get(la))
+    const lon = Number(h.get(lo))
+    if (raw && Number.isFinite(lat) && Number.isFinite(lon) && !(lat === 0 && lon === 0)) {
+      let city = raw
+      try {
+        city = decodeURIComponent(raw)
+      } catch {}
+      return { city, lat, lon }
+    }
+  }
+  return null
+}
 
+export async function GET(req: NextRequest) {
+  const geo = readGeo(req.headers)
   const fb = site.fallbackLocation
-  const city = hasGeo ? geo.city! : fb.city
-  const latitude = hasGeo ? lat : fb.latitude
-  const longitude = hasGeo ? lon : fb.longitude
+  const city = geo?.city ?? fb.city
+  const latitude = geo?.lat ?? fb.latitude
+  const longitude = geo?.lon ?? fb.longitude
 
   const body: Conditions = { city, temperature: null, kind: null, label: null }
 
@@ -45,8 +61,7 @@ export async function GET(req: NextRequest) {
   }
 
   return NextResponse.json(body, {
-    // Yanıt ziyaretçinin IP konumuna bağlı — paylaşılan CDN önbelleğine girmemeli.
+    // Yanıt ziyaretçinin konumuna bağlı — paylaşılan önbelleğe girmemeli.
     headers: { 'Cache-Control': 'private, max-age=600' },
   })
 }
-

@@ -1,0 +1,34 @@
+# Her gönderimde: lint + tip denetimi + cPanel paketi (elis360-site.zip).
+# Paket: GitHub → Actions → son çalışma → "Artifacts" → elis360-site → indir.
+# Kılavuz: docs/deploy-cpanel.md
+name: Derleme
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_SITE_URL: https://elis360news.com
+      # WordPress hazır olunca: Settings → Secrets and variables → Actions → Variables → WP_URL
+      # (boşken sayfalar haber olmadan derlenir; sunucuda ilk 60 sn içinde WordPress'ten tazelenir)
+      WP_URL: ${{ vars.WP_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npm run check:content || echo "::warning::Yer tutucu içerik var — TODO-CONTENT.md"
+      - run: npm run build:cpanel
+      - uses: actions/upload-artifact@v4
+        with:
+          name: elis360-site
+          path: elis360-site.zip
+          retention-days: 30

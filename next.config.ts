@@ -2,6 +2,9 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // cPanel (Passenger) için kendi kendine yeten paket: .next/standalone/server.js
+  // Paketleme: npm run build:cpanel → elis360-site.zip (docs/deploy-cpanel.md)
+  output: 'standalone',
   images: {
     // 50: yalnızca ağır filtrelenmiş dekoratif fotoğraflar (hero zemini, motifler) — gri ton + düşük opaklık altında fark görünmez.
     qualities: [50, 75],

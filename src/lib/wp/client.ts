@@ -19,12 +19,12 @@ import type { NewsArticle, NewsCategory, NewsPost } from './types'
 
 export const WP_URL = process.env.WP_URL?.replace(/\/$/, '') || null
 /**
- * Örnek veri yalnızca WordPress bağlı değilken VE canlı (Vercel production) dışında kullanılır.
- * Canlıda WP_URL unutulursa yer tutucu haberler yayına girmez: listeler boş döner, haber
- * bölümleri ve son dakika şeridi kendiliğinden gizlenir.
+ * Örnek veri yalnızca WordPress bağlı değilken VE geliştirme modunda (`next dev`) kullanılır.
+ * Üretim derlemesinde (`next build` / `next start`, hangi sunucuda olursa olsun) WP_URL yoksa
+ * yer tutucu haberler yayına girmez: listeler boş döner, haber bölümleri ve son dakika şeridi
+ * kendiliğinden gizlenir. Üretim derlemesini örnek veriyle denemek için: WP_FIXTURES=1
  */
-const LIVE = process.env.VERCEL_ENV === 'production'
-export const usingFixtures = !WP_URL && !LIVE
+export const usingFixtures = !WP_URL && (process.env.NODE_ENV !== 'production' || process.env.WP_FIXTURES === '1')
 
 const REVALIDATE = 60
 export const POSTS_TAG = 'posts'
