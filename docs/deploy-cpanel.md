@@ -12,41 +12,63 @@ Site, cPanel'in **Setup Node.js App** (Passenger) özelliğiyle çalışır. Sun
 
 ## İlk kurulum — doğrudan www.elis360news.com
 
-Kanonik adres **https://www.elis360news.com**. `elis360news.com`'a gelen ziyaretçi otomatik olarak
-www'ye yönlenir (src/proxy.ts). Kurulum sırasında site birkaç dakika kapalı kalır.
+Kanonik adres **https://www.elis360news.com**; `elis360news.com` otomatik olarak www'ye yönlenir (src/proxy.ts).
 
-### 1. "Yakında" sayfasını yedekle ve kaldır
+Sunucu CloudLinux: paketler (`node_modules`) uygulama klasöründe tutulamaz, CloudLinux kendi
+sanal ortamına kurar. Bu yüzden zip'te `node_modules` yoktur; **Run NPM Install** onları kurar.
+`package-lock.json` sayesinde sunucuya derlemedekiyle birebir aynı sürümler kurulur.
 
-**File Manager → public_html**:
-1. Tümünü seç → **Compress** → `yakinda-yedek.zip` (ana dizine, public_html'in **dışına** kaydedin)
-2. public_html içindeki dosyaları **silin**, şunlar hariç: `.well-known` (SSL doğrulaması), `cgi-bin`.
-   Neden: `index.html` gibi dosyalar kalırsa Apache onları uygulamanın önünde sunar ve hâlâ
-   "yakında" sayfası görünür.
+### 1. "Yakında" sayfasını kaldır
 
-### 2. Node.js uygulamasını oluştur
+`public_html` / `elis360news.com` klasöründe yalnızca şunlar kalsın: `.htaccess`, `.well-known`,
+`cgi-bin`, `.user.ini`, `php.ini`. "Yakında" dosyalarını önce yedekleyin (Compress → klasörün dışına).
 
-**cPanel → Setup Node.js App → Create Application**
+### 2. Node.js uygulaması
+
+**cPanel → Setup Node.js App**
 
 | Alan | Değer |
 |---|---|
-| Node.js version | **24.x** (sunucuda önerilen; paket GitHub'da Node 24 ile derlenir) |
+| Node.js version | **24.x** |
 | Application mode | **Production** |
-| Application root | `elis360-app` (public_html'in **dışında**) |
-| Application URL | `elis360news.com` (listeden; www aynı uygulamaya düşer) |
+| Application root | `elis360news.com` *(alan adının klasörü)* |
+| Application URL | `elis360news.com` |
 | Application startup file | `server.js` |
-
-**Create**.
+| Passenger log file | `/home/defcodes/logs/elis360.log` |
 
 ### 3. Paketi yükle
 
-**File Manager → `elis360-app`** → içindekileri silin (cPanel örnek dosya koyar) → **Upload** →
-`elis360-site.zip` → zip'e sağ tık → **Extract** → `elis360-app` içine.
-Klasörde doğrudan `server.js`, `.next`, `node_modules`, `public` görünmeli.
-*"Run NPM Install" düğmesine BASMAYIN* — gereken paketler zip'in içinde.
+File Manager → `elis360news.com` → **Upload** `elis360-site.zip` → sağ tık → **Extract** (bu klasöre)
+→ zip'i silin. Klasörde şunlar görünmeli (gizli dosyaları göster açık olsun):
+`.next`, `public`, `package.json`, `package-lock.json`, `server.js`.
 
-### 4. Ortam değişkenleri
+### 4. Uygulama dosyalarını dışarıya kapat — ZORUNLU
 
-**Setup Node.js App → uygulamayı düzenle → Environment variables → Add variable**:
+Uygulama klasörü aynı zamanda sitenin herkese açık klasörü olduğu için, Apache bu klasördeki
+dosyaları doğrudan sunabilir. `.next/prerender-manifest.json` taslak önizlemenin gizli imza
+anahtarlarını içerir; dışarıdan okunursa yayımlanmamış taslaklar görülebilir.
+
+File Manager → `elis360news.com/.htaccess` → **Düzenle** → dosyanın **en üstüne** ekleyin
+(cPanel'in yazdığı `PASSENGER` bloğuna dokunmayın):
+
+```apache
+# BEGIN ELIS360 — uygulama dosyaları dışarıdan okunamaz
+RedirectMatch 404 ^/(\.next|node_modules|server\.js|package(-lock)?\.json|\.env[^/]*)(/.*)?$
+# END ELIS360
+```
+
+Kontrol: `https://www.elis360news.com/.next/prerender-manifest.json` ve
+`https://www.elis360news.com/package.json` → **404** dönmeli. (Site normal açılmaya devam eder;
+sitenin kendi dosyaları `/_next/…` altından gelir, bu kurala takılmaz.)
+
+### 5. Paketleri kur
+
+Setup Node.js App → uygulama → **Run NPM Install** → bitmesini bekleyin (birkaç dakika).
+**Run JS script → build** ÇALIŞTIRMAYIN — paket zaten derlenmiş gelir.
+
+### 6. Ortam değişkenleri
+
+**Environment variables → Add variable**:
 
 | Ad | Değer |
 |---|---|
@@ -59,35 +81,35 @@ Klasörde doğrudan `server.js`, `.next`, `node_modules`, `public` görünmeli.
 | `WP_PREVIEW_SECRET` | wp-config'teki `ELIS360_PREVIEW_SECRET` ile aynı |
 | `WP_PREVIEW_USER` / `WP_PREVIEW_APP_PASSWORD` | önizleme kullanıcısı + uygulama parolası |
 
-**Save** → **Restart**.
+**SAVE** → **RESTART** → **OPEN**.
 
-### 5. HTTPS
+### 7. HTTPS
 
-- **SSL/TLS Status** → `elis360news.com` ve `www.elis360news.com` → **Run AutoSSL** (yeşil kilit)
+- **SSL/TLS Status** → `elis360news.com` ve `www.elis360news.com` → **Run AutoSSL**
 - **Domains** → `elis360news.com` → **Force HTTPS Redirect: açık**
 
-### 6. Kontrol listesi
+### 8. Kontrol listesi
 
-- [ ] `https://www.elis360news.com` açılıyor (yakında sayfası değil)
-- [ ] `elis360news.com` ve `http://…` adresleri `https://www.elis360news.com`'a yönleniyor
-- [ ] /fikserlik, /iletisim açılıyor; menü ve mobil görünüm düzgün
-- [ ] Görseller görünüyor (hero, "Biz kimiz" fotoğrafı)
+- [ ] `https://www.elis360news.com` yeni siteyi açıyor
+- [ ] `elis360news.com` ve `http://…` → `https://www.elis360news.com`
+- [ ] `/.next/prerender-manifest.json` ve `/package.json` → 404
+- [ ] /fikserlik, /iletisim, /haber açılıyor; mobil görünüm düzgün
+- [ ] Görseller görünüyor
 - [ ] İletişim formundan deneme mesajı → `info@` kutusuna düşüyor
-- [ ] Saatler işliyor, hava durumu görünüyor
 
-**Geri dönüş** (bir şey ters giderse): Setup Node.js App → uygulamayı **Stop** → `yakinda-yedek.zip`'i
-public_html'e açın.
+**Geri dönüş:** Setup Node.js App → **Stop App** → yedeklediğiniz "yakında" dosyalarını geri açın.
 
 ## Güncelleme
 
-Yeni paket → `elis360-app` içine yükle → **Extract** (üzerine yaz) → **Restart**.
-Ortam değişkenleri ve `.next/cache` korunur.
+Yeni paket → `elis360news.com` içine yükle → **Extract** (üzerine yaz) → zip'i sil →
+`package.json` değiştiyse **Run NPM Install** → **Restart**. Ortam değişkenleri ve `.htaccess` korunur.
 
 ## Sorun giderme
 
 | Belirti | Neden / çözüm |
 |---|---|
-| "Incomplete response" / 503 | Node sürümü 20.9'dan eski → 24.x seçin. Ya da `server.js` kök klasörde değil (zip bir alt klasöre açılmış). |
+| "Incomplete response" / 503 | Run NPM Install yapılmadı ya da yarım kaldı → tekrar çalıştırın. Ya da `server.js` kök klasörde değil (zip bir alt klasöre açılmış). |
+| "Cloudlinux NodeJS Selector demands to store node modules…" | Uygulama klasöründe gerçek bir `node_modules` klasörü var (eski paketten kalmış) → silin, Run NPM Install. |
 | Sayfalar açılıyor, görseller kırık | Görsel işleme kütüphanesi (sharp) sunucunun sistemiyle uyumsuz (eski CloudLinux 7). Haber verin — görsel optimizasyonu kapatılmış paket üretirim. |
 | Form "gönderilemedi" diyor | SMTP değişkenleri eksik/yanlış. 465 olmazsa `SMTP_PORT=587` deneyin. |
 | Haberler görünmüyor | `WP_URL` boş ya da WordPress'e ulaşılamıyor — bkz. wordpress/README.md |
