@@ -19,7 +19,7 @@ Site, cPanel'in **Setup Node.js App** (Passenger) özelliğiyle çalışır. Sun
 
    | Alan | Değer |
    |---|---|
-   | Node.js version | **22.x** (yoksa en az 20.9 — Next 16'nın alt sınırı) |
+   | Node.js version | **24.x** — sunucuda önerilen sürüm (Next 16 en az 20.9 ister; paket GitHub'da Node 24 ile derlenir) |
    | Application mode | **Production** |
    | Application root | `elis360-app` (public_html'in **dışında**) |
    | Application URL | `yeni.elis360news.com` |
@@ -56,7 +56,8 @@ Site, cPanel'in **Setup Node.js App** (Passenger) özelliğiyle çalışır. Sun
 ## Ana alan adına geçiş
 
 Deneme sorunsuzsa: **Setup Node.js App → düzenle → Application URL**: `elis360news.com` → Save → Restart.
-O alan adında başka bir site (public_html) varsa artık yerini bu uygulama alır — önce yedekleyin.
+Şu an orada bir "yakında" (coming soon) sayfası var; uygulama onun yerini alır. Geri dönmek gerekirse
+diye önce File Manager'da `public_html`'i sıkıştırıp (Compress) yedekleyin.
 WordPress'teki `ELIS360_FRONTEND_URL` zaten `https://elis360news.com`.
 
 ## Güncelleme
@@ -68,7 +69,7 @@ Ortam değişkenleri ve `.next/cache` korunur.
 
 | Belirti | Neden / çözüm |
 |---|---|
-| "Incomplete response" / 503 | Node sürümü 20.9'dan eski → 22.x seçin. Ya da `server.js` kök klasörde değil (zip bir alt klasöre açılmış). |
+| "Incomplete response" / 503 | Node sürümü 20.9'dan eski → 24.x seçin. Ya da `server.js` kök klasörde değil (zip bir alt klasöre açılmış). |
 | Sayfalar açılıyor, görseller kırık | Görsel işleme kütüphanesi (sharp) sunucunun sistemiyle uyumsuz (eski CloudLinux 7). Haber verin — görsel optimizasyonu kapatılmış paket üretirim. |
 | Form "gönderilemedi" diyor | SMTP değişkenleri eksik/yanlış. 465 olmazsa `SMTP_PORT=587` deneyin. |
 | Haberler görünmüyor | `WP_URL` boş ya da WordPress'e ulaşılamıyor — bkz. wordpress/README.md |
@@ -76,7 +77,7 @@ Ortam değişkenleri ve `.next/cache` korunur.
 
 ## Ziyaretçinin şehri (servis barı)
 
-Konum, isteğe eklenen başlıklardan okunur. Doğrudan cPanel'de bu başlıklar yoktur → herkes için
-**İzmir** (yedek konum) ve İzmir'in hava durumu gösterilir. Ziyaretçinin kendi şehri için alan adı
+Konum, isteğe eklenen başlıklardan okunur. Alan adı ve hosting Güzel Hosting'de, Cloudflare yok →
+bu başlıklar gelmez; herkes için **İzmir** (yedek konum) ve İzmir'in hava durumu gösterilir. Ziyaretçinin kendi şehri için alan adı
 **Cloudflare** (ücretsiz plan) arkasına alınıp *Rules → Managed Transforms → "Add visitor location
 headers"* açılmalıdır; kod hazır.
