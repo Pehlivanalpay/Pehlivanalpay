@@ -41,7 +41,7 @@ Durum: ☐ bekliyor · ☑ tamam
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☑ | Alan adı | `NEXT_PUBLIC_SITE_URL` | `https://elis360news.com` (onaylandı). |
+| ☑ | Alan adı | `NEXT_PUBLIC_SITE_URL` | `https://www.elis360news.com` (onaylandı). |
 | ☑ | Logo ve amblem | `src/components/ui/LogoMark.tsx`, `docs/brand/` | Eskizden çizildi. Onayınızı bekliyor — değişiklik gerekirse tek dosya. |
 | ☑ | Site ikonu | `src/app/icon.svg`, `favicon.ico`, `apple-icon.png` | Amblemden üretildi. |
 | ☑ | Paylaşım görseli (1200×630) | `public/og.jpg` | Logo + "Media • Fixer • Production". |

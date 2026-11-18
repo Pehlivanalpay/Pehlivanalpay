@@ -10,55 +10,73 @@ Site, cPanel'in **Setup Node.js App** (Passenger) özelliğiyle çalışır. Sun
 
 **Kendi bilgisayarınızda (Node 20.9+ gerekir):** `npm ci && npm run build:cpanel`
 
-## İlk kurulum
+## İlk kurulum — doğrudan www.elis360news.com
 
-Önce bir **deneme alt alan adında** kurun (ör. `yeni.elis360news.com`), her şey çalışınca ana alan adına alın.
+Kanonik adres **https://www.elis360news.com**. `elis360news.com`'a gelen ziyaretçi otomatik olarak
+www'ye yönlenir (src/proxy.ts). Kurulum sırasında site birkaç dakika kapalı kalır.
 
-1. **cPanel → Domains → Create a New Domain**: `yeni.elis360news.com`
-2. **cPanel → Setup Node.js App → Create Application**
+### 1. "Yakında" sayfasını yedekle ve kaldır
 
-   | Alan | Değer |
-   |---|---|
-   | Node.js version | **24.x** — sunucuda önerilen sürüm (Next 16 en az 20.9 ister; paket GitHub'da Node 24 ile derlenir) |
-   | Application mode | **Production** |
-   | Application root | `elis360-app` (public_html'in **dışında**) |
-   | Application URL | `yeni.elis360news.com` |
-   | Application startup file | `server.js` |
+**File Manager → public_html**:
+1. Tümünü seç → **Compress** → `yakinda-yedek.zip` (ana dizine, public_html'in **dışına** kaydedin)
+2. public_html içindeki dosyaları **silin**, şunlar hariç: `.well-known` (SSL doğrulaması), `cgi-bin`.
+   Neden: `index.html` gibi dosyalar kalırsa Apache onları uygulamanın önünde sunar ve hâlâ
+   "yakında" sayfası görünür.
 
-   **Create**.
-3. **File Manager** → `elis360-app` klasörü → içindekileri silin (cPanel örnek dosya koyar) →
-   **Upload** → `elis360-site.zip` → zip'e sağ tık → **Extract** → `elis360-app` içine.
-   Klasörde doğrudan `server.js`, `.next`, `node_modules`, `public` görünmeli.
-   (*"Run NPM Install" düğmesine BASMAYIN* — gereken paketler zip'in içinde.)
-4. **Setup Node.js App → uygulamayı düzenle → Environment variables → Add variable**:
+### 2. Node.js uygulamasını oluştur
 
-   | Ad | Değer |
-   |---|---|
-   | `SMTP_HOST` | ör. `mail.elis360news.com` (aynı sunucudaysa `localhost` da olabilir) |
-   | `SMTP_PORT` | `465` |
-   | `SMTP_USER` | `info@elis360news.com` |
-   | `SMTP_PASS` | e-posta hesabının şifresi |
-   | `WP_URL` | `https://cms.elis360news.com/wp` *(WordPress kurulumu bitince)* |
-   | `WP_WEBHOOK_SECRET` | wp-config'teki `ELIS360_WEBHOOK_SECRET` ile aynı |
-   | `WP_PREVIEW_SECRET` | wp-config'teki `ELIS360_PREVIEW_SECRET` ile aynı |
-   | `WP_PREVIEW_USER` / `WP_PREVIEW_APP_PASSWORD` | önizleme kullanıcısı + uygulama parolası |
+**cPanel → Setup Node.js App → Create Application**
 
-   **Save** → **Restart**.
-5. `https://yeni.elis360news.com` açılmalı. SSL için: **SSL/TLS Status → Run AutoSSL**.
+| Alan | Değer |
+|---|---|
+| Node.js version | **24.x** (sunucuda önerilen; paket GitHub'da Node 24 ile derlenir) |
+| Application mode | **Production** |
+| Application root | `elis360-app` (public_html'in **dışında**) |
+| Application URL | `elis360news.com` (listeden; www aynı uygulamaya düşer) |
+| Application startup file | `server.js` |
 
-## Kontrol listesi
+**Create**.
 
-- [ ] Ana sayfa, /fikserlik, /iletisim açılıyor; menü ve mobil görünüm düzgün
+### 3. Paketi yükle
+
+**File Manager → `elis360-app`** → içindekileri silin (cPanel örnek dosya koyar) → **Upload** →
+`elis360-site.zip` → zip'e sağ tık → **Extract** → `elis360-app` içine.
+Klasörde doğrudan `server.js`, `.next`, `node_modules`, `public` görünmeli.
+*"Run NPM Install" düğmesine BASMAYIN* — gereken paketler zip'in içinde.
+
+### 4. Ortam değişkenleri
+
+**Setup Node.js App → uygulamayı düzenle → Environment variables → Add variable**:
+
+| Ad | Değer |
+|---|---|
+| `SMTP_HOST` | cPanel → E-posta Hesapları → Connect Devices'taki "Outgoing Server" |
+| `SMTP_PORT` | `465` |
+| `SMTP_USER` | `info@elis360news.com` |
+| `SMTP_PASS` | e-posta hesabının şifresi |
+| `WP_URL` | `https://cms.elis360news.com/wp` *(WordPress kurulumu bitince)* |
+| `WP_WEBHOOK_SECRET` | wp-config'teki `ELIS360_WEBHOOK_SECRET` ile aynı |
+| `WP_PREVIEW_SECRET` | wp-config'teki `ELIS360_PREVIEW_SECRET` ile aynı |
+| `WP_PREVIEW_USER` / `WP_PREVIEW_APP_PASSWORD` | önizleme kullanıcısı + uygulama parolası |
+
+**Save** → **Restart**.
+
+### 5. HTTPS
+
+- **SSL/TLS Status** → `elis360news.com` ve `www.elis360news.com` → **Run AutoSSL** (yeşil kilit)
+- **Domains** → `elis360news.com` → **Force HTTPS Redirect: açık**
+
+### 6. Kontrol listesi
+
+- [ ] `https://www.elis360news.com` açılıyor (yakında sayfası değil)
+- [ ] `elis360news.com` ve `http://…` adresleri `https://www.elis360news.com`'a yönleniyor
+- [ ] /fikserlik, /iletisim açılıyor; menü ve mobil görünüm düzgün
 - [ ] Görseller görünüyor (hero, "Biz kimiz" fotoğrafı)
 - [ ] İletişim formundan deneme mesajı → `info@` kutusuna düşüyor
 - [ ] Saatler işliyor, hava durumu görünüyor
 
-## Ana alan adına geçiş
-
-Deneme sorunsuzsa: **Setup Node.js App → düzenle → Application URL**: `elis360news.com` → Save → Restart.
-Şu an orada bir "yakında" (coming soon) sayfası var; uygulama onun yerini alır. Geri dönmek gerekirse
-diye önce File Manager'da `public_html`'i sıkıştırıp (Compress) yedekleyin.
-WordPress'teki `ELIS360_FRONTEND_URL` zaten `https://elis360news.com`.
+**Geri dönüş** (bir şey ters giderse): Setup Node.js App → uygulamayı **Stop** → `yakinda-yedek.zip`'i
+public_html'e açın.
 
 ## Güncelleme
 

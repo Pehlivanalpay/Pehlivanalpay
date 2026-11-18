@@ -18,13 +18,13 @@ if (!defined('ABSPATH')) {
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Ayarlar — wp-config.php içinde tanımlanır (gizli değerler veritabanına girmez)
- *   ELIS360_FRONTEND_URL     https://elis360news.com
+ *   ELIS360_FRONTEND_URL     https://www.elis360news.com
  *   ELIS360_WEBHOOK_SECRET   Vercel'deki WP_WEBHOOK_SECRET ile aynı
  *   ELIS360_PREVIEW_SECRET   Vercel'deki WP_PREVIEW_SECRET ile aynı
  * ───────────────────────────────────────────────────────────────────────── */
 
 function elis360_frontend_url(): string {
-	return rtrim(defined('ELIS360_FRONTEND_URL') ? ELIS360_FRONTEND_URL : 'https://elis360news.com', '/');
+	return rtrim(defined('ELIS360_FRONTEND_URL') ? ELIS360_FRONTEND_URL : 'https://www.elis360news.com', '/');
 }
 
 function elis360_secret(string $name): string {

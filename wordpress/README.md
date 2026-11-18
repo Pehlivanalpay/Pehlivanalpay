@@ -48,7 +48,7 @@ cPanel → **Dosya Yöneticisi** → `cms.elis360news.com/wp/wp-config.php` → 
 `/* That's all, stop editing! */` satırının **üstüne** ekleyin:
 
 ```php
-define('ELIS360_FRONTEND_URL', 'https://elis360news.com');
+define('ELIS360_FRONTEND_URL', 'https://www.elis360news.com');
 define('ELIS360_WEBHOOK_SECRET', 'BURAYA-UZUN-RASTGELE-1');
 define('ELIS360_PREVIEW_SECRET', 'BURAYA-UZUN-RASTGELE-2');
 ```
