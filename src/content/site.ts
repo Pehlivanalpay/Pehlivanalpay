@@ -48,15 +48,6 @@ export const mainNav: NavItem[] = [
 
 export type BreakingItem = { time: string; title: string; href: string }
 
-/**
- * Son dakika şeridi. Faz 2'de WPGraphQL'den (`breaking` etiketli yazılar) gelecek.
- * Boş dizi verilirse şerit hiç render edilmez — yayın tarafı hazır değilse böyle bırakın.
- */
-export const breakingPlaceholder: BreakingItem[] = [
-  { time: '20:45', title: '[Manşet başlığı buraya gelecek]', href: '/haber' }, // PLACEHOLDER
-  { time: '20:30', title: '[İkinci başlık]', href: '/haber' }, // PLACEHOLDER
-]
-
 /** Footer. `#6E7686` (referans) koyu zeminde 4.26:1 — eşiği geçmiyor; onDark-glass (#AEB5BF) kullanılıyor. */
 export const footer = {
   tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü saha deneyimi.',

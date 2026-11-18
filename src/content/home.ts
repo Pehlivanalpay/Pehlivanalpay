@@ -106,50 +106,14 @@ export const services = {
   ] satisfies Service[],
 }
 
-export type NewsItem = {
-  category: string
-  time: string
-  title: string
-  href: string
-  image: Img | null
-  video?: boolean
-}
-
-/** Faz 2: WPGraphQL'den gelecek. Şimdilik tümü yer tutucu. */
+/** Haberler bölümünün sabit metinleri. Haberlerin kendisi WordPress'ten gelir (lib/wp/client). */
 export const news = {
   index: '04',
   label: 'Haberler',
   title: 'Sahadan son dosyalar',
   allLink: { label: 'Tüm haberler →', href: '/haber' },
-  lead: {
-    badge: 'Özel haber',
-    category: 'Saha',
-    time: '20:45',
-    source: 'ELIS360 NEWS',
-    title: '[Manşet başlığı — en fazla iki satır olacak şekilde yazılır]',
-    summary: '[Spot metni: haberin bir iki cümlelik özeti. Kendi ekibimizin sahadan çektiği görüntülerle hazırlanan dosyanın ne anlattığı buraya yazılır.]',
-    href: '/haber',
-    image: null,
-    imageLabel: '[Manşet görseli]',
-  },
   latestLabel: 'Son eklenenler',
-  latest: [
-    { category: 'Dünya', time: '16:40', title: '[Haber başlığı buraya gelecek]', href: '/haber', image: null },
-    { category: 'Video', time: '15:12', title: '[Video haber başlığı buraya gelecek]', href: '/haber', image: null, video: true },
-    { category: 'İzmir ve Ege', time: '13:28', title: '[Haber başlığı buraya gelecek]', href: '/haber', image: null },
-    { category: 'Belgesel', time: '11:05', title: '[Haber başlığı buraya gelecek]', href: '/haber', image: null },
-  ] satisfies NewsItem[],
-  dossiers: {
-    label: 'Özel dosyalar',
-    note: 'Kendi ekibimizin sahadan çektiği görüntülerle',
-    items: [1, 2, 3].map(() => ({
-      tag: 'Özel dosya',
-      title: '[Özel dosya başlığı]',
-      text: '[Kısa açıklama metni buraya gelecek.]',
-      href: '/haber',
-      image: null as Img | null,
-    })),
-  },
+  dossiers: { label: 'Özel dosyalar', note: 'Kendi ekibimizin sahadan çektiği görüntülerle' },
 }
 
 export const why = {

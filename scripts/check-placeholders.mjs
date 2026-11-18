@@ -18,6 +18,8 @@ const walk = (d) =>
 
 const rules = [
   { dir: 'src/content', re: /(['"`])\[[^\]\n]+\]\1/g, why: 'köşeli parantezli yer tutucu metin' },
+  // Not: src/lib/wp/fixtures.ts bilerek taranmaz — yalnızca WordPress bağlı değilken ve canlı dışında
+  // kullanılır (lib/wp/client.ts → usingFixtures).
   { dir: 'src/content', re: /href:\s*(PLACEHOLDER_HREF|['"]#['"])/g, why: 'boş bağlantı (#)' },
   { dir: 'src/content', re: /image:\s*null/g, why: 'gri görsel yer tutucusu (görsel yok)' },
   { dir: 'src', re: /bg-placeholder|#C9CDD3/gi, why: 'gri görsel yer tutucusu' },

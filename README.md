@@ -27,6 +27,13 @@ src/app/iletisim            iletişim sayfası
 src/app/api/conditions      ziyaretçi şehri (Vercel geo başlıkları) + hava (Open-Meteo)
 src/app/api/contact         form gönderimi: doğrulama, spam koruması, SMTP (nodemailer) ile e-posta
 src/app/fikserlik           Fikserlik hizmet sayfası
+src/app/haber               haber portalı, /haber/[slug], /haber/kategori/[slug], /haber/onizleme/[id]
+src/app/api/revalidate      WordPress yayın bildirimi → önbellek tazeleme
+src/app/api/preview         WordPress önizleme → taslak modu
+src/app/api/newsletter      bülten kaydı → WordPress
+src/app/news-sitemap.xml    Google News site haritası (son 48 saat)
+src/lib/wp/                 WPGraphQL istemcisi, örnek veri, HTML temizleme
+wordpress/                  ELIS360 Headless eklentisi + kurulum kılavuzu
 src/components/home/        ana sayfa bölümleri
 src/components/contact/     ContactSection, ContactForm
 src/content/home.ts         ana sayfa içeriği

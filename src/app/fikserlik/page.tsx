@@ -6,6 +6,9 @@ import { fikserlik } from '@/content/fikserlik'
 import { services } from '@/content/home'
 import { JsonLd, ogDefaults, ORG_ID, SITE_URL } from '@/lib/seo'
 
+// Header'daki son dakika şeridi WordPress'ten gelir — sayfa da 60 sn'de bir tazelenir.
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'Fikserlik',
   description: fikserlik.meta.description,

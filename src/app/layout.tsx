@@ -6,7 +6,9 @@ import { Masthead } from '@/components/header/Masthead'
 import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
 import { Footer } from '@/components/Footer'
-import { breakingPlaceholder, mainNav, site } from '@/content/site'
+import { mainNav, site } from '@/content/site'
+import { newsTime } from '@/lib/format'
+import { getPosts } from '@/lib/wp/client'
 import { JsonLd, ogDefaults, organizationLd, SITE_URL } from '@/lib/seo'
 import './globals.css'
 
@@ -45,7 +47,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#0B0D10' }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Son dakika: WordPress'te "Son dakika" işaretli en yeni 2 yazı. Yoksa şerit hiç çizilmez.
+  const breaking = (await getPosts({ first: 2, breaking: true })).map((p) => ({ time: newsTime(p.date), title: p.title, href: `/haber/${p.slug}` }))
+
   return (
     <html lang="tr" className={`${archivo.variable} ${plexMono.variable} ${inter.variable}`}>
       <body>
@@ -80,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* 5 — Son dakika (kayar). Boş dizi verilirse render edilmez. */}
-        <BreakingBar items={breakingPlaceholder} />
+        <BreakingBar items={breaking} />
 
         <div id="icerik" tabIndex={-1} className="outline-none">
           {children}

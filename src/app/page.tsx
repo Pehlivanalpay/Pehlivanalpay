@@ -9,11 +9,18 @@ import { Services } from '@/components/home/Services'
 import { Why } from '@/components/home/Why'
 import type { Metadata } from 'next'
 import { JsonLd, servicesLd } from '@/lib/seo'
+import { getPosts } from '@/lib/wp/client'
 import { about, contact, hero, method, news, newsBanner, regions, services, why } from '@/content/home'
 
 export const metadata: Metadata = { alternates: { canonical: '/' } }
 
-export default function HomePage() {
+export const revalidate = 60
+
+export default async function HomePage() {
+  const [latest, dossiers] = await Promise.all([getPosts({ first: 8 }), getPosts({ first: 3, category: 'ozel-dosyalar' })])
+  const lead = latest.find((p) => p.isExclusive) ?? latest[0]
+  const rest = latest.filter((p) => p !== lead && !dossiers.some((d) => d.id === p.id)).slice(0, 4)
+
   return (
     <main>
       <JsonLd data={servicesLd()} />
@@ -21,7 +28,7 @@ export default function HomePage() {
       <Regions content={regions} />
       <About content={about} />
       <Services content={services} />
-      <News content={news} />
+      <News content={news} lead={lead} latest={rest} dossiers={dossiers} />
       <Why content={why} />
       <Process content={method} />
       <NewsBanner content={newsBanner} />

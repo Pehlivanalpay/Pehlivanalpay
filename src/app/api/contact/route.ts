@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { HONEYPOT, MIN_FILL_MS, normalize, TIMESTAMP, validate, type ContactInput } from '@/lib/contact'
 import { site } from '@/content/site'
+import { clientIp, createRateLimit, foreignOrigin } from '@/lib/ratelimit'
 
 /**
  * İletişim formu gönderimi.
@@ -25,21 +26,8 @@ import { site } from '@/content/site'
  *  CONTACT_FROM    — gönderen, varsayılan SMTP_USER (çoğu sunucu başka adresten göndermeye izin vermez)
  */
 
-const WINDOW_MS = 10 * 60 * 1000
-const MAX_PER_WINDOW = 5
 const MAX_BODY_BYTES = 20_000
-// Not: sunucusuz ortamda her örneğin kendi belleği vardır; bu sınır en iyi çabadır.
-// Kalıcı sınır için Upstash Redis / Vercel KV'ye taşınabilir.
-const hits = new Map<string, number[]>()
-
-function rateLimited(ip: string) {
-  const now = Date.now()
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS)
-  recent.push(now)
-  hits.set(ip, recent)
-  if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > WINDOW_MS) hits.delete(k)
-  return recent.length > MAX_PER_WINDOW
-}
+const rateLimited = createRateLimit({ windowMs: 10 * 60 * 1000, max: 5 })
 
 type Result = { ok: true } | { ok: false; error: string; fields?: Record<string, string> }
 
@@ -51,14 +39,7 @@ export async function POST(req: NextRequest) {
       : NextResponse.json(r, { status })
 
   // 1. Köken
-  const origin = req.headers.get('origin')
-  if (origin && origin !== 'null') {
-    let host = ''
-    try {
-      host = new URL(origin).host
-    } catch {}
-    if (host !== req.nextUrl.host) return reply({ ok: false, error: 'Geçersiz istek.' }, 403)
-  }
+  if (foreignOrigin(req.headers, req.nextUrl.host)) return reply({ ok: false, error: 'Geçersiz istek.' }, 403)
 
   // Gövde
   if (Number(req.headers.get('content-length') ?? 0) > MAX_BODY_BYTES) {
@@ -84,8 +65,7 @@ export async function POST(req: NextRequest) {
   }
 
   // 4. Hız sınırı
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'yerel'
-  if (rateLimited(ip)) {
+  if (rateLimited(clientIp(req.headers))) {
     return reply({ ok: false, error: 'Çok fazla deneme. Birkaç dakika sonra tekrar deneyin.' }, 429)
   }
 
