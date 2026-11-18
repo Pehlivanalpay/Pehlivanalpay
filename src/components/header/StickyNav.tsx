@@ -73,7 +73,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
               key={it.href}
               href={it.href} prefetch={prefetchFor(it.href)}
               aria-current={isCurrent(it.href) ? 'page' : undefined}
-              className="hidden min-h-[58px] items-center gap-[9px] lg:inline-flex"
+              className="hidden min-h-[58px] items-center gap-[9px] aria-[current=page]:shadow-[inset_0_-3px_0_#FF5C6C] lg:inline-flex"
             >
               {it.live && (
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />

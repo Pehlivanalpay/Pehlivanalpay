@@ -14,7 +14,7 @@ export const ogDefaults = {
   type: 'website' as const,
   siteName: 'ELIS360 NEWS',
   locale: 'tr_TR',
-  images: [{ url: '/hero-bg.jpg', width: 1376, height: 768, alt: 'ELIS360 NEWS haber stüdyosu' }],
+  images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'ELIS360 NEWS — Media • Fixer • Production' }],
 }
 
 /**
@@ -35,6 +35,7 @@ export function organizationLd() {
     '@id': ORG_ID,
     name: site.name,
     url: SITE_URL,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png`, width: 512, height: 512 },
     email: site.email,
     description: 'Türkiye’de çalışan uluslararası medya ekipleri için fikserlik ve prodüksiyon hizmetleri.',
     slogan: 'Real stories, a brighter tomorrow',

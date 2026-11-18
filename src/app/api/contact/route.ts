@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
 import { HONEYPOT, MIN_FILL_MS, normalize, TIMESTAMP, validate, type ContactInput } from '@/lib/contact'
 import { site } from '@/content/site'
 
@@ -17,10 +18,11 @@ import { site } from '@/content/site'
  *  5. İçerik sezgisi — 3'ten fazla bağlantı içeren mesajı reddet
  *  Gerekirse sonraki adım: Cloudflare Turnstile (anahtar gerektirir).
  *
- * E-posta: Resend HTTP API (ek paket yok). Ortam değişkenleri:
- *  RESEND_API_KEY  — zorunlu (yayında)
+ * E-posta: kurumun kendi posta sunucusu üzerinden SMTP (nodemailer). Ortam değişkenleri:
+ *  SMTP_HOST, SMTP_USER, SMTP_PASS — zorunlu (yayında)
+ *  SMTP_PORT       — 465 (SSL, varsayılan) veya 587 (STARTTLS)
  *  CONTACT_TO      — alıcı, varsayılan site.email
- *  CONTACT_FROM    — gönderen, Resend'de doğrulanmış alan adından olmalı
+ *  CONTACT_FROM    — gönderen, varsayılan SMTP_USER (çoğu sunucu başka adresten göndermeye izin vermez)
  */
 
 const WINDOW_MS = 10 * 60 * 1000
@@ -109,7 +111,7 @@ export async function POST(req: NextRequest) {
 }
 
 async function sendMail(input: ContactInput) {
-  const key = process.env.RESEND_API_KEY
+  const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env
   const text = [
     `Ad soyad: ${input.name}`,
     `Kurum: ${input.org || '—'}`,
@@ -119,23 +121,30 @@ async function sendMail(input: ContactInput) {
     input.message,
   ].join('\n')
 
-  if (!key) {
-    if (process.env.NODE_ENV === 'production') throw new Error('RESEND_API_KEY tanımlı değil')
-    console.info('[contact] RESEND_API_KEY yok — geliştirme modunda e-posta yerine günlüğe yazıldı:\n' + text)
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
+    if (process.env.NODE_ENV === 'production') throw new Error('SMTP_HOST / SMTP_USER / SMTP_PASS tanımlı değil')
+    console.info('[contact] SMTP ayarı yok — geliştirme modunda e-posta yerine günlüğe yazıldı:\n' + text)
     return
   }
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM ?? 'ELIS360 NEWS Web <form@elis360news.com>',
-      to: [process.env.CONTACT_TO ?? site.email],
-      reply_to: input.email,
-      subject: `Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
-      text, // yalnızca düz metin — kullanıcı girdisi HTML olarak yorumlanmaz
-    }),
-    signal: AbortSignal.timeout(8000),
+  const port = Number(process.env.SMTP_PORT ?? 465)
+  const transport = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port,
+    secure: port === 465, // 587'de STARTTLS ile şifrelenir
+    requireTLS: port !== 465,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
   })
-  if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`)
+
+  await transport.sendMail({
+    from: { name: 'ELIS360 NEWS Web', address: process.env.CONTACT_FROM ?? SMTP_USER },
+    to: process.env.CONTACT_TO ?? site.email,
+    // Yanıtla → doğrudan formu dolduran kişiye. Adres doğrulamadan geçti (validate).
+    replyTo: { name: input.name, address: input.email },
+    subject: `Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
+    text, // yalnızca düz metin — kullanıcı girdisi HTML olarak yorumlanmaz
+  })
 }

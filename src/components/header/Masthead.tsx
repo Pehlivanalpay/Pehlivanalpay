@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ButtonLink } from '@/components/ui/Button'
+import { LogoMark } from '@/components/ui/LogoMark'
 import { SearchIcon } from '@/components/ui/icons'
 
 type MastheadProps = {
@@ -15,6 +16,7 @@ export function Masthead({ searchAction = '/ara', ctaLabel = 'Teklif alın', cta
     <div className="shell flex min-h-[88px] flex-wrap items-center justify-between gap-x-10 gap-y-3.5 py-3.5">
       {/* Erişilebilir ad görünen metinle başlamalı (WCAG 2.5.3): "ELIS360 NEWS ana sayfa" */}
       <Link href="/" className="inline-flex min-h-11 items-center gap-[11px]">
+        <LogoMark size={40} className="mr-1 flex-none" />
         <span className="font-display text-[30px] font-bold leading-none tracking-[0.11em] text-white">
           ELIS<span className="text-accent-light">360</span>
         </span>{' '}

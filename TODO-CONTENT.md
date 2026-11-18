@@ -27,24 +27,26 @@ Durum: ☐ bekliyor · ☑ tamam
 | ☐ | Haber görselleri | `news.*.image` | `image: null` → gri kutu çizilir. `{ src, alt, width, height }` verin. |
 | ☐ | "Biz kimiz" görseli | `about.image` | Şu an hero fotoğrafı tekrar kullanılıyor. Saha arşivinden gerçek kare önerilir. |
 | ☐ | Hero kayıt göstergesi, zaman kodu, koordinat | `hero.telemetry` | Süs. Kalacaksa dokunmayın; kaldırmak için `null` yapın. "Biz kimiz" görselindeki zaman kodu: `about.timecode`. |
+| ☑ | Hero fotoğrafı mobilde | `DesktopBackdrop` | Karar: mobilde gizli — 960px altında hiç indirilmiyor. |
+| ☑ | Haberler bölümü ve Son dakika şeridi | | Karar: tasarımdaki gibi kalıyor (içerik yer tutucu). |
 | ☐ | Rakamlar (33 yıl, 11 bölge, 04 başlık) | `hero.panel.stats`, `why.record` | Doğrulanmalı. |
 | ☐ | `/haber` bağlantıları | `news`, `newsBanner` | Faz 2'ye kadar 404. |
-| ☐ | `/fikserlik` bağlantıları | `services.items[0].link`, footer, nav | Sayfa henüz yok — **`fikserlik.html` referansı bekleniyor**. |
 
 ## İletişim
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☐ | `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` | Vercel ortam değişkenleri, bkz. `.env.example` | Yayında anahtar yoksa form hata verir ve kullanıcıya doğrudan e-posta adresi gösterilir. `CONTACT_FROM` alan adı Resend'de doğrulanmalı. |
+| ☐ | SMTP bilgileri: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | Vercel ortam değişkenleri, bkz. `.env.example` | Kurumun kendi posta hesabı (info@elis360news.com). Sağlayıcının "e-posta istemcisi / SMTP ayarları" sayfasından alınır. Yoksa yayında form hata verir ve kullanıcıya doğrudan e-posta adresi gösterilir. |
 | ☐ | KVKK aydınlatma metni bağlantısı | form altı | Kişisel veri toplanıyor — hukuki metin gerekir. |
 
 ## SEO ve marka varlıkları
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☐ | Alan adı doğrulaması | `NEXT_PUBLIC_SITE_URL` | Varsayılan `https://elis360news.com` — e-posta alan adından tahmin edildi. www'li mi, değil mi? |
-| ☐ | Site ikonu | `src/app/icon.svg`, `src/app/favicon.ico` | **Yer tutucu**: siyah kare üzerinde kırmızı "360". Marka ikonu gelince değiştirin. |
-| ☐ | Paylaşım görseli (1200×630) | `src/lib/seo.tsx` → `ogDefaults.images` | Şu an hero fotoğrafı kullanılıyor (1376×768). Logolu, kırpılmaya uygun ayrı görsel önerilir. |
-| ☐ | Logo görseli | `organizationLd()` | Schema'da `logo` alanı boş — marka logosu (PNG/SVG) gelince eklenecek. |
+| ☑ | Alan adı | `NEXT_PUBLIC_SITE_URL` | `https://elis360news.com` (onaylandı). |
+| ☑ | Logo ve amblem | `src/components/ui/LogoMark.tsx`, `docs/brand/` | Eskizden çizildi. Onayınızı bekliyor — değişiklik gerekirse tek dosya. |
+| ☑ | Site ikonu | `src/app/icon.svg`, `favicon.ico`, `apple-icon.png` | Amblemden üretildi. |
+| ☑ | Paylaşım görseli (1200×630) | `public/og.jpg` | Logo + "Media • Fixer • Production". |
+| ☑ | Schema logosu | `public/logo.png` (512×512) | |
 | ☐ | Sosyal hesaplar → `sameAs` | `site.social` | Gerçek adresler girilince schema'ya kendiliğinden eklenir. |
 | ☐ | Kurulmamış rotalar | `src/lib/routes.ts` → `UNBUILT` | Sayfa kurulunca listeden silin (önyükleme açılır). |

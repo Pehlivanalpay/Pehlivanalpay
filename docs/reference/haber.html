@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ELIS360 NEWS – Haber</title>
+<!-- ELIS360 NEWS tasarım referansı. Üretim kodu değildir: saatler statik, görseller yer tutucudur. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F2F3F5;color:#0B0D10;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{opacity:.68}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #0B0D10;outline-offset:3px}
+ul{margin:0;padding:0;list-style:none}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes blip{0%,100%{opacity:.3}50%{opacity:1}}
+.rot{animation:rot 90s linear infinite}
+.blip{animation:blip 2.4s ease-in-out infinite}
+@media (max-width:960px){
+.row{grid-template-columns:repeat(1,minmax(0,1fr)) !important;row-gap:40px !important}
+.row > *{grid-column:auto !important}
+.hide-s{display:none !important}
+}
+.srch::placeholder{color:#99A1AD}
+@media (max-width:960px){
+nav[aria-label="Ana menü"] a{display:none !important}
+.hero-veil{background:rgba(242,243,245,.94) !important}
+.ad-label{position:static !important;transform:none !important;margin-bottom:8px}
+.ad-wrap{flex-direction:column !important;align-items:flex-start !important}
+}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){.rot,.blip{animation:none}}
+</style>
+
+</head>
+<body>
+
+<div style="background:#F2F3F5;color:#0B0D10;font-family:'Inter',system-ui,sans-serif">
+
+<!-- ════════ REKLAM ════════ -->
+<aside aria-label="Reklam alanı" style="background:#E6E8EB;border-bottom:1px solid rgba(11,13,16,.1)">
+<div class="ad-wrap" style="position:relative;max-width:1440px;margin:0 auto;padding:8px clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;align-items:center;justify-content:center">
+<span class="ad-label" style="position:absolute;left:clamp(20px,5.56vw,80px);top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#5A6372">Reklam</span>
+<div style="width:100%;max-width:970px;height:90px;border:1px dashed rgba(11,13,16,.26);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#5A6372">970 × 90 &nbsp;·&nbsp; LEADERBOARD</div>
+</div>
+</aside>
+
+<!-- ════════ HEADER ════════ -->
+<header style="position:relative;z-index:30;background:rgba(0,0,0,.9);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%)">
+
+<!-- servis barı -->
+<div style="border-bottom:1px solid rgba(255,255,255,.1);color:#AEB5BF">
+<div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 28px;min-height:42px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px">
+<span style="display:inline-flex;align-items:center;gap:7px;color:#fff;text-transform:uppercase"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>İzmir</span>
+<span style="display:inline-flex;align-items:center;gap:7px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3"/><path d="M8.5 2.6v1.6M3.2 8.5H1.6M4.7 4.7 3.6 3.6M12.3 4.7l1.1-1.1"/><path d="M17.4 19.4H9a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.3 2.2 3 3 0 0 1-.5 5.8z"/></svg>16° &nbsp;Parçalı bulutlu</span>
+<span aria-hidden="true" class="hide-s" style="width:1px;height:14px;background:rgba(255,255,255,.2)"></span>
+<span style="color:#fff">20:45 <span style="color:#AEB5BF">TSİ</span></span>
+<span class="hide-s" style="display:inline-flex;gap:16px;color:#AEB5BF">LDN 17:45<span>NYC 12:45</span><span>DXB 21:45</span></span>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px">
+<ul style="display:flex;align-items:center;gap:4px">
+<li><a href="#" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;color:#AEB5BF"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14m1.78 13.02H3.55V9h3.57zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0"/></svg></a></li>
+<li><a href="#" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;color:#AEB5BF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="#" aria-label="YouTube" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;color:#AEB5BF"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81M9.55 15.57V8.43L15.82 12z"/></svg></a></li>
+</ul>
+<a href="mailto:info@elis360news.com" class="hide-s" style="color:#fff">info@elis360news.com</a>
+</div>
+</div>
+</div>
+
+<!-- logo satırı -->
+<div>
+<div style="max-width:1440px;margin:0 auto;padding:14px clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 40px;min-height:88px">
+<a href="index.html" aria-label="ELIS360 NEWS ana sayfa" style="display:inline-flex;align-items:center;gap:11px;min-height:44px">
+<span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:30px;letter-spacing:.11em;line-height:1;color:#fff">ELIS<span style="color:#FF5C6C">360</span></span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.32em;color:#AEB5BF">NEWS</span>
+</a>
+<form role="search" style="flex:1 1 300px;max-width:460px;display:flex;align-items:stretch;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.06)">
+<label for="q" class="vh">Sitede ara</label>
+<input id="q" class="srch" type="search" placeholder="Hizmet, saha veya haber arayın" style="flex:1;min-width:0;height:46px;padding:0 15px;border:0;background:transparent;color:#fff;font-family:'Inter',system-ui,sans-serif;font-size:14px;box-sizing:border-box">
+<button type="submit" aria-label="Ara" style="width:48px;min-height:46px;border:0;border-left:1px solid rgba(255,255,255,.2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></button>
+</form>
+<a href="index.html#iletisim" style="display:inline-flex;align-items:center;min-height:46px;box-sizing:border-box;padding:13px 28px;background:#C41E2A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))">Teklif alın</a>
+</div>
+</div>
+
+</header>
+
+<!-- ════════ YAPIŞKAN NAVİGASYON ════════ -->
+<div style="position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.12)">
+<div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 32px;min-height:58px">
+<nav aria-label="Ana menü" style="display:flex;flex-wrap:wrap;align-items:center;gap:0 30px;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff">
+<button type="button" aria-label="Tüm bölümler" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:-12px;border:0;background:transparent;cursor:pointer;color:#fff"><svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M0 1h20M0 7h20M0 13h20"/></svg></button>
+<a href="haber.html" style="display:inline-flex;align-items:center;gap:9px;min-height:58px;box-shadow:inset 0 -3px 0 #FF5C6C" aria-current="page"><span class="blip" aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#FF5C6C"></span>Haber</a>
+<a href="fikserlik.html" style="display:inline-flex;align-items:center;min-height:58px">Fikserlik</a>
+<a href="index.html#hizmetler" style="display:inline-flex;align-items:center;min-height:58px">Prodüksiyon</a>
+<a href="index.html#haberler" style="display:inline-flex;align-items:center;min-height:58px">Haberler</a>
+<a href="index.html#belgesel" style="display:inline-flex;align-items:center;min-height:58px">Belgesel</a>
+<a href="index.html#sahalar" style="display:inline-flex;align-items:center;min-height:58px">Sahalar</a>
+<a href="index.html#iletisim" style="display:inline-flex;align-items:center;min-height:58px">İletişim</a>
+</nav>
+<p style="margin:0;display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff">
+<a href="index.html" aria-current="page" style="border-bottom:2px solid #FF5C6C;padding-bottom:3px">TR</a><span aria-hidden="true" style="color:#AEB5BF">·</span><a href="index.html" style="color:#AEB5BF">EN</a>
+</p>
+</div>
+</div>
+
+<!-- ════════ SON DAKİKA ════════ -->
+<div style="position:relative;z-index:20;background:rgba(0,0,0,.9);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%)">
+<div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:0 20px;min-height:46px">
+<span style="align-self:stretch;display:inline-flex;align-items:center;padding:0 16px;margin-left:calc(clamp(20px,5.56vw,80px) * -1);background:#C41E2A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase"><span style="padding-left:clamp(20px,5.56vw,80px)">Son dakika</span></span>
+<a href="haber.html" style="display:inline-flex;align-items:center;gap:12px;min-height:46px;font-size:14px;color:#fff"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#AEB5BF">20:45</span>[Manşet başlığı buraya gelecek]</a>
+<a href="haber.html" class="hide-s" style="display:inline-flex;align-items:center;gap:12px;min-height:46px;font-size:14px;color:#AEB5BF"><span aria-hidden="true" style="width:1px;height:14px;background:rgba(255,255,255,.2)"></span>[İkinci başlık]</a>
+</div>
+</div>
+
+
+
+<!-- ════════ KATEGORİ ŞERİDİ ════════ -->
+<nav aria-label="Haber kategorileri" style="border-bottom:1px solid rgba(11,13,16,.16);background:#F2F3F5">
+<div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:0 32px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase"><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;box-shadow:inset 0 -3px 0 #C41E2A;color:#0B0D10">Gündem</a><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;color:#3C4553">Türkiye</a><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;color:#3C4553">İzmir ve Ege</a><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;color:#3C4553">Dünya</a><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;color:#3C4553">Video</a><a href="haber.html" style="display:inline-flex;align-items:center;min-height:52px;color:#3C4553">Özel dosyalar</a></div>
+</nav>
+
+<!-- ════════ MANŞET ════════ -->
+<section>
+<div style="max-width:1440px;margin:0 auto;padding:clamp(40px,4.5vw,64px) clamp(20px,5.56vw,80px);box-sizing:border-box">
+<div class="row" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:48px">
+
+<article style="grid-column:span 8;min-width:0">
+<a href="haber.html" style="display:block">
+<div style="position:relative;background:#C9CDD3;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Manşet görseli]</span>
+<span style="position:absolute;left:0;bottom:0;display:inline-flex;align-items:center;gap:10px;padding:10px 18px;background:#C41E2A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase"><span class="blip" aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#fff"></span>Özel haber</span>
+</div>
+<p style="margin:24px 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Saha</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;color:#5A6372">20:45</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5A6372">ELIS360 NEWS</span></p>
+<h1 style="margin:0 0 16px;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(30px,3.6vw,50px);line-height:1.04;letter-spacing:-.028em;text-wrap:balance">[Manşet başlığı — en fazla iki satır olacak şekilde yazılır]</h1>
+<p style="margin:0;max-width:720px;font-size:17px;line-height:1.65;color:#1A212A;text-wrap:pretty">[Spot metni: haberin bir iki cümlelik özeti. Kendi ekibimizin sahadan çektiği görüntülerle hazırlanan dosyanın ne anlattığı buraya yazılır.]</p>
+</a>
+</article>
+
+<div style="grid-column:span 4;min-width:0">
+<p style="margin:0 0 4px;padding-bottom:14px;border-bottom:2px solid #0B0D10;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#0B0D10">Son eklenenler</p>
+<ul><li style="border-bottom:1px solid rgba(11,13,16,.16)"><a href="haber.html" style="display:flex;gap:18px;padding:18px 0;align-items:flex-start"><span style="position:relative;flex:0 0 104px;background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:#3C4553">[GÖRSEL]</span><span style="min-width:0"><span style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;align-items:center"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Dünya</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#5A6372">16:40</span></span><span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;line-height:1.22;letter-spacing:-.012em">[Haber başlığı buraya gelecek]</span></span></a></li><li style="border-bottom:1px solid rgba(11,13,16,.16)"><a href="haber.html" style="display:flex;gap:18px;padding:18px 0;align-items:flex-start"><span style="position:relative;flex:0 0 104px;background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:#3C4553">[GÖRSEL]<span aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(11,13,16,.82);display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 12 12" fill="#fff"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></span><span style="min-width:0"><span style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;align-items:center"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#5A6372">15:12</span></span><span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;line-height:1.22;letter-spacing:-.012em">[Video haber başlığı buraya gelecek]</span></span></a></li><li style="border-bottom:1px solid rgba(11,13,16,.16)"><a href="haber.html" style="display:flex;gap:18px;padding:18px 0;align-items:flex-start"><span style="position:relative;flex:0 0 104px;background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:#3C4553">[GÖRSEL]</span><span style="min-width:0"><span style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;align-items:center"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">İzmir ve Ege</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#5A6372">13:28</span></span><span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;line-height:1.22;letter-spacing:-.012em">[Haber başlığı buraya gelecek]</span></span></a></li><li style="border-bottom:1px solid rgba(11,13,16,.16)"><a href="haber.html" style="display:flex;gap:18px;padding:18px 0;align-items:flex-start"><span style="position:relative;flex:0 0 104px;background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:#3C4553">[GÖRSEL]</span><span style="min-width:0"><span style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;align-items:center"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Türkiye</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#5A6372">11:05</span></span><span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;line-height:1.22;letter-spacing:-.012em">[Haber başlığı buraya gelecek]</span></span></a></li><li style="border-bottom:1px solid rgba(11,13,16,.16)"><a href="haber.html" style="display:flex;gap:18px;padding:18px 0;align-items:flex-start"><span style="position:relative;flex:0 0 104px;background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:#3C4553">[GÖRSEL]</span><span style="min-width:0"><span style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;align-items:center"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Belgesel</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#5A6372">09:40</span></span><span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;line-height:1.22;letter-spacing:-.012em">[Haber başlığı buraya gelecek]</span></span></a></li></ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ════════ REKLAM ════════ -->
+<aside aria-label="Reklam alanı" style="border-top:1px solid rgba(11,13,16,.16);border-bottom:1px solid rgba(11,13,16,.16);background:#E6E8EB">
+<div style="position:relative;max-width:1440px;margin:0 auto;padding:20px clamp(20px,5.56vw,80px);box-sizing:border-box;display:flex;align-items:center;justify-content:center">
+<span style="position:absolute;left:clamp(20px,5.56vw,80px);top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#5A6372">Reklam</span>
+<div style="width:100%;max-width:970px;height:250px;border:1px dashed rgba(11,13,16,.26);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#5A6372">970 × 250 &nbsp;·&nbsp; BILLBOARD</div>
+</div>
+</aside>
+
+<section><div style="max-width:1440px;margin:0 auto;padding:clamp(56px,5.5vw,84px) clamp(20px,5.56vw,80px);box-sizing:border-box"><div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:2px solid #0B0D10;margin-bottom:36px"><h2 style="margin:0;display:flex;align-items:baseline;gap:14px;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.018em"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;color:#C41E2A">01</span>İzmir ve Ege</h2><a href="haber.html" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5A6372">Tümü →</a></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:32px"><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">İzmir ve Ege</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">İzmir ve Ege</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">İzmir ve Ege</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article></div></div></section><section><div style="max-width:1440px;margin:0 auto;padding:clamp(56px,5.5vw,84px) clamp(20px,5.56vw,80px);box-sizing:border-box"><div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:2px solid #0B0D10;margin-bottom:36px"><h2 style="margin:0;display:flex;align-items:baseline;gap:14px;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.018em"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;color:#C41E2A">02</span>Dünya</h2><a href="haber.html" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5A6372">Tümü →</a></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:32px"><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Dünya</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Dünya</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article><article><a href="haber.html" style="display:block"><div style="background:#C9CDD3;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div><p style="margin:18px 0 10px"><span style="padding:5px 10px;background:#0B0D10;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Dünya</span></p><h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;line-height:1.18;letter-spacing:-.015em">[Haber başlığı buraya gelecek]</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">[Spot metni buraya gelecek.]</p></a></article></div></div></section>
+
+<!-- ════════ VİDEO ════════ -->
+<section style="background:#0B0D10;color:#E8EAED">
+<div style="max-width:1440px;margin:0 auto;padding:clamp(56px,5.5vw,84px) clamp(20px,5.56vw,80px);box-sizing:border-box">
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:2px solid #FF5C6C;margin-bottom:36px">
+<h2 style="margin:0;display:flex;align-items:baseline;gap:14px;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.018em;color:#fff"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;color:#FF5C6C">03</span>Video</h2>
+<a href="haber.html" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#AEB5BF">Tümü →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:32px"><article><a href="haber.html" style="display:block"><div style="position:relative;background:#2A3038;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#AEB5BF">[Video görseli]<span aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 12 12" fill="#0B0D10"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></div><p style="margin:16px 0 10px;display:flex;gap:10px;align-items:center"><span style="padding:5px 10px;background:#FF5C6C;color:#0B0D10;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#AEB5BF">04:32</span></p><h3 style="margin:0;font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;line-height:1.2;letter-spacing:-.015em;color:#fff">[Video başlığı buraya gelecek]</h3></a></article><article><a href="haber.html" style="display:block"><div style="position:relative;background:#2A3038;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#AEB5BF">[Video görseli]<span aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 12 12" fill="#0B0D10"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></div><p style="margin:16px 0 10px;display:flex;gap:10px;align-items:center"><span style="padding:5px 10px;background:#FF5C6C;color:#0B0D10;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#AEB5BF">04:32</span></p><h3 style="margin:0;font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;line-height:1.2;letter-spacing:-.015em;color:#fff">[Video başlığı buraya gelecek]</h3></a></article><article><a href="haber.html" style="display:block"><div style="position:relative;background:#2A3038;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#AEB5BF">[Video görseli]<span aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 12 12" fill="#0B0D10"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></div><p style="margin:16px 0 10px;display:flex;gap:10px;align-items:center"><span style="padding:5px 10px;background:#FF5C6C;color:#0B0D10;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;color:#AEB5BF">04:32</span></p><h3 style="margin:0;font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;line-height:1.2;letter-spacing:-.015em;color:#fff">[Video başlığı buraya gelecek]</h3></a></article></div>
+</div>
+</section>
+
+<!-- ════════ SPONSORLU + BÜLTEN ════════ -->
+<section>
+<div style="max-width:1440px;margin:0 auto;padding:clamp(56px,5.5vw,84px) clamp(20px,5.56vw,80px);box-sizing:border-box">
+<div class="row" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:48px">
+<article style="grid-column:span 7;min-width:0;display:flex;flex-wrap:wrap;gap:28px;border:1px solid rgba(11,13,16,.22);padding:28px;box-sizing:border-box">
+<div style="flex:1 1 220px;min-width:0"><div style="background:#C9CDD3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3C4553">[Görsel]</div></div>
+<div style="flex:1.2 1 260px;min-width:0">
+<p style="margin:0 0 14px"><span style="display:inline-block;padding:5px 11px;border:1.5px solid #0B0D10;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">Sponsorlu içerik</span></p>
+<h3 style="margin:0 0 10px;font-family:'Archivo',sans-serif;font-weight:600;font-size:24px;line-height:1.18;letter-spacing:-.015em">[Sponsorlu içerik başlığı]</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#3C4553">Reklam ve sponsorlu içerikler açıkça etiketlenir. Haber kararını editoryal ekip verir.</p>
+</div>
+</article>
+<div style="grid-column:span 5;min-width:0;background:rgba(26,32,40,.97);color:#E8EAED;padding:32px;box-sizing:border-box">
+<p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#AEB5BF">Bülten</p>
+<h3 style="margin:0 0 12px;font-family:'Archivo',sans-serif;font-weight:700;font-size:28px;line-height:1.12;letter-spacing:-.02em;color:#fff">Sahadan gelenleri e-postayla alın</h3>
+<p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#B6BCC6">Özel dosyalar ve saha notları haftada bir kez.</p>
+<form style="display:flex;flex-wrap:wrap;gap:12px">
+<label for="b-mail" class="vh">E-posta adresiniz</label>
+<input id="b-mail" class="srch" type="email" placeholder="E-posta adresiniz" style="flex:1 1 200px;min-width:0;height:50px;padding:0 15px;border:1px solid rgba(255,255,255,.26);border-radius:0;background:rgba(255,255,255,.06);color:#fff;font-family:'Inter',system-ui,sans-serif;font-size:15px;box-sizing:border-box">
+<button type="submit" style="height:50px;padding:0 26px;background:#C41E2A;color:#fff;border:0;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase">Abone ol</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer style="background:#0B0D10;color:#E8EAED">
+<div style="max-width:1440px;margin:0 auto;padding:56px clamp(20px,5.56vw,80px) 0;box-sizing:border-box">
+<div class="row" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:40px;padding-bottom:48px">
+<div style="grid-column:span 5;min-width:0">
+<p style="margin:0 0 14px;display:flex;align-items:baseline;gap:9px"><span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;color:#fff">ELIS<span style="color:#FF5C6C">360</span></span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.3em;color:#B6BCC6">NEWS</span></p>
+<p style="margin:0;max-width:340px;font-size:15px;line-height:1.7;font-weight:300;color:#B6BCC6">Yerel bilgi. Güvenilir bağlantılar. Güçlü saha deneyimi.</p>
+</div>
+<nav aria-label="Alt menü – hizmetler" style="grid-column:span 3;min-width:0">
+<p style="margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E7686">Hizmetler</p>
+<ul style="display:flex;flex-direction:column;gap:11px;font-size:15px;font-weight:300"><li><a href="fikserlik.html">Fikserlik</a></li><li><a href="#hizmetler">Prodüksiyon</a></li><li><a href="#hizmetler">Kriz sahası</a></li><li><a href="#belgesel">Belgesel</a></li></ul>
+</nav>
+<nav aria-label="Alt menü – kurumsal" style="grid-column:span 2;min-width:0">
+<p style="margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E7686">Kurumsal</p>
+<ul style="display:flex;flex-direction:column;gap:11px;font-size:15px;font-weight:300"><li><a href="#sahalar">Sahalar</a></li><li><a href="haber.html">Haber</a></li><li><a href="#iletisim">İletişim</a></li></ul>
+</nav>
+<div style="grid-column:span 2;min-width:0">
+<p style="margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E7686">İletişim</p>
+<a href="mailto:info@elis360news.com" style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.6;color:#fff;border-bottom:1px solid #FF5C6C;padding-bottom:2px">info@elis360news.com</a>
+</div>
+</div>
+<div style="border-top:1px solid rgba(255,255,255,.14);padding:20px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 32px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E7686">
+<span>© 2026 ELIS360 NEWS</span>
+<span style="display:flex;flex-wrap:wrap;gap:8px 26px"><span>Research · Fixing</span><span>Production · Logistics</span></span>
+<span style="letter-spacing:.08em"><span style="color:#E8EAED">Real stories,</span> a brighter tomorrow</span>
+</div>
+</div>
+</footer>
+
+</div>
+
+</body>
+</html>

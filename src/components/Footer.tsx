@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { LogoMark } from '@/components/ui/LogoMark'
 import { footer, site } from '@/content/site'
 import { prefetchFor } from '@/lib/routes'
 
@@ -10,7 +11,8 @@ export function Footer() {
       <div className="shell pt-14">
         <div className="grid grid-cols-1 gap-y-10 pb-12 lg:grid-cols-12 lg:gap-x-6">
           <div className="min-w-0 lg:col-span-5">
-            <p className="mb-3.5 flex items-baseline gap-[9px]">
+            <p className="mb-3.5 flex items-center gap-[9px]">
+              <LogoMark size={30} className="mr-1 flex-none" />
               <span className="font-display text-[21px] font-bold tracking-[0.14em] text-white">
                 ELIS<span className="text-accent-light">360</span>
               </span>
@@ -47,12 +49,13 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2.5 border-t border-rule-dark py-5 font-mono text-[11px] uppercase tracking-[0.16em] text-onDark-glass">
           <span>{footer.bottom.copyright}</span>
-          <span className="flex flex-wrap gap-x-[26px] gap-y-2">
+          {/* lang="en": Türkçe büyük harf dönüşümü i → İ yapar ("FİXİNG"); İngilizce metinde I olmalı */}
+          <span lang="en" className="flex flex-wrap gap-x-[26px] gap-y-2">
             {footer.bottom.lines.map((l) => (
               <span key={l}>{l}</span>
             ))}
           </span>
-          <span className="tracking-[0.08em]">
+          <span lang="en" className="tracking-[0.08em]">
             <span className="text-onDark">{footer.bottom.motto[0]}</span> {footer.bottom.motto[1]}
           </span>
         </div>

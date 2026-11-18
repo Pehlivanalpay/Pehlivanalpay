@@ -1,25 +1,23 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { buttonClass } from '@/components/ui/Button'
+import { DesktopBackdrop } from '@/components/ui/DesktopBackdrop'
 import type { hero as HeroContent } from '@/content/home'
 
 /**
  * Hero — açık zemin üzerinde gri tonlu fotoğraf + perde + tarama + mühendislik ızgarası,
  * sağda 90 sn'de dönen nişangâh (hareket #1, reduced-motion'da durur),
  * sağda notch'lu "Saha kaydı" paneli (kesik köşe #2).
- * Görsel `priority` — sitede priority alan TEK görsel budur.
+ * Zemin fotoğrafı yalnızca masaüstünde indirilir (DesktopBackdrop) ve `priority` alan TEK görseldir.
  */
 export function Hero({ content: c }: { content: typeof HeroContent }) {
   return (
     <section className="relative overflow-hidden border-b border-rule">
       <div aria-hidden="true" className="absolute inset-0 z-0">
-        <Image
+        <DesktopBackdrop
           src={c.image.src}
-          alt=""
-          fill
+          width={c.image.width}
+          height={c.image.height}
           priority
-          quality={50}
-          sizes="100vw"
           className="object-cover object-[center_42%] opacity-[0.62] mix-blend-multiply contrast-[1.22] grayscale"
         />
       </div>
