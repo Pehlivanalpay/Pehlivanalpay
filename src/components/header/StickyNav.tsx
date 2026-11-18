@@ -18,6 +18,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 import { CloseIcon, MenuIcon } from '@/components/ui/icons'
 import type { NavItem } from '@/content/site'
+import { prefetchFor } from '@/lib/routes'
 
 type StickyNavProps = {
   items: readonly NavItem[]
@@ -70,7 +71,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
           {items.map((it) => (
             <Link
               key={it.href}
-              href={it.href}
+              href={it.href} prefetch={prefetchFor(it.href)}
               aria-current={isCurrent(it.href) ? 'page' : undefined}
               className="hidden min-h-[58px] items-center gap-[9px] lg:inline-flex"
             >
@@ -101,7 +102,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
                     {l.label}
                   </span>
                 ) : (
-                  <Link href={l.href} lang={l.code.toLowerCase()} hrefLang={l.code.toLowerCase()} className="text-onDark-glass">
+                  <Link href={l.href} prefetch={prefetchFor(l.href)} lang={l.code.toLowerCase()} hrefLang={l.code.toLowerCase()} className="text-onDark-glass">
                     {l.label}
                   </Link>
                 )}
@@ -117,7 +118,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
           {items.map((it) => (
             <li key={it.href} className="border-b border-white/10 last:border-b-0 lg:border-b-0">
               <Link
-                href={it.href}
+                href={it.href} prefetch={prefetchFor(it.href)}
                 onClick={() => setOpen(false)}
                 aria-current={isCurrent(it.href) ? 'page' : undefined}
                 className="flex min-h-12 items-center gap-[9px]"

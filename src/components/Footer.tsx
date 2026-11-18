@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { footer, site } from '@/content/site'
+import { prefetchFor } from '@/lib/routes'
 
 const colTitle = 'mb-[18px] font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-onDark-glass'
 
@@ -24,7 +25,7 @@ export function Footer() {
               <ul className="flex flex-col gap-[3px] text-[15px] font-light">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="inline-block py-1">
+                    <Link href={l.href} prefetch={prefetchFor(l.href)} className="inline-block py-1">
                       {l.label}
                     </Link>
                   </li>

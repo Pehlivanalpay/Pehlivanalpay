@@ -13,11 +13,13 @@ type MastheadProps = {
 export function Masthead({ searchAction = '/ara', ctaLabel = 'Teklif alın', ctaHref = '/iletisim' }: MastheadProps) {
   return (
     <div className="shell flex min-h-[88px] flex-wrap items-center justify-between gap-x-10 gap-y-3.5 py-3.5">
-      <Link href="/" aria-label="ELIS360 NEWS ana sayfa" className="inline-flex min-h-11 items-center gap-[11px]">
+      {/* Erişilebilir ad görünen metinle başlamalı (WCAG 2.5.3): "ELIS360 NEWS ana sayfa" */}
+      <Link href="/" className="inline-flex min-h-11 items-center gap-[11px]">
         <span className="font-display text-[30px] font-bold leading-none tracking-[0.11em] text-white">
           ELIS<span className="text-accent-light">360</span>
-        </span>
+        </span>{' '}
         <span className="font-mono text-[14px] font-medium tracking-[0.32em] text-onDark-glass">NEWS</span>
+        <span className="sr-only"> ana sayfa</span>
       </Link>
 
       <form

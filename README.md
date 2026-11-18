@@ -28,6 +28,9 @@ src/app/api/contact         form gönderimi: doğrulama, spam koruması, Resend 
 src/components/home/        ana sayfa bölümleri
 src/components/contact/     ContactSection, ContactForm
 src/content/home.ts         ana sayfa içeriği
+src/lib/seo.tsx             JSON-LD (Organization, Service), Open Graph varsayılanları, SITE_URL
+src/lib/routes.ts           henüz kurulmamış rotalar (önyükleme kapalı)
+src/app/sitemap.ts, robots.ts
 src/components/header/      AdSlot, ServiceBar, Masthead, StickyNav, BreakingBar, Clocks, Conditions
 src/components/ui/          Button, CategoryTag, NumberedList, SectionMotif, SectionLabel, MediaFrame, ikonlar
 src/content/site.ts         paylaşılan içerik — yer tutucular tek yerde
@@ -46,3 +49,14 @@ mesaj e-posta yerine sunucu günlüğüne yazılır.
 Köken denetimi, bal küpü alanı, zaman tuzağı (3 sn), IP başına hız sınırı (10 dk / 5),
 bağlantı sayısı sezgisi. JS kapalıyken de çalışır (klasik POST → 303 yönlendirme).
 Hız sınırı bellek içidir (sunucusuz örnek başına); kalıcı sınır gerekirse Upstash/Vercel KV.
+
+## Ölçümler (yerel üretim derlemesi, Lighthouse 12)
+
+| Sayfa | Cihaz | Perf | Erişilebilirlik | Best practices | SEO |
+|---|---|---|---|---|---|
+| / | masaüstü | 98 | 100 | 100 | 100 |
+| / | mobil | 84–87 | 100 | 100 | 100 |
+| /iletisim | masaüstü | 99 | 100 | 100 | 100 |
+| /iletisim | mobil | 89 | 100 | 100 | 100 |
+
+Mobil LCP (simüle 4G) ~3.9 sn; LCP öğesi hero'nun dekoratif zemin fotoğrafı. CLS her yerde 0.

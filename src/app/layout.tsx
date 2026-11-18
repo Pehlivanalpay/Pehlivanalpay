@@ -7,6 +7,7 @@ import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
 import { Footer } from '@/components/Footer'
 import { breakingPlaceholder, mainNav, site } from '@/content/site'
+import { JsonLd, ogDefaults, organizationLd, SITE_URL } from '@/lib/seo'
 import './globals.css'
 
 // latin-ext: Türkçe karakterler (ğ, ş, ı, İ) için zorunlu.
@@ -29,9 +30,17 @@ const inter = Inter({
   display: 'swap',
 })
 
+const description =
+  'Türkiye’de çalışan uluslararası televizyon kanalları, haber ajansları ve belgesel ekipleri için fikserlik ve prodüksiyon hizmetleri.'
+
 export const metadata: Metadata = {
-  title: { default: 'ELIS360 NEWS', template: '%s – ELIS360 NEWS' },
-  description: 'Haber ajansı ve prodüksiyon: araştırma, fikserlik, çekim ekibi ve saha operasyonları.',
+  metadataBase: new URL(SITE_URL),
+  title: { default: 'ELIS360 NEWS – Fikserlik ve prodüksiyon, Türkiye', template: '%s – ELIS360 NEWS' },
+  description,
+  applicationName: site.name,
+  openGraph: { ...ogDefaults, description },
+  twitter: { card: 'summary_large_image' },
+  // hreflang: İngilizce sürüm yayına girince alternates.languages ile eklenecek.
 }
 
 export const viewport: Viewport = { themeColor: '#0B0D10' }
@@ -40,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr" className={`${archivo.variable} ${plexMono.variable} ${inter.variable}`}>
       <body>
+        <JsonLd data={organizationLd()} />
         <a
           href="#icerik"
           className="sr-only z-50 bg-ink px-4 py-3 font-mono text-meta uppercase text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

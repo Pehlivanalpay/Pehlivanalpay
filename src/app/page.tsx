@@ -7,11 +7,16 @@ import { Process } from '@/components/home/Process'
 import { Regions } from '@/components/home/Regions'
 import { Services } from '@/components/home/Services'
 import { Why } from '@/components/home/Why'
+import type { Metadata } from 'next'
+import { JsonLd, servicesLd } from '@/lib/seo'
 import { about, contact, hero, method, news, newsBanner, regions, services, why } from '@/content/home'
+
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 export default function HomePage() {
   return (
     <main>
+      <JsonLd data={servicesLd()} />
       <Hero content={hero} />
       <Regions content={regions} />
       <About content={about} />

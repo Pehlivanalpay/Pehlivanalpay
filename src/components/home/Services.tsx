@@ -3,6 +3,7 @@ import { CategoryTag } from '@/components/ui/CategoryTag'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { SectionMotif } from '@/components/ui/SectionMotif'
 import type { services as Content } from '@/content/home'
+import { prefetchFor } from '@/lib/routes'
 
 /** 03 — Hizmet kapsamı. Sağda fotoğraf motifi; dört hizmet satırı (46px dikey). */
 export function Services({ content: c }: { content: typeof Content }) {
@@ -50,7 +51,7 @@ export function Services({ content: c }: { content: typeof Content }) {
               </ul>
               {'link' in s && s.link && (
                 <Link
-                  href={s.link.href}
+                  href={s.link.href} prefetch={prefetchFor(s.link.href)}
                   className="mt-[22px] inline-block border-b-2 border-accent pb-[3px] font-mono text-[12px] font-semibold uppercase tracking-[0.16em]"
                 >
                   {s.link.label}

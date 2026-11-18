@@ -37,3 +37,14 @@ Durum: ☐ bekliyor · ☑ tamam
 |---|---|---|---|
 | ☐ | `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` | Vercel ortam değişkenleri, bkz. `.env.example` | Yayında anahtar yoksa form hata verir ve kullanıcıya doğrudan e-posta adresi gösterilir. `CONTACT_FROM` alan adı Resend'de doğrulanmalı. |
 | ☐ | KVKK aydınlatma metni bağlantısı | form altı | Kişisel veri toplanıyor — hukuki metin gerekir. |
+
+## SEO ve marka varlıkları
+
+| # | İçerik | Nerede | Not |
+|---|---|---|---|
+| ☐ | Alan adı doğrulaması | `NEXT_PUBLIC_SITE_URL` | Varsayılan `https://elis360news.com` — e-posta alan adından tahmin edildi. www'li mi, değil mi? |
+| ☐ | Site ikonu | `src/app/icon.svg`, `src/app/favicon.ico` | **Yer tutucu**: siyah kare üzerinde kırmızı "360". Marka ikonu gelince değiştirin. |
+| ☐ | Paylaşım görseli (1200×630) | `src/lib/seo.tsx` → `ogDefaults.images` | Şu an hero fotoğrafı kullanılıyor (1376×768). Logolu, kırpılmaya uygun ayrı görsel önerilir. |
+| ☐ | Logo görseli | `organizationLd()` | Schema'da `logo` alanı boş — marka logosu (PNG/SVG) gelince eklenecek. |
+| ☐ | Sosyal hesaplar → `sameAs` | `site.social` | Gerçek adresler girilince schema'ya kendiliğinden eklenir. |
+| ☐ | Kurulmamış rotalar | `src/lib/routes.ts` → `UNBUILT` | Sayfa kurulunca listeden silin (önyükleme açılır). |

@@ -18,6 +18,7 @@ export function Hero({ content: c }: { content: typeof HeroContent }) {
           alt=""
           fill
           priority
+          quality={50}
           sizes="100vw"
           className="object-cover object-[center_42%] opacity-[0.62] mix-blend-multiply contrast-[1.22] grayscale"
         />

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { buttonClass } from '@/components/ui/Button'
 import type { newsBanner as Content } from '@/content/home'
+import { prefetchFor } from '@/lib/routes'
 
 /** Haber sitesine geçiş şeridi — surface-dark. */
 export function NewsBanner({ content: c }: { content: typeof Content }) {
@@ -14,7 +15,7 @@ export function NewsBanner({ content: c }: { content: typeof Content }) {
           </p>
           <p className="font-display text-[28px] font-semibold leading-[1.2] tracking-[-0.015em] text-white">{c.text}</p>
         </div>
-        <Link href={c.link.href} className={buttonClass('secondary-dark', 'lg')}>
+        <Link href={c.link.href} prefetch={prefetchFor(c.link.href)} className={buttonClass('secondary-dark', 'lg')}>
           {c.link.label}
         </Link>
       </div>

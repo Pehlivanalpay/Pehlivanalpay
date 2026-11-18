@@ -7,7 +7,7 @@ export function Why({ content: c }: { content: typeof Content }) {
   return (
     <section aria-label={c.label} className="surface-dark relative overflow-hidden bg-ink text-onDark">
       <div aria-hidden="true" className="absolute inset-0">
-        <Image src={c.image.src} alt="" fill sizes="100vw" className="object-cover object-[center_42%] opacity-[0.17] contrast-[1.2] grayscale" />
+        <Image src={c.image.src} alt="" fill quality={50} sizes="100vw" className="object-cover object-[center_42%] opacity-[0.17] contrast-[1.2] grayscale" />
       </div>
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,13,16,.96)_0%,rgba(11,13,16,.8)_60%,rgba(11,13,16,.92)_100%)]" />
       <div className="shell relative py-section">

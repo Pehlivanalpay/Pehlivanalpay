@@ -12,6 +12,7 @@ export function SectionMotif({ side = 'right', src = '/hero-bg.jpg' }: { side?: 
       <Image
         src={src}
         alt=""
+        quality={50}
         width={1376}
         height={768}
         sizes="64vw"

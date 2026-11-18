@@ -4,6 +4,7 @@ import { CategoryTag } from '@/components/ui/CategoryTag'
 import { MediaFrame } from '@/components/ui/MediaFrame'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import type { news as Content } from '@/content/home'
+import { prefetchFor } from '@/lib/routes'
 
 /** 04 — Haberler. Faz 2'de WPGraphQL'den beslenecek; şimdilik içerik yer tutucu. */
 export function News({ content: c }: { content: typeof Content }) {
@@ -19,7 +20,7 @@ export function News({ content: c }: { content: typeof Content }) {
             </h2>
           </div>
           <div className="flex min-w-0 lg:col-span-4 lg:justify-end">
-            <Link href={c.allLink.href} className={buttonClass('secondary', 'lg', '!min-h-12 !px-7 !py-3.5')}>
+            <Link href={c.allLink.href} prefetch={prefetchFor(c.allLink.href)} className={buttonClass('secondary', 'lg', '!min-h-12 !px-7 !py-3.5')}>
               {c.allLink.label}
             </Link>
           </div>
@@ -28,7 +29,7 @@ export function News({ content: c }: { content: typeof Content }) {
         <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-12 lg:gap-x-6">
           {/* manşet */}
           <article className="min-w-0 lg:col-span-7">
-            <Link href={lead.href} className="block">
+            <Link href={lead.href} prefetch={prefetchFor(lead.href)} className="block">
               <MediaFrame image={lead.image} label={lead.imageLabel} ratio="16/9" sizes="(min-width: 960px) 58vw, 100vw">
                 <span className="absolute bottom-0 left-0 inline-flex items-center gap-2.5 bg-accent px-4 py-[9px] font-mono text-meta font-semibold uppercase text-white">
                   <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-white motion-safe:animate-blip" />
@@ -55,7 +56,7 @@ export function News({ content: c }: { content: typeof Content }) {
             <ul>
               {c.latest.map((n, i) => (
                 <li key={i} className="border-b border-rule">
-                  <Link href={n.href} className="flex items-start gap-[18px] py-5">
+                  <Link href={n.href} prefetch={prefetchFor(n.href)} className="flex items-start gap-[18px] py-5">
                     <MediaFrame
                       image={n.image}
                       label="[GÖRSEL]"
@@ -101,7 +102,7 @@ export function News({ content: c }: { content: typeof Content }) {
           <div className="grid gap-8 [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))]">
             {c.dossiers.items.map((d, i) => (
               <article key={i}>
-                <Link href={d.href} className="block">
+                <Link href={d.href} prefetch={prefetchFor(d.href)} className="block">
                   <MediaFrame image={d.image} ratio="3/2" sizes="(min-width: 960px) 33vw, 100vw" />
                   <p className="mb-2.5 mt-[18px] font-mono text-meta-xs font-semibold uppercase">
                     <CategoryTag>{d.tag}</CategoryTag>
