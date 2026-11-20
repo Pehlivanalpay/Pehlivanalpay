@@ -16,15 +16,23 @@ type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'ok' } | { kind: 
 
 const label = 'font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-ink-muted'
 const field =
-  'w-full rounded-none border bg-white px-[15px] font-sans text-[15px] text-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-accent'
+  'w-full rounded-none border border-ink/30 bg-white px-[15px] font-sans text-[15px] text-ink focus-visible:outline-offset-0 aria-[invalid=true]:border-accent'
 
 /**
- * Proje bilgi formu. JS yoksa klasik POST ile /api/contact'a gider (sunucu 303 ile döner);
- * JS varsa fetch ile gönderir, alan hatalarını yerinde gösterir.
+ * Proje bilgi formu (PDF: hızlı destek seçenekleri + kurum, ülke, tarih, şehir, ekip ihtiyacı, proje özeti).
+ * JS yoksa klasik POST ile /api/contact'a gider (sunucu 303 ile döner); JS varsa fetch ile gönderir,
+ * alan hatalarını yerinde gösterir.
  */
-export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'hata'; headingLevel?: 2 | 3 }) {
+export function ContactForm({
+  initial,
+  headingLevel = 3,
+  quickOptions = [],
+}: {
+  initial?: 'ok' | 'hata'
+  headingLevel?: 2 | 3
+  quickOptions?: readonly string[]
+}) {
   const FormHeading = headingLevel === 2 ? 'h2' : 'h3'
-  const formRef = useRef<HTMLFormElement>(null)
   const tsRef = useRef<HTMLInputElement>(null)
   const statusRef = useRef<HTMLParagraphElement>(null)
   const [errors, setErrors] = useState<ContactErrors>({})
@@ -86,8 +94,9 @@ export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'h
       </p>
     ) : null
 
-  const input = (k: Exclude<ContactField, 'message'>, type: string, autoComplete: string) => (
-    <div className="flex min-w-0 flex-[1_1_220px] flex-col gap-[9px]">
+  // wide: tek başına tam satır (flex-col içinde 220px'lik esneme tabanı yükseklik olurdu)
+  const input = (k: Exclude<ContactField, 'message' | 'need'>, type: string, autoComplete: string, placeholder?: string, wide = false) => (
+    <div className={`flex min-w-0 flex-col gap-[9px] ${wide ? '' : 'flex-[1_1_220px]'}`}>
       <label htmlFor={`f-${k}`} className={label}>
         {contactFields[k].label}
         {contactFields[k].required && <span aria-hidden="true"> *</span>}
@@ -97,11 +106,12 @@ export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'h
         name={k}
         type={type}
         autoComplete={autoComplete}
+        placeholder={placeholder}
         required={contactFields[k].required}
         maxLength={contactFields[k].max}
         aria-invalid={errors[k] ? true : undefined}
         aria-describedby={describe(k)}
-        className={`${field} h-[50px] border-ink/30`}
+        className={`${field} h-[50px] placeholder:text-ink-muted/70`}
       />
       {err(k)}
     </div>
@@ -109,13 +119,12 @@ export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'h
 
   return (
     <form
-      ref={formRef}
       action="/api/contact"
       method="post"
       noValidate
       onSubmit={onSubmit}
       aria-labelledby="form-baslik"
-      className="flex min-w-0 flex-col gap-[22px] border border-ink/[0.22] bg-white/60 p-[clamp(24px,3vw,40px)] lg:col-span-7"
+      className="flex min-w-0 flex-col gap-[22px] border border-ink/[0.22] bg-white/70 p-[clamp(24px,3vw,40px)] lg:col-span-7"
     >
       <div>
         <FormHeading id="form-baslik" className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-ink-muted">
@@ -124,14 +133,36 @@ export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'h
         <p className="mt-2 text-[13px] text-ink-muted">* işaretli alanlar zorunludur.</p>
       </div>
 
+      {quickOptions.length > 0 && (
+        <fieldset className="min-w-0">
+          <legend className={`${label} mb-3`}>Hızlı destek seçenekleri</legend>
+          <div className="flex flex-wrap gap-2.5">
+            {quickOptions.map((o) => (
+              <label
+                key={o}
+                className="flex min-h-11 cursor-pointer items-center gap-2.5 border border-ink/25 bg-white px-4 py-2 text-[14px] font-medium text-ink has-[:checked]:border-accent has-[:checked]:bg-[color-mix(in_srgb,var(--accent)_8%,white)] has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink"
+              >
+                <input type="radio" name="need" value={o} className="h-4 w-4 flex-none accent-[#A3133D]" />
+                {o}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
       <div className="flex flex-wrap gap-[22px]">
         {input('name', 'text', 'name')}
         {input('org', 'text', 'organization')}
       </div>
       <div className="flex flex-wrap gap-[22px]">
         {input('email', 'email', 'email')}
-        {input('dates', 'text', 'off')}
+        {input('country', 'text', 'country-name')}
       </div>
+      <div className="flex flex-wrap gap-[22px]">
+        {input('city', 'text', 'off', 'ör. İstanbul, Hatay')}
+        {input('dates', 'text', 'off', 'ör. 12–15 Aralık')}
+      </div>
+      {input('team', 'text', 'off', 'ör. kameraman + ses, fixer, drone', true)}
       <div className="flex flex-col gap-[9px]">
         <label htmlFor="f-message" className={label}>
           {contactFields.message.label}
@@ -145,7 +176,7 @@ export function ContactForm({ initial, headingLevel = 3 }: { initial?: 'ok' | 'h
           maxLength={contactFields.message.max}
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={describe('message')}
-          className={`${field} resize-y border-ink/30 py-3.5 leading-[1.6]`}
+          className={`${field} resize-y py-3.5 leading-[1.6]`}
         />
         {err('message')}
       </div>

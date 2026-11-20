@@ -10,7 +10,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllSlugs()
   return [
     { url: `${SITE_URL}/`, changeFrequency: 'daily', priority: 1 },
-    { url: `${SITE_URL}/fikserlik`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/fixer-in-turkiye`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/produksiyon`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/marka-pr`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/belgesel`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/haberler`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/iletisim`, changeFrequency: 'yearly', priority: 0.6 },
     { url: `${SITE_URL}/haber`, changeFrequency: 'hourly', priority: 0.9 },
     ...NEWS_CATEGORIES.map((c) => ({ url: `${SITE_URL}/haber/kategori/${c.slug}`, changeFrequency: 'hourly' as const, priority: 0.6 })),

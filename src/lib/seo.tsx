@@ -1,4 +1,4 @@
-import { services } from '@/content/home'
+import { serviceAreas } from '@/content/home'
 import { PLACEHOLDER_HREF, site } from '@/content/site'
 
 /**
@@ -37,8 +37,8 @@ export function organizationLd() {
     url: SITE_URL,
     logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png`, width: 512, height: 512 },
     email: site.email,
-    description: 'Türkiye’de çalışan uluslararası medya ekipleri için fikserlik ve prodüksiyon hizmetleri.',
-    slogan: 'Real stories, a brighter tomorrow',
+    description: 'Uluslararası medya ekipleri ve markalar için Türkiye’de fikserlik, prodüksiyon, belgesel, marka ve PR hizmetleri.',
+    slogan: 'Media • Fixing • Production • Brand & PR',
     areaServed: { '@type': 'Country', name: 'Türkiye' },
     knowsLanguage: ['tr', 'en'],
     contactPoint: {
@@ -52,25 +52,48 @@ export function organizationLd() {
   }
 }
 
-/** Hizmetler — ana sayfa. Metinler hizmet kapsamı bölümüyle aynı kaynaktan. */
+/** Ana sayfa: beş hizmet alanı, her biri kendi sayfasına bağlı. */
 export function servicesLd() {
   return {
     '@context': 'https://schema.org',
-    '@graph': services.items.map((s) => ({
+    '@graph': serviceAreas.items.map((s) => ({
       '@type': 'Service',
-      '@id': `${SITE_URL}/#hizmet-${s.num}`,
+      '@id': `${SITE_URL}${s.href}#hizmet`,
       name: s.title,
-      serviceType: s.code,
       description: s.text,
+      url: `${SITE_URL}${s.href}`,
       provider: { '@id': ORG_ID },
       areaServed: { '@type': 'Country', name: 'Türkiye' },
       availableLanguage: ['tr', 'en'],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: s.title,
-        itemListElement: s.points.map((p) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: p } })),
-      },
-      ...('link' in s && s.link ? { url: `${SITE_URL}${s.link.href}` } : {}),
     })),
+  }
+}
+
+/** Hizmet sayfası: tek Service + kapsamındaki işler (OfferCatalog). */
+export function serviceLd({ path, name, serviceType, description, items }: { path: string; name: string; serviceType: string; description: string; items: readonly string[] }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${SITE_URL}${path}#hizmet`,
+    url: `${SITE_URL}${path}`,
+    name,
+    serviceType,
+    description,
+    provider: { '@id': ORG_ID },
+    areaServed: { '@type': 'Country', name: 'Türkiye' },
+    availableLanguage: ['tr', 'en'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name,
+      itemListElement: [...new Set(items)].map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n } })),
+    },
+  }
+}
+
+export function breadcrumbLd(trail: { name: string; path: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.name, item: `${SITE_URL}${t.path}` })),
   }
 }

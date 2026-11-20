@@ -4,8 +4,8 @@
 
 /* .mark / .mark-num utility'leri (tailwind.config.ts) bu değişkenlere bağlı. */
 :root {
-  --accent: #c41e2a;
-  --accent-light: #ff5c6c;
+  --accent: #a3133d; /* bordo */
+  --accent-light: #f2667d; /* koyu zeminde bordo */
 }
 
 @layer base {
@@ -28,7 +28,7 @@
     opacity: 0.68;
   }
   :where(a, button, input, textarea, select, summary):focus-visible {
-    outline: 2px solid #0b0d10;
+    outline: 2px solid #07111f;
     outline-offset: 3px;
   }
   /* Koyu/cam yüzeylerde siyah odak çerçevesi görünmez — beyaza çevir. */

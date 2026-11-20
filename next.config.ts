@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   // cPanel (Passenger) için kendi kendine yeten paket: .next/standalone/server.js
   // Paketleme: npm run build:cpanel → elis360-site.zip (docs/deploy-cpanel.md)
   output: 'standalone',
+  // Eski adresler → yeni sayfa yapısı (2026-11). Kalıcı: arama motorları yeni adresi öğrenir.
+  async redirects() {
+    return [{ source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true }]
+  },
   images: {
     // 50: yalnızca ağır filtrelenmiş dekoratif fotoğraflar (hero zemini, motifler) — gri ton + düşük opaklık altında fark görünmez.
     qualities: [50, 75],

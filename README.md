@@ -14,7 +14,8 @@ npm run check:content  # yayın öncesi yer tutucu denetimi
 ## Tasarım kaynağı
 
 - `docs/design-tokens.md` — tasarım sistemi (renk, tipografi, ızgara, bileşen kuralları)
-- `docs/reference/*.html` — tasarımın birebir çıktısı; emin olunmayan her değer buradan okunur
+- `docs/reference/*.html` — ilk tasarımın birebir çıktısı (tasarım dili, ölçüler)
+- `docs/reference/web-sitesi-onerisi-2026-11.pdf` — 2026-11 revizyonu: sayfa yapısı, içerik, palet
 - `tailwind.config.ts` — token'lar; elle değiştirmeyin, dökümanla birebir aynı
 - `docs/brand/` — amblem (SVG, koyu/açık), logo kilidi (PNG), orijinal eskiz
 
@@ -22,11 +23,14 @@ npm run check:content  # yayın öncesi yer tutucu denetimi
 
 ```
 src/app/layout.tsx          header katmanları (reklam → header → yapışkan nav → son dakika) + footer
-src/app/page.tsx            ana sayfa, bölüm bölüm
+src/app/page.tsx            ana sayfa (PDF s.9 sıralaması)
+src/app/fixer-in-turkiye    Fikserlik (eski /fikserlik buraya yönlenir)
+src/app/produksiyon, marka-pr, belgesel, haberler   hizmet ve proje sayfaları
+src/components/sections/    sayfalarda ortak bölümler (PageHero, ListSection, ImageBand…)
+src/content/pages.ts        hizmet sayfaları içeriği; src/content/images.ts fotoğraflar
 src/app/iletisim            iletişim sayfası
 src/app/api/conditions      ziyaretçi şehri (Vercel geo başlıkları) + hava (Open-Meteo)
 src/app/api/contact         form gönderimi: doğrulama, spam koruması, SMTP (nodemailer) ile e-posta
-src/app/fikserlik           Fikserlik hizmet sayfası
 src/app/haber               haber portalı, /haber/[slug], /haber/kategori/[slug], /haber/onizleme/[id]
 src/app/api/revalidate      WordPress yayın bildirimi → önbellek tazeleme
 src/app/api/preview         WordPress önizleme → taslak modu

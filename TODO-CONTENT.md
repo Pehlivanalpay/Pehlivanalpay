@@ -28,7 +28,7 @@ Durum: ☐ bekliyor · ☑ tamam
 | ☐ | Hero kayıt göstergesi, zaman kodu, koordinat | `hero.telemetry` | Süs. Kalacaksa dokunmayın; kaldırmak için `null` yapın. "Biz kimiz" görselindeki zaman kodu: `about.timecode`. |
 | ☑ | Hero fotoğrafı mobilde | `DesktopBackdrop` | Karar: mobilde gizli — 960px altında hiç indirilmiyor. |
 | ☑ | Haberler bölümü ve Son dakika şeridi | | Karar: tasarımdaki gibi kalıyor (içerik yer tutucu). |
-| ☐ | Rakamlar (33 yıl, 11 bölge, 04 başlık) | `hero.panel.stats`, `why.record` | Doğrulanmalı. |
+| ☑ | Rakamlar | `hero.panel.stats` | PDF'e göre: 30 yıl, Türkiye geneli, TR·EN, 05 hizmet alanı. |
 
 ## İletişim
 
@@ -63,3 +63,16 @@ Adım adım: `wordpress/README.md`
 | ☐ | Vercel ortam değişkenleri (WP_URL vb.) | siz |
 | ☐ | Uçtan uca test: yayımla → sitede görünür, yayından kaldır → kaybolur, önizle | birlikte |
 | ☐ | Bülten: KVKK aydınlatma metni + gönderim servisi kararı | siz |
+
+## 2026-11 revizyonu (PDF: docs/reference/web-sitesi-onerisi-2026-11.pdf)
+
+| # | İçerik | Nerede | Not |
+|---|---|---|---|
+| ☐ | **WhatsApp numarası** | `src/content/site.ts` → `site.whatsapp` | Boşken WhatsApp düğmeleri gizli. Uluslararası biçim, yalnızca rakam (ör. `905321234567`). Mobilde sabit düğme, masaüstünde iletişim alanında. |
+| ☐ | Marka & PR görseli | `src/content/pages.ts` → `markaPr.hero.image` | Şu an stüdyo çekimi. PDF: yönetici röportajı, basın toplantısı veya marka filmi seti tercih edilmeli (savaş/haber arşivi değil). |
+| ☐ | Belgesel "saha röportajı" görseli | `belgesel.visuals[0]` | Şu an Fikserlik sayfasıyla aynı kare. Gerçek bir karakterle yapılan saha röportajı önerilir. |
+| ☐ | Görsel izinleri | `public/images/` | Savaşın Çocukları ve saha fotoğrafları için kişisel veri / izin kontrolü (PDF not 05). |
+| ☐ | İngilizce sürüm | — | PDF not 01: İngilizce sayfalar otomatik çeviri olmamalı. Sıradaki iş. |
+| ☑ | Her menü başlığı ayrı sayfa | `/`, `/fixer-in-turkiye`, `/produksiyon`, `/marka-pr`, `/belgesel`, `/haberler`, `/iletisim` | Eski `/fikserlik` → `/fixer-in-turkiye` (308). |
+| ☑ | Renk paleti | `tailwind.config.ts` | Gece laciverti #07111F, bordo #A3133D (koyu zeminde #F2667D), kırık beyaz #F3EFE7, metalik gri #AAB3C0. |
+| ☑ | Form alanları | `src/lib/contact.ts` | Hızlı destek seçimi, kurum, ülke, şehir, tarihler, ekip ihtiyacı, proje özeti. |

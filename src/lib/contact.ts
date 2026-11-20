@@ -2,11 +2,15 @@
  * İletişim formu — alanlar ve doğrulama. İstemci ve sunucu aynı kuralları kullanır.
  */
 export const contactFields = {
+  need: { label: 'Destek türü', max: 80, required: false },
   name: { label: 'Ad soyad', max: 120, required: true },
   org: { label: 'Kurum', max: 160, required: false },
   email: { label: 'E-posta', max: 254, required: true },
-  dates: { label: 'Çekim tarihleri', max: 160, required: false },
-  message: { label: 'Proje konusu ve ihtiyaçlar', max: 5000, required: true },
+  country: { label: 'Ülke', max: 80, required: false },
+  city: { label: 'Çekim şehri', max: 120, required: false },
+  dates: { label: 'Tarihler', max: 160, required: false },
+  team: { label: 'Ekip ihtiyacı', max: 300, required: false },
+  message: { label: 'Proje özeti', max: 5000, required: true },
 } as const
 
 export type ContactField = keyof typeof contactFields
@@ -28,7 +32,7 @@ export function normalize(raw: Record<string, unknown>): ContactInput {
     out[k] = typeof v === 'string' ? v.trim() : ''
   }
   // Tek satırlık alanlarda satır sonu yok (e-posta başlığı enjeksiyonuna karşı).
-  for (const k of ['name', 'org', 'email', 'dates'] as const) out[k] = out[k].replace(/[\r\n]+/g, ' ')
+  for (const k of ['need', 'name', 'org', 'email', 'country', 'city', 'dates', 'team'] as const) out[k] = out[k].replace(/[\r\n]+/g, ' ')
   return out
 }
 

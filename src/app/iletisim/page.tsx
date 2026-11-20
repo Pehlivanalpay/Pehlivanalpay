@@ -25,7 +25,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           about: { '@id': ORG_ID },
         }}
       />
-      <ContactSection content={contact} headingLevel={1} status={status} />
+      <ContactSection content={contact} headingLevel={1} status={status} showIndex={false} />
     </main>
   )
 }

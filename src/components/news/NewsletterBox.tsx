@@ -55,7 +55,7 @@ export function NewsletterBox({ className = '' }: { className?: string }) {
           {state.kind === 'sending' ? 'Gönderiliyor…' : 'Abone ol'}
         </button>
         <label className="flex w-full items-start gap-2.5 text-[13px] leading-[1.5] text-onDark-muted">
-          <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 flex-none accent-[#FF5C6C]" />
+          <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 flex-none accent-[#F2667D]" />
           <span>Bülten gönderimi için e-posta adresimin saklanmasına onay veriyorum. İstediğim zaman ayrılabilirim.</span>
         </label>
         <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">

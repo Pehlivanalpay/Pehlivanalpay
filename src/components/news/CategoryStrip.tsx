@@ -13,7 +13,7 @@ export function CategoryStrip({ active }: { active?: string }) {
               <Link
                 href={`/haber/kategori/${c.slug}`}
                 aria-current={on ? 'page' : undefined}
-                className={`inline-flex min-h-[52px] items-center ${on ? 'text-ink shadow-[inset_0_-3px_0_#C41E2A]' : 'text-ink-mono'}`}
+                className={`inline-flex min-h-[52px] items-center ${on ? 'text-ink shadow-[inset_0_-3px_0_#A3133D]' : 'text-ink-mono'}`}
               >
                 {c.name}
               </Link>

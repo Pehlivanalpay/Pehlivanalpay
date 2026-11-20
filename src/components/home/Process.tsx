@@ -1,8 +1,9 @@
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import type { method as Content } from '@/content/home'
 
-/** 06 — Çalışma yöntemi. Üç aşama. */
-export function Process({ content: c }: { content: typeof Content }) {
+/** Çalışma yöntemi — üç aşama (Prodüksiyon sayfasında). */
+type Content = { index?: string; label: string; title: string; steps: readonly { title: string; text: string }[] }
+
+export function Process({ content: c }: { content: Content }) {
   return (
     <section aria-labelledby="yontem-baslik">
       <div className="shell py-section">

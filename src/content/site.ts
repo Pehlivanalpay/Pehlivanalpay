@@ -13,6 +13,14 @@ export type SocialLink = { name: 'LinkedIn' | 'Instagram' | 'YouTube'; href: str
 export const site = {
   name: 'ELIS360 NEWS',
   email: 'info@elis360news.com',
+  /** Logonun altındaki alt başlık (PDF). */
+  tagline: 'Media • Fixing • Production • Brand & PR',
+
+  /**
+   * WhatsApp hattı — uluslararası biçimde, yalnızca rakam (ör. '905321234567').
+   * PLACEHOLDER: boşken WhatsApp düğmeleri hiç gösterilmez.
+   */
+  whatsapp: '' as string,
 
   // PLACEHOLDER — gerçek hesap adresleri gelecek
   social: [
@@ -35,32 +43,32 @@ export const site = {
 
 export type NavItem = { label: string; href: string; live?: boolean }
 
-/** Yapışkan navigasyon. Sıra ve etiketler referans HTML'den. */
+/** Yapışkan navigasyon — her başlık ayrı sayfa (2026-11 web sitesi önerisi, PDF). */
 export const mainNav: NavItem[] = [
-  { label: 'Haber', href: '/haber', live: true }, // Faz 2 — haber portalı
-  { label: 'Fikserlik', href: '/fikserlik' },
-  { label: 'Prodüksiyon', href: '/#hizmetler' },
-  { label: 'Haberler', href: '/#haberler' },
-  { label: 'Belgesel', href: '/#belgesel' },
-  { label: 'Sahalar', href: '/#sahalar' },
+  { label: 'Ana sayfa', href: '/' },
+  { label: 'Fikserlik', href: '/fixer-in-turkiye' },
+  { label: 'Prodüksiyon', href: '/produksiyon' },
+  { label: 'Marka & PR', href: '/marka-pr' },
+  { label: 'Belgesel', href: '/belgesel' },
+  { label: 'Haberler', href: '/haberler', live: true },
   { label: 'İletişim', href: '/iletisim' },
 ]
 
 export type BreakingItem = { time: string; title: string; href: string }
 
-/** Footer. `#6E7686` (referans) koyu zeminde 4.26:1 — eşiği geçmiyor; onDark-glass (#AEB5BF) kullanılıyor. */
+/** Footer. Gri metinler onDark-glass (metalik gri #AAB3C0) — koyu zeminde 8.9:1. */
 export const footer = {
-  tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü saha deneyimi.',
+  tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü medya ve iletişim deneyimi.',
   columns: [
     {
       title: 'Hizmetler',
       label: 'Alt menü – hizmetler',
       span: 'lg:col-span-3',
       links: [
-        { label: 'Fikserlik', href: '/fikserlik' },
-        { label: 'Prodüksiyon', href: '/#hizmetler' },
-        { label: 'Kriz sahası', href: '/#hizmetler' },
-        { label: 'Belgesel', href: '/#belgesel' },
+        { label: 'Fikserlik — Fixer in Türkiye', href: '/fixer-in-turkiye' },
+        { label: 'Prodüksiyon', href: '/produksiyon' },
+        { label: 'Marka & PR', href: '/marka-pr' },
+        { label: 'Belgesel', href: '/belgesel' },
       ],
     },
     {
@@ -68,15 +76,15 @@ export const footer = {
       label: 'Alt menü – kurumsal',
       span: 'lg:col-span-2',
       links: [
-        { label: 'Sahalar', href: '/#sahalar' },
-        { label: 'Haber', href: '/haber' },
+        { label: 'Haberler', href: '/haberler' },
+        { label: 'ELIS360 Journal', href: '/haber' },
         { label: 'İletişim', href: '/iletisim' },
       ],
     },
   ],
   bottom: {
     copyright: `© ${new Date().getFullYear()} ELIS360 NEWS`,
-    lines: ['Research · Fixing', 'Production · Logistics'],
+    lines: ['Media · Fixing', 'Production · Brand & PR'],
     motto: ['Real stories,', 'a brighter tomorrow'],
   },
 }

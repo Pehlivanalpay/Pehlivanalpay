@@ -1,9 +1,10 @@
 import { NumberedList } from '@/components/ui/NumberedList'
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import type { regions as Content } from '@/content/home'
 
-/** 01 — Sahalar. Koyu zemin, fosforlu numaralı liste. */
-export function Regions({ content: c }: { content: typeof Content }) {
+type Content = { index?: string; label: string; title: string; text: string; items: readonly string[] }
+
+/** Sahalar — koyu zemin, fosforlu numaralı liste (Belgesel sayfasında). */
+export function Regions({ content: c }: { content: Content }) {
   return (
     <section id="sahalar" aria-labelledby="sahalar-baslik" className="surface-dark bg-ink text-onDark">
       <div className="shell py-section-sm">

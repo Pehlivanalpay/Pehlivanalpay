@@ -2,27 +2,29 @@ import type { Config } from 'tailwindcss'
 
 /**
  * ELIS360 NEWS — tasarım sistemi
- * Değerler elis360-design-tokens.md ile birebir aynıdır.
+ * Değerler elis360-design-tokens.md'den; renkler 2026-11 web sitesi önerisi (PDF) paletine güncellendi:
+ * gece laciverti #07111F, bordo #A3133D, kırık beyaz #F3EFE7, metalik gri #AAB3C0.
  */
 const config: Config = {
   content: ['./src/**/*.{ts,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
-        paper: { DEFAULT: '#F2F3F5', alt: '#E6E8EB' },
-        ink: { DEFAULT: '#0B0D10', body: '#1A212A', mono: '#3C4553', muted: '#5A6372' },
+        paper: { DEFAULT: '#F2F3F5', alt: '#E6E8EB', cream: '#F3EFE7' }, // cream: kırık beyaz (PDF paleti)
+        ink: { DEFAULT: '#07111F', // gece laciverti (PDF paleti)
+                 body: '#1A212A', mono: '#3C4553', muted: '#5A6372' },
         glass: {
-          DEFAULT: 'rgba(0,0,0,0.90)',   // header
-          nav: 'rgba(0,0,0,0.88)',       // yapışkan navigasyon
-          surface: 'rgba(26,32,40,0.97)',// koyu şeritler, bülten
-          panel: 'rgba(17,21,27,0.93)',  // hero saha kaydı paneli
+          DEFAULT: 'rgba(7,17,31,0.92)',  // header — gece laciverti cam
+          nav: 'rgba(7,17,31,0.90)',      // yapışkan navigasyon
+          surface: 'rgba(16,28,46,0.97)', // koyu şeritler, bülten
+          panel: 'rgba(10,20,36,0.93)',   // hero paneli
         },
         accent: {
-          DEFAULT: '#C41E2A',  // yalnızca açık zemin
-          light: '#FF5C6C',    // koyu zemin (kontrast için zorunlu)
+          DEFAULT: '#A3133D',  // bordo — yalnızca açık zemin (6.7–7.7:1)
+          light: '#F2667D',    // açık bordo — koyu zemin (lacivert üzerinde 6.3:1)
           info: '#00B8D9',     // yalnızca durum göstergesi
         },
-        onDark: { DEFAULT: '#E8EAED', muted: '#B6BCC6', glass: '#AEB5BF' },
+        onDark: { DEFAULT: '#F3EFE7', muted: '#B6BCC6', glass: '#AAB3C0' }, // glass: metalik gri
         rule: {
           soft: 'rgba(11,13,16,0.09)',
           DEFAULT: 'rgba(11,13,16,0.16)',
@@ -32,7 +34,7 @@ const config: Config = {
         placeholder: '#C9CDD3', // görsel yer tutucusu — yayında kalmamalı
         // .mark / .mark-num için --accent ve --accent-light CSS değişkenleri
         // globals.css'te :root üzerinde tanımlanmalı:
-        //   :root { --accent:#C41E2A; --accent-light:#FF5C6C }
+        //   :root { --accent:#A3133D; --accent-light:#F2667D }
       },
 
       fontFamily: {

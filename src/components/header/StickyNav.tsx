@@ -47,7 +47,9 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
     return () => document.removeEventListener('keydown', onKey)
   }, [open])
 
-  const isCurrent = (href: string) => !href.includes('#') && (href === '/' ? pathname === '/' : pathname.startsWith(href))
+  const isCurrent = (href: string) =>
+    !href.includes('#') &&
+    (href === '/' ? pathname === '/' : pathname.startsWith(href) || (href === '/haberler' && pathname.startsWith('/haber/')))
 
   return (
     <div className="surface-dark glass-fx sticky top-0 z-40 border-y border-b-white/[0.12] border-t-white/10 bg-glass-nav">
@@ -73,7 +75,7 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
               key={it.href}
               href={it.href} prefetch={prefetchFor(it.href)}
               aria-current={isCurrent(it.href) ? 'page' : undefined}
-              className="hidden min-h-[58px] items-center gap-[9px] aria-[current=page]:shadow-[inset_0_-3px_0_#FF5C6C] lg:inline-flex"
+              className="hidden min-h-[58px] items-center gap-[9px] aria-[current=page]:shadow-[inset_0_-3px_0_#F2667D] lg:inline-flex"
             >
               {it.live && (
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />

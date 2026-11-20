@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ButtonLink } from '@/components/ui/Button'
 import { LogoMark } from '@/components/ui/LogoMark'
 import { SearchIcon } from '@/components/ui/icons'
+import { site } from '@/content/site'
 
 type MastheadProps = {
   /** Arama formunun gönderileceği yol (GET, `q` parametresi). Faz 2: WPGraphQL arama. */
@@ -20,7 +21,13 @@ export function Masthead({ searchAction = '/ara', ctaLabel = 'Teklif alın', cta
         <span className="font-display text-[30px] font-bold leading-none tracking-[0.11em] text-white">
           ELIS<span className="text-accent-light">360</span>
         </span>{' '}
-        <span className="font-mono text-[14px] font-medium tracking-[0.32em] text-onDark-glass">NEWS</span>
+        <span className="flex flex-col gap-1.5">
+          <span className="font-mono text-[14px] font-medium leading-none tracking-[0.32em] text-onDark-glass">NEWS</span>
+          {/* lang="en": İngilizce alt başlık — Türkçe büyük harf dönüşümü "İ" yapmasın */}
+          <span lang="en" className="hidden font-mono text-[9px] font-medium uppercase leading-none tracking-[0.2em] text-onDark-glass lg:block">
+            {site.tagline}
+          </span>
+        </span>
         <span className="sr-only"> ana sayfa</span>
       </Link>
 

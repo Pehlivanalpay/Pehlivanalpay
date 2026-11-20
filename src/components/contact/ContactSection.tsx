@@ -1,23 +1,26 @@
 import { ContactForm } from './ContactForm'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { SectionMotif } from '@/components/ui/SectionMotif'
+import { WhatsAppLink } from '@/components/ui/WhatsApp'
 import type { contact as Content } from '@/content/home'
 import { site } from '@/content/site'
 
 const dt = 'font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted'
 
 /**
- * İletişim bölümü — ana sayfada (h2) ve /iletisim sayfasında (h1) aynı bileşen.
- * Solda fotoğraf motifi.
+ * Hızlı destek / iletişim bölümü — ana sayfada (h2) ve /iletisim sayfasında (h1) aynı bileşen.
+ * Solda: başlık, metin, e-posta, WhatsApp (masaüstünde iletişim alanının yanında — PDF not 03).
  */
 export function ContactSection({
   content: c,
   headingLevel = 2,
   status,
+  showIndex = true,
 }: {
   content: typeof Content
   headingLevel?: 1 | 2
   status?: 'ok' | 'hata'
+  showIndex?: boolean
 }) {
   const H = headingLevel === 1 ? 'h1' : 'h2'
   return (
@@ -26,7 +29,7 @@ export function ContactSection({
       <div className="shell relative z-[1] py-section">
         <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-14">
           <div className="min-w-0 lg:col-span-5">
-            <SectionLabel index={c.index}>{c.label}</SectionLabel>
+            <SectionLabel index={showIndex ? c.index : undefined}>{c.label}</SectionLabel>
             <H id="iletisim-baslik" className="mb-[26px] font-display text-h2 font-bold">
               {c.title}
             </H>
@@ -40,6 +43,14 @@ export function ContactSection({
                   </a>
                 </dd>
               </div>
+              {site.whatsapp && (
+                <div className="flex justify-between gap-4 border-t border-rule py-4">
+                  <dt className={dt}>WhatsApp</dt>
+                  <dd>
+                    <WhatsAppLink className="border-b-2 border-accent pb-0.5 font-mono text-[14px] font-semibold" />
+                  </dd>
+                </div>
+              )}
               {c.facts.map((f, i) => (
                 <div key={f.label} className={`flex justify-between gap-4 border-t border-rule py-4 ${i === c.facts.length - 1 ? 'border-b' : ''}`}>
                   <dt className={dt}>{f.label}</dt>
@@ -48,7 +59,7 @@ export function ContactSection({
               ))}
             </dl>
           </div>
-          <ContactForm initial={status} headingLevel={headingLevel === 1 ? 2 : 3} />
+          <ContactForm initial={status} headingLevel={headingLevel === 1 ? 2 : 3} quickOptions={c.quickOptions} />
         </div>
       </div>
     </section>

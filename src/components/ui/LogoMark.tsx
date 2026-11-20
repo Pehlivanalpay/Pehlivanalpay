@@ -14,8 +14,8 @@
 type Tone = 'dark' | 'light'
 
 const palette: Record<Tone, { ring: string; red: string; e: string }> = {
-  dark: { ring: '#AEB5BF', red: '#FF5C6C', e: '#F2F3F5' },
-  light: { ring: '#9AA3AF', red: '#C41E2A', e: '#0B0D10' },
+  dark: { ring: '#AAB3C0', red: '#F2667D', e: '#F3EFE7' },
+  light: { ring: '#AAB3C0', red: '#A3133D', e: '#07111F' },
 }
 
 export function LogoMark({ size = 40, tone = 'dark', title, className }: { size?: number; tone?: Tone; title?: string; className?: string }) {

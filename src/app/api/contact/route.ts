@@ -93,10 +93,14 @@ export async function POST(req: NextRequest) {
 async function sendMail(input: ContactInput) {
   const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env
   const text = [
+    `Destek türü: ${input.need || '—'}`,
     `Ad soyad: ${input.name}`,
     `Kurum: ${input.org || '—'}`,
     `E-posta: ${input.email}`,
-    `Çekim tarihleri: ${input.dates || '—'}`,
+    `Ülke: ${input.country || '—'}`,
+    `Çekim şehri: ${input.city || '—'}`,
+    `Tarihler: ${input.dates || '—'}`,
+    `Ekip ihtiyacı: ${input.team || '—'}`,
     '',
     input.message,
   ].join('\n')
@@ -124,7 +128,7 @@ async function sendMail(input: ContactInput) {
     to: process.env.CONTACT_TO ?? site.email,
     // Yanıtla → doğrudan formu dolduran kişiye. Adres doğrulamadan geçti (validate).
     replyTo: { name: input.name, address: input.email },
-    subject: `Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
+    subject: `${input.need ? `[${input.need}] ` : ''}Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
     text, // yalnızca düz metin — kullanıcı girdisi HTML olarak yorumlanmaz
   })
 }

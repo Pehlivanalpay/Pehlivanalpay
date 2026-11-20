@@ -6,6 +6,7 @@ import { Masthead } from '@/components/header/Masthead'
 import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
 import { Footer } from '@/components/Footer'
+import { WhatsAppFloat } from '@/components/ui/WhatsApp'
 import { mainNav, site } from '@/content/site'
 import { newsTime } from '@/lib/format'
 import { getPosts } from '@/lib/wp/client'
@@ -33,11 +34,11 @@ const inter = Inter({
 })
 
 const description =
-  'Türkiye’de çalışan uluslararası televizyon kanalları, haber ajansları ve belgesel ekipleri için fikserlik ve prodüksiyon hizmetleri.'
+  'Türkiye’de haberin, prodüksiyonun ve markanızın çözüm ortağı: uluslararası medya ekipleri ve markalar için fikserlik (fixer in Türkiye), prodüksiyon, belgesel, marka ve PR.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: 'ELIS360 NEWS – Fikserlik ve prodüksiyon, Türkiye', template: '%s – ELIS360 NEWS' },
+  title: { default: 'ELIS360 NEWS – Fixer in Türkiye, prodüksiyon, marka & PR', template: '%s – ELIS360 NEWS' },
   description,
   applicationName: site.name,
   openGraph: { ...ogDefaults, description },
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   // hreflang: İngilizce sürüm yayına girince alternates.languages ile eklenecek.
 }
 
-export const viewport: Viewport = { themeColor: '#0B0D10' }
+export const viewport: Viewport = { themeColor: '#07111F' }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Son dakika: WordPress'te "Son dakika" işaretli en yeni 2 yazı. Yoksa şerit hiç çizilmez.
@@ -92,6 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </div>
 
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   )
