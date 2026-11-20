@@ -4,7 +4,7 @@ import { site } from '@/content/site'
  * WhatsApp (PDF not 03): mobilde sabit yüzen düğme; masaüstünde iletişim alanının yanında metin bağlantısı.
  * `site.whatsapp` boşken hiçbiri gösterilmez.
  */
-const href = () => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('Merhaba, bir proje hakkında bilgi almak istiyorum.')}`
+export const whatsappHref = () => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('Merhaba, bir proje hakkında bilgi almak istiyorum.')}`
 
 export const WhatsAppIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" {...p}>
@@ -15,8 +15,8 @@ export const WhatsAppIcon = (p: React.SVGProps<SVGSVGElement>) => (
 export function WhatsAppLink({ className }: { className?: string }) {
   if (!site.whatsapp) return null
   return (
-    <a href={href()} target="_blank" rel="noopener noreferrer" className={className}>
-      +{site.whatsapp}
+    <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className={className}>
+      {site.whatsappDisplay}
     </a>
   )
 }
@@ -25,14 +25,16 @@ export function WhatsAppLink({ className }: { className?: string }) {
 export function WhatsAppFloat() {
   if (!site.whatsapp) return null
   return (
-    <a
-      href={href()}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="WhatsApp ile yazın"
-      className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#1F7A4D] text-white shadow-[0_6px_20px_rgba(7,17,31,.35)] lg:hidden"
-    >
-      <WhatsAppIcon />
-    </a>
+    <aside aria-label="Hızlı iletişim" className="lg:hidden">
+      <a
+        href={whatsappHref()}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="WhatsApp ile yazın"
+        className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#1F7A4D] text-white shadow-[0_6px_20px_rgba(7,17,31,.35)]"
+      >
+        <WhatsAppIcon />
+      </a>
+    </aside>
   )
 }

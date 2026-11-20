@@ -23,7 +23,7 @@ export const fikserlik = {
     leadLang: 'en',
     leadTr: 'İlk araştırmadan son teslime kadar: Türkiye’nin her yerinde yerel erişim, izinler, lojistik, ekip ve prodüksiyon desteği.',
     cta: { label: 'Projenizi planlayalım', href: '/iletisim' },
-    image: images.sahaEkip,
+    image: images.kaleKesif,
     breadcrumb: [{ label: 'Ana sayfa', href: '/' }, { label: 'Fikserlik' }],
   },
   columns: [
@@ -40,7 +40,7 @@ export const fikserlik = {
     label: 'Çekim ekibi',
     title: 'Kamera, ışık, ses ve yönetmen monitörü — tek ekip.',
     text: 'Profesyonel kamera, ses ve ışık ekibimiz haber, belgesel ve canlı yayın çekimlerinde sahada sizinle.',
-    image: images.studyo,
+    image: images.sokakCekimi,
   },
   detail: {
     label: 'Hizmet listesi',
@@ -157,10 +157,11 @@ export const belgesel = {
     title: { before: 'Hikâyeyi buluyor,', highlight: 'sahada gerçeğe', after: 'dönüştürüyoruz.' },
     lead: 'Bir belgeselin yalnızca çekimini değil, hikâyesini de önemsiyoruz.',
     cta: { label: 'Belgesel projenizi anlatın', href: '/iletisim' },
+    image: images.bergamaCekim,
     breadcrumb: [{ label: 'Ana sayfa', href: '/' }, { label: 'Belgesel' }],
   },
   visuals: [
-    { image: images.sahaEkip, caption: 'Saha röportajı', tone: 'light' as const },
+    { image: images.sokakCekimi, caption: 'Karakterle saha çekimi', tone: 'light' as const },
     { image: images.sahaKameraman, caption: 'Zorlu saha', tone: 'dark' as const },
   ],
   cards: [
@@ -209,17 +210,17 @@ export const projeler = {
     label: 'Vitrin proje',
     title: 'Uluslararası medya ekibine Türkiye saha koordinasyonu',
     text: 'Araştırma, yerel kaynak, çekim noktası, ulaşım, tercüme, kamera ve teslim süreci tek merkezden yönetilir.',
-    image: images.sahaKameraman,
+    image: images.bergamaCekim,
   },
   side: [
-    { tag: 'Fikserlik', title: 'Yabancı haber ekibine uçtan uca saha desteği', image: images.sahaEkip, href: '/fixer-in-turkiye' },
-    { tag: 'Belgesel', title: 'Araştırmadan post prodüksiyona özgün yapım', image: images.savasinCocuklari, href: '/belgesel' },
+    { tag: 'Fikserlik', title: 'Yabancı haber ekibine uçtan uca saha desteği', image: images.kaleKesif, href: '/fixer-in-turkiye' },
+    { tag: 'Belgesel', title: 'Araştırmadan post prodüksiyona özgün yapım', image: images.sokakCekimi, href: '/belgesel' },
     { tag: 'Marka & PR', title: 'Kurumsal hikâyeyi anlatan marka belgeseli', image: images.studyo, href: '/marka-pr' },
   ],
   cardsLabel: 'Proje kartları',
   cards: [
     { title: 'Savaşın Çocukları', text: 'Fotoğraf sergisi ve belgesel projesi', image: images.savasinCocuklari, href: '/belgesel' },
     { title: 'Canlı yayın desteği', text: 'Ekip, bağlantı ve saha koordinasyonu', image: images.kontrolOdasi, href: '/produksiyon' },
-    { title: 'Özel görüntüler', text: 'Uluslararası haber ve dosya içerikleri', image: images.sahaKameraman, href: '/haber' },
+    { title: 'Özel görüntüler', text: 'Uluslararası haber ve dosya içerikleri', image: images.sahaEkip, href: '/haber' },
   ] satisfies ProjectCard[],
 }

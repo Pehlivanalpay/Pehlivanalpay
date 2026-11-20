@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { LogoMark } from '@/components/ui/LogoMark'
+import { WhatsAppLink } from '@/components/ui/WhatsApp'
 import { footer, site } from '@/content/site'
 import { prefetchFor } from '@/lib/routes'
 
@@ -44,10 +45,17 @@ export function Footer() {
             >
               {site.email}
             </a>
+            {site.whatsapp && (
+              <p className="mt-4 font-mono text-[13px] text-white">
+                <span className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-onDark-glass">WhatsApp</span>
+                <WhatsAppLink className="border-b border-accent-light pb-0.5" />
+              </p>
+            )}
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2.5 border-t border-rule-dark py-5 font-mono text-[11px] uppercase tracking-[0.16em] text-onDark-glass">
+        {/* max-lg:pb-24: mobilde sabit WhatsApp düğmesi son satırı örtmesin */}
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2.5 border-t border-rule-dark py-5 max-lg:pb-24 font-mono text-[11px] uppercase tracking-[0.16em] text-onDark-glass">
           <span>{footer.bottom.copyright}</span>
           {/* lang="en": Türkçe büyük harf dönüşümü i → İ yapar ("FİXİNG"); İngilizce metinde I olmalı */}
           <span lang="en" className="flex flex-wrap gap-x-[26px] gap-y-2">

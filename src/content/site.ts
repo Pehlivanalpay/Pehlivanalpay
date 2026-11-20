@@ -16,11 +16,10 @@ export const site = {
   /** Logonun altındaki alt başlık (PDF). */
   tagline: 'Media • Fixing • Production • Brand & PR',
 
-  /**
-   * WhatsApp hattı — uluslararası biçimde, yalnızca rakam (ör. '905321234567').
-   * PLACEHOLDER: boşken WhatsApp düğmeleri hiç gösterilmez.
-   */
-  whatsapp: '' as string,
+  /** WhatsApp hattı — wa.me bağlantısı için uluslararası biçim, yalnızca rakam. Boşken düğmeler gizlenir. */
+  whatsapp: '905432288921' as string,
+  /** Ekranda gösterilen biçim. */
+  whatsappDisplay: '+90 543 228 89 21',
 
   // PLACEHOLDER — gerçek hesap adresleri gelecek
   social: [

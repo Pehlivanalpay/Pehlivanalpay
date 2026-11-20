@@ -34,4 +34,22 @@ export const images = {
     width: 790,
     height: 590,
   },
+  kaleKesif: {
+    src: '/images/kale-kesif.jpg',
+    alt: 'Kale surlarında çekim öncesi keşif: harita üzerinden yön gösteren yapım koordinatörü, tripod üzerinde kamera ve drone kumandasıyla operatör; altta kasaba ve ova',
+    width: 1600,
+    height: 900,
+  },
+  bergamaCekim: {
+    src: '/images/bergama-cekim.jpg',
+    alt: 'Bergama antik kentinde yabancı belgesel ekibi: kameraman, haritayla yön gösteren fixer, not alan yapımcı ve boom mikrofonlu ses teknisyeni',
+    width: 1600,
+    height: 900,
+  },
+  sokakCekimi: {
+    src: '/images/sokak-cekimi.jpg',
+    alt: 'Taş döşeli sokakta dolly üzerinde kamera ile belgesel çekimi; boom mikrofon, yönetmen ve kameraya doğru yürüyen yaşlı bir karakter',
+    width: 1600,
+    height: 901,
+  },
 } as const

@@ -68,9 +68,9 @@ Adım adım: `wordpress/README.md`
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☐ | **WhatsApp numarası** | `src/content/site.ts` → `site.whatsapp` | Boşken WhatsApp düğmeleri gizli. Uluslararası biçim, yalnızca rakam (ör. `905321234567`). Mobilde sabit düğme, masaüstünde iletişim alanında. |
+| ☑ | WhatsApp numarası | `src/content/site.ts` → `site.whatsapp` | +90 543 228 89 21 — mobilde sabit düğme; masaüstünde iletişim bölümü, footer ve sayfa sonu şeritlerinde. |
 | ☐ | Marka & PR görseli | `src/content/pages.ts` → `markaPr.hero.image` | Şu an stüdyo çekimi. PDF: yönetici röportajı, basın toplantısı veya marka filmi seti tercih edilmeli (savaş/haber arşivi değil). |
-| ☐ | Belgesel "saha röportajı" görseli | `belgesel.visuals[0]` | Şu an Fikserlik sayfasıyla aynı kare. Gerçek bir karakterle yapılan saha röportajı önerilir. |
+| ☑ | Belgesel görselleri | `belgesel` | Bergama çekimi (ana görsel), karakterle sokak çekimi, zorlu saha. |
 | ☐ | Görsel izinleri | `public/images/` | Savaşın Çocukları ve saha fotoğrafları için kişisel veri / izin kontrolü (PDF not 05). |
 | ☐ | İngilizce sürüm | — | PDF not 01: İngilizce sayfalar otomatik çeviri olmamalı. Sıradaki iş. |
 | ☑ | Her menü başlığı ayrı sayfa | `/`, `/fixer-in-turkiye`, `/produksiyon`, `/marka-pr`, `/belgesel`, `/haberler`, `/iletisim` | Eski `/fikserlik` → `/fixer-in-turkiye` (308). |

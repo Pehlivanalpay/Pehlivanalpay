@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buttonClass } from '@/components/ui/Button'
+import { WhatsAppIcon, whatsappHref } from '@/components/ui/WhatsApp'
 import { site } from '@/content/site'
 
 /** Sayfa sonu çağrı şeridi — surface-dark. Birincil: iletişim formu; ikincil: e-posta. */
@@ -30,6 +31,12 @@ export function CtaBand({
           <a href={`mailto:${site.email}`} lang="en" className={buttonClass('secondary-dark', 'lg', 'break-all')}>
             {site.email}
           </a>
+          {site.whatsapp && (
+            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className={buttonClass('secondary-dark', 'lg')}>
+              <WhatsAppIcon width={18} height={18} />
+              WhatsApp
+            </a>
+          )}
         </div>
       </div>
     </section>

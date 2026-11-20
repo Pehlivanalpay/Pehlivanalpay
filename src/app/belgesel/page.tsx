@@ -32,7 +32,7 @@ export default function BelgeselPage() {
         })}
       />
       <JsonLd data={breadcrumbLd([{ name: 'Ana sayfa', path: '/' }, { name: 'Belgesel', path: '/belgesel' }])} />
-      <PageHero label={c.hero.label} title={c.hero.title} lead={c.hero.lead} cta={c.hero.cta} breadcrumb={c.hero.breadcrumb} />
+      <PageHero label={c.hero.label} title={c.hero.title} lead={c.hero.lead} cta={c.hero.cta} image={c.hero.image} breadcrumb={c.hero.breadcrumb} />
 
       {/* İki görsel + iki hizmet kartı */}
       <section aria-label="Belgesel ve zorlu saha hizmetleri">
