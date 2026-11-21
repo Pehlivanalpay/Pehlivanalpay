@@ -93,7 +93,7 @@ Setup Node.js App → uygulama → **Run NPM Install** → bitmesini bekleyin (b
 - [ ] `https://www.elis360news.com` yeni siteyi açıyor
 - [ ] `elis360news.com` ve `http://…` → `https://www.elis360news.com`
 - [ ] `/.next/prerender-manifest.json` ve `/package.json` → 404
-- [ ] /fikserlik, /iletisim, /haber açılıyor; mobil görünüm düzgün
+- [ ] /fixer-in-turkiye, /iletisim, /kvkk, /haber, /en açılıyor; mobil görünüm düzgün
 - [ ] Görseller görünüyor
 - [ ] İletişim formundan deneme mesajı → `info@` kutusuna düşüyor
 
@@ -101,7 +101,7 @@ Setup Node.js App → uygulama → **Run NPM Install** → bitmesini bekleyin (b
 
 ## Güncelleme
 
-Yeni paket → `elis360news.com` içine yükle → **Extract** (üzerine yaz) → zip'i sil →
+**Stop App** → `elis360news.com` içindeki eski `.next` klasörünü sil → yeni paketi yükle → **Extract** → zip'i sil →
 `package.json` değiştiyse **Run NPM Install** → **Restart**. Ortam değişkenleri ve `.htaccess` korunur.
 
 ## Sorun giderme

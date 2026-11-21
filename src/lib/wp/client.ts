@@ -177,3 +177,23 @@ export async function getAllSlugs(): Promise<{ slug: string; modified: string; d
   }
   return out
 }
+
+/** Site araması — WordPress'in yerleşik `search` filtresi. Hata olursa boş döner (arama sayfası çökmez). */
+export async function searchPosts(term: string, first = 10): Promise<NewsPost[]> {
+  const q = term.trim().slice(0, 100)
+  if (!q) return []
+  if (!WP_URL) {
+    if (!usingFixtures) return []
+    const n = q.toLocaleLowerCase('tr')
+    return fixturePosts.filter((p) => `${p.title} ${p.excerpt}`.toLocaleLowerCase('tr').includes(n)).slice(0, first)
+  }
+  try {
+    const data = await gql<{ posts: { nodes: GqlPost[] } }>(
+      `query Search($first: Int!, $q: String!) { posts(first: $first, where: { search: $q, isSponsored: false }) { nodes { ${POST_FIELDS} } } }`,
+      { first, q },
+    )
+    return data.posts.nodes.map(normalize)
+  } catch {
+    return []
+  }
+}

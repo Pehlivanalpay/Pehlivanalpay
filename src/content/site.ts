@@ -21,11 +21,12 @@ export const site = {
   /** Ekranda gösterilen biçim. */
   whatsappDisplay: '+90 543 228 89 21',
 
-  // PLACEHOLDER — gerçek hesap adresleri gelecek
+  // Gerçek hesap adresleri gelince yazın. PLACEHOLDER_HREF olanlar sitede ve JSON-LD'de otomatik gizlenir
+  // (ServiceBar, seo.tsx) — bu yüzden yayın denetimini durdurmaz.
   social: [
-    { name: 'LinkedIn', href: PLACEHOLDER_HREF },
-    { name: 'Instagram', href: PLACEHOLDER_HREF },
-    { name: 'YouTube', href: PLACEHOLDER_HREF },
+    { name: 'LinkedIn', href: PLACEHOLDER_HREF }, // check-placeholders: ignore
+    { name: 'Instagram', href: PLACEHOLDER_HREF }, // check-placeholders: ignore
+    { name: 'YouTube', href: PLACEHOLDER_HREF }, // check-placeholders: ignore
   ] satisfies SocialLink[],
 
   /** Konum algılanamazsa (yerel geliştirme, bot) gösterilecek şehir. */
@@ -59,8 +60,7 @@ export const footer = {
   tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü medya ve iletişim deneyimi.',
   columns: [
     {
-      title: 'Hizmetler',
-      label: 'Alt menü – hizmetler',
+      key: 'services' as const,
       span: 'lg:col-span-3',
       links: [
         { label: 'Fikserlik — Fixer in Türkiye', href: '/fixer-in-turkiye' },
@@ -70,13 +70,13 @@ export const footer = {
       ],
     },
     {
-      title: 'Kurumsal',
-      label: 'Alt menü – kurumsal',
+      key: 'company' as const,
       span: 'lg:col-span-2',
       links: [
         { label: 'Haberler', href: '/haberler' },
         { label: 'ELIS360 Journal', href: '/haber' },
         { label: 'İletişim', href: '/iletisim' },
+        { label: 'English', href: '/en', lang: 'en' },
       ],
     },
   ],

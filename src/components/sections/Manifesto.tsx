@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import type { Img } from '@/content/home'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+
 
 /** "Haberi biliyoruz…" koyu şerit; isteğe bağlı fotoğraf (çok soluk) ve deneyim göstergeleri. */
 export function Manifesto({
@@ -7,14 +10,16 @@ export function Manifesto({
   text,
   image,
   stats,
+  locale = 'tr',
 }: {
   lines: readonly string[]
   text: string
   image?: Img
   stats?: readonly { value: string; unit: string; label: string }[]
+  locale?: Locale
 }) {
   return (
-    <section aria-label="Neden ELIS360 NEWS" className="surface-dark relative overflow-hidden bg-ink text-onDark">
+    <section aria-label={ui(locale).why} className="surface-dark relative overflow-hidden bg-ink text-onDark">
       {image && (
         <div aria-hidden="true" className="absolute inset-0">
           <Image src={image.src} alt="" fill quality={50} sizes="100vw" className="object-cover object-[center_40%] opacity-[0.17] contrast-[1.2] grayscale" />

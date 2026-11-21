@@ -14,6 +14,7 @@ export const ogDefaults = {
   type: 'website' as const,
   siteName: 'ELIS360 NEWS',
   locale: 'tr_TR',
+  alternateLocale: ['en_GB'],
   images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'ELIS360 NEWS — Media • Fixer • Production' }],
 }
 
@@ -53,10 +54,10 @@ export function organizationLd() {
 }
 
 /** Ana sayfa: beş hizmet alanı, her biri kendi sayfasına bağlı. */
-export function servicesLd() {
+export function servicesLd(items: readonly { title: string; text: string; href: string }[] = serviceAreas.items, lang: 'tr' | 'en' = 'tr') {
   return {
     '@context': 'https://schema.org',
-    '@graph': serviceAreas.items.map((s) => ({
+    '@graph': items.map((s) => ({
       '@type': 'Service',
       '@id': `${SITE_URL}${s.href}#hizmet`,
       name: s.title,
@@ -65,12 +66,13 @@ export function servicesLd() {
       provider: { '@id': ORG_ID },
       areaServed: { '@type': 'Country', name: 'Türkiye' },
       availableLanguage: ['tr', 'en'],
+      inLanguage: lang,
     })),
   }
 }
 
 /** Hizmet sayfası: tek Service + kapsamındaki işler (OfferCatalog). */
-export function serviceLd({ path, name, serviceType, description, items }: { path: string; name: string; serviceType: string; description: string; items: readonly string[] }) {
+export function serviceLd({ path, name, serviceType, description, items, lang = 'tr' }: { path: string; name: string; serviceType: string; description: string; items: readonly string[]; lang?: 'tr' | 'en' }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -79,6 +81,7 @@ export function serviceLd({ path, name, serviceType, description, items }: { pat
     name,
     serviceType,
     description,
+    inLanguage: lang,
     provider: { '@id': ORG_ID },
     areaServed: { '@type': 'Country', name: 'Türkiye' },
     availableLanguage: ['tr', 'en'],

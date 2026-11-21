@@ -2,9 +2,12 @@ import Link from 'next/link'
 import { CategoryTag } from '@/components/ui/CategoryTag'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import type { twoArms as Content } from '@/content/home'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+
 
 /** 01 — İki uzmanlık, tek merkez: Medya & Saha (açık) / Marka & İletişim (koyu) + değerler. */
-export function TwoArms({ content: c }: { content: typeof Content }) {
+export function TwoArms({ content: c, locale = 'tr' }: { content: typeof Content; locale?: Locale }) {
   return (
     <section aria-labelledby="iki-kol-baslik">
       <div className="shell py-section">
@@ -39,7 +42,7 @@ export function TwoArms({ content: c }: { content: typeof Content }) {
             )
           })}
         </div>
-        <ul aria-label="Çalışma ilkelerimiz" className="mt-8 flex flex-wrap gap-2.5">
+        <ul aria-label={ui(locale).principles} className="mt-8 flex flex-wrap gap-2.5">
           {c.values.map((v) => (
             <li key={v}>
               <CategoryTag size="sm">{v}</CategoryTag>

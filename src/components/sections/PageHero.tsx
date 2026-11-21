@@ -2,6 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { buttonClass } from '@/components/ui/Button'
 import type { Img } from '@/content/home'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+
 
 type Title = { before: string; highlight: string; after?: string }
 
@@ -21,6 +24,7 @@ export function PageHero({
   image,
   breadcrumb,
   tone = 'light',
+  locale = 'tr',
 }: {
   label: string
   title: Title
@@ -32,6 +36,7 @@ export function PageHero({
   image?: Img
   breadcrumb: { label: string; href?: string }[]
   tone?: 'light' | 'dark'
+  locale?: Locale
 }) {
   const dark = tone === 'dark'
   return (
@@ -47,7 +52,7 @@ export function PageHero({
       <div aria-hidden="true" className={`absolute inset-0 ${dark ? 'bg-scan-dark' : 'bg-scan'}`} />
 
       <div className="shell relative py-[clamp(56px,6vw,96px)]">
-        <nav aria-label="Konum" className={`mb-[34px] font-mono text-[11px] uppercase tracking-[0.2em] ${dark ? 'text-onDark-glass' : 'text-ink-muted'}`}>
+        <nav aria-label={ui(locale).breadcrumb} className={`mb-[34px] font-mono text-[11px] uppercase tracking-[0.2em] ${dark ? 'text-onDark-glass' : 'text-ink-muted'}`}>
           <ol className="flex flex-wrap items-center">
             {breadcrumb.map((b, i) => {
               const last = i === breadcrumb.length - 1
@@ -78,7 +83,7 @@ export function PageHero({
             <p className={`mb-6 font-mono text-label font-semibold uppercase ${dark ? 'text-accent-light' : 'text-accent'}`}>{label}</p>
             <h1 lang={titleLang} className={`font-display text-h1 font-bold ${dark ? 'text-white' : ''}`}>
               {title.before} <span className={dark ? 'text-accent-light' : 'text-accent'}>{title.highlight}</span>
-              {title.after && <> {title.after}</>}
+              {title.after && <>{/^[.,!?]/.test(title.after) ? '' : ' '}{title.after}</>}
             </h1>
             <p lang={leadLang} className={`mt-7 max-w-lead text-lead font-light ${dark ? 'text-onDark-muted' : 'text-[#232A33]'}`}>
               {lead}

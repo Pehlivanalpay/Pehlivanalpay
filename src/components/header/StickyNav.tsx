@@ -18,16 +18,20 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 import { CloseIcon, MenuIcon } from '@/components/ui/icons'
 import type { NavItem } from '@/content/site'
+import { LOCALES, switchPath, type Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
 import { prefetchFor } from '@/lib/routes'
 
 type StickyNavProps = {
   items: readonly NavItem[]
-  /** Dil seçici. `href` henüz yoksa (İngilizce sürüm Faz 3) bağlantı devre dışı gösterilir. */
-  locales?: readonly { code: string; label: string; href: string | null; current?: boolean }[]
+  locale: Locale
 }
 
-export function StickyNav({ items, locales = [] }: StickyNavProps) {
+export function StickyNav({ items, locale }: StickyNavProps) {
   const pathname = usePathname()
+  const t = ui(locale).nav
+  const langs: Locale[] = locale === 'en' ? ['tr', 'en'] : LOCALES
+  const home = locale === 'en' ? '/en' : '/'
   // Menü, açıldığı sayfanın yolunu tutar; sayfa değişince kendiliğinden kapanmış sayılır.
   const [openOn, setOpenOn] = useState<string | null>(null)
   const open = openOn === pathname
@@ -48,20 +52,16 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
   }, [open])
 
   const isCurrent = (href: string) =>
-    !href.includes('#') &&
-    (href === '/' ? pathname === '/' : pathname.startsWith(href) || (href === '/haberler' && pathname.startsWith('/haber/')))
+    !href.includes('#') && (href === home ? pathname === home : pathname.startsWith(href) || (href === '/haberler' && pathname.startsWith('/haber/')))
 
   return (
     <div className="surface-dark glass-fx sticky top-0 z-40 border-y border-b-white/[0.12] border-t-white/10 bg-glass-nav">
       <div className="shell flex min-h-[58px] flex-wrap items-center justify-between gap-x-8">
-        <nav
-          aria-label="Ana menü"
-          className="flex flex-wrap items-center gap-x-[30px] font-mono text-nav font-semibold uppercase text-white"
-        >
+        <nav aria-label={t.main} className="flex flex-wrap items-center gap-x-[30px] font-mono text-nav font-semibold uppercase text-white">
           <button
             ref={btnRef}
             type="button"
-            aria-label={open ? 'Bölüm menüsünü kapat' : 'Tüm bölümler'}
+            aria-label={open ? t.close : t.open}
             aria-expanded={open}
             aria-controls={panelId}
             onClick={() => setOpen(!open)}
@@ -73,39 +73,41 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
           {items.map((it) => (
             <Link
               key={it.href}
-              href={it.href} prefetch={prefetchFor(it.href)}
+              href={it.href}
+              prefetch={prefetchFor(it.href)}
               aria-current={isCurrent(it.href) ? 'page' : undefined}
               className="hidden min-h-[58px] items-center gap-[9px] aria-[current=page]:shadow-[inset_0_-3px_0_#F2667D] lg:inline-flex"
             >
-              {it.live && (
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />
-              )}
+              {it.live && <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />}
               {it.label}
             </Link>
           ))}
         </nav>
 
-        {locales.length > 0 && (
-          <nav aria-label="Dil" className="flex items-center gap-[9px] font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white">
-            {locales.map((l, i) => (
-              <span key={l.code} className="contents">
+        {/* Dil anahtarı: bulunduğun sayfanın diğer dildeki karşılığı (i18n/config → ROUTES).
+            EN yayında değilken (EN_LIVE) Türkçe sayfalarda gizli; İngilizce önizlemede TR'ye dönüş için görünür. */}
+        {langs.length > 1 && (
+          <nav aria-label={t.language} className="flex items-center gap-[9px] font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-white">
+            {langs.map((l, i) => (
+              <span key={l} className="contents">
                 {i > 0 && (
                   <span aria-hidden="true" className="text-onDark-glass">
                     ·
                   </span>
                 )}
-                {l.current || !l.href ? (
-                  <span
-                    lang={l.code.toLowerCase()}
-                    aria-current={l.current ? 'true' : undefined}
-                    title={!l.current ? 'Yakında' : undefined}
-                    className={l.current ? 'border-b-2 border-accent-light pb-[3px]' : 'text-onDark-glass'}
-                  >
-                    {l.label}
+                {l === locale ? (
+                  <span lang={l} aria-current="true" className="border-b-2 border-accent-light pb-[3px]">
+                    {l.toUpperCase()}
                   </span>
                 ) : (
-                  <Link href={l.href} prefetch={prefetchFor(l.href)} lang={l.code.toLowerCase()} hrefLang={l.code.toLowerCase()} className="text-onDark-glass">
-                    {l.label}
+                  <Link
+                    href={switchPath(pathname, l)}
+                    lang={l}
+                    hrefLang={l}
+                    aria-label={l === 'en' ? 'English' : 'Türkçe'}
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center text-onDark-glass"
+                  >
+                    {l.toUpperCase()}
                   </Link>
                 )}
               </span>
@@ -120,14 +122,13 @@ export function StickyNav({ items, locales = [] }: StickyNavProps) {
           {items.map((it) => (
             <li key={it.href} className="border-b border-white/10 last:border-b-0 lg:border-b-0">
               <Link
-                href={it.href} prefetch={prefetchFor(it.href)}
+                href={it.href}
+                prefetch={prefetchFor(it.href)}
                 onClick={() => setOpen(false)}
                 aria-current={isCurrent(it.href) ? 'page' : undefined}
                 className="flex min-h-12 items-center gap-[9px]"
               >
-                {it.live && (
-                  <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />
-                )}
+                {it.live && <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-light motion-safe:animate-blip" />}
                 {it.label}
               </Link>
             </li>

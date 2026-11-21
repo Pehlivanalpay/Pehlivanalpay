@@ -1,7 +1,10 @@
 /** İki sütunlu madde listesi (PDF Fikserlik: "Fixing & local support" / "Production services"). */
-export function BulletColumns({ columns }: { columns: readonly { label: string; items: readonly string[] }[] }) {
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+
+export function BulletColumns({ columns, locale = 'tr' }: { columns: readonly { label: string; items: readonly string[] }[]; locale?: Locale }) {
   return (
-    <section aria-label="Hizmet kapsamı">
+    <section aria-label={ui(locale).scope}>
       <div className="shell py-[clamp(64px,6.5vw,104px)]">
         <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-2 lg:gap-x-12">
           {columns.map((col) => (

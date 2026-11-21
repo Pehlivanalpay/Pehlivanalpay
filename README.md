@@ -22,35 +22,36 @@ npm run check:content  # yayın öncesi yer tutucu denetimi
 ## Yapı
 
 ```
-src/app/layout.tsx          header katmanları (reklam → header → yapışkan nav → son dakika) + footer
-src/app/page.tsx            ana sayfa (PDF s.9 sıralaması)
-src/app/fixer-in-turkiye    Fikserlik (eski /fikserlik buraya yönlenir)
-src/app/produksiyon, marka-pr, belgesel, haberler   hizmet ve proje sayfaları
+src/app/(tr)/               Türkçe sayfalar (kök layout <html lang="tr">): /, /fixer-in-turkiye, /produksiyon,
+                            /marka-pr, /belgesel, /haberler, /iletisim, /ara, /kvkk, /haber/…
+src/app/en/                 İngilizce sayfalar (kök layout <html lang="en">): /en, /en/fixer-in-turkiye, /en/production,
+                            /en/brand-pr, /en/documentary, /en/projects, /en/contact, /en/search, /en/privacy
+src/app/global-not-found.tsx iki dilli 404 (adres hiçbir dile ait değilse)
+src/components/SiteChrome.tsx her iki dilin ortak iskeleti: reklam → header → yapışkan nav → içerik → footer
+src/components/pages/       sayfa gövdeleri — iki dil aynı bileşeni kullanır (HomePage, ServicePages, OtherPages, SearchPage, LegalPage)
 src/components/sections/    sayfalarda ortak bölümler (PageHero, ListSection, ImageBand…)
-src/content/pages.ts        hizmet sayfaları içeriği; src/content/images.ts fotoğraflar
-src/app/iletisim            iletişim sayfası
-src/app/api/conditions      ziyaretçi şehri (Vercel geo başlıkları) + hava (Open-Meteo)
-src/app/api/contact         form gönderimi: doğrulama, spam koruması, SMTP (nodemailer) ile e-posta
-src/app/haber               haber portalı, /haber/[slug], /haber/kategori/[slug], /haber/onizleme/[id]
+src/i18n/config.ts          rota eşlemesi TR↔EN, hreflang, dil anahtarı, EN yayın anahtarı (EN_LIVE)
+src/i18n/ui.ts              arayüz metinleri (düğmeler, form, hata mesajları) iki dilde
+src/content/                Türkçe içerik: home.ts, pages.ts, images.ts, site.ts, legal.ts (KVKK + privacy)
+src/content/en/             İngilizce içerik — Türkçe dosyalarla aynı yapı (TypeScript zorunlu kılar)
+src/app/api/conditions      ziyaretçi şehri + hava (Open-Meteo), ?lang=en
+src/app/api/contact         form gönderimi: doğrulama, spam koruması, SMTP (nodemailer); ?lang=en
 src/app/api/revalidate      WordPress yayın bildirimi → önbellek tazeleme
 src/app/api/preview         WordPress önizleme → taslak modu
 src/app/api/newsletter      bülten kaydı → WordPress
 src/app/news-sitemap.xml    Google News site haritası (son 48 saat)
+src/app/sitemap.ts          iki dilli site haritası (hreflang karşılıklarıyla)
+src/lib/search.ts           kurumsal sayfalarda arama; WordPress yazıları: lib/wp/client.ts → searchPosts
 src/lib/wp/                 WPGraphQL istemcisi, örnek veri, HTML temizleme
+src/lib/seo.tsx             JSON-LD (Organization, Service, Breadcrumb), SITE_URL
+src/proxy.ts                elis360news.com → www (308)
 wordpress/                  ELIS360 Headless eklentisi + kurulum kılavuzu
-src/components/home/        ana sayfa bölümleri
-src/components/contact/     ContactSection, ContactForm
-src/content/home.ts         ana sayfa içeriği
-src/lib/seo.tsx             JSON-LD (Organization, Service), Open Graph varsayılanları, SITE_URL
-src/lib/routes.ts           henüz kurulmamış rotalar (önyükleme kapalı)
-src/app/sitemap.ts, robots.ts
-src/components/header/      AdSlot, ServiceBar, Masthead, StickyNav, BreakingBar, Clocks, Conditions
-src/components/ui/          LogoMark, DesktopBackdrop, Button, CategoryTag, NumberedList, SectionMotif, SectionLabel, MediaFrame, ikonlar
-src/content/site.ts         paylaşılan içerik — yer tutucular tek yerde
-TODO-CONTENT.md             yayın öncesi beklenen içerik listesi
+scripts/                    build-cpanel.sh (paket), check-placeholders.mjs, translation-review.mjs
+TESLIM.md                   teslim belgesi — buradan başlayın
+docs/ceviri-onay.md         TR↔EN metinler yan yana (onay için)
 ```
 
-**Yapışkan navigasyon `<header>`'ın içine taşınmamalı** — açıklaması `StickyNav.tsx` ve `layout.tsx` içinde.
+**Yapışkan navigasyon `<header>`'ın içine taşınmamalı** — açıklaması `StickyNav.tsx` ve `SiteChrome.tsx` içinde.
 
 ## Ortam değişkenleri
 

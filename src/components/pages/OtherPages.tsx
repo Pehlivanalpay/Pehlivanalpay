@@ -1,37 +1,36 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ContactSection } from '@/components/contact/ContactSection'
 import { LatestList } from '@/components/news/LatestList'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { ProjectCards } from '@/components/sections/ProjectCards'
 import { Showcase } from '@/components/sections/Showcase'
 import { buttonClass } from '@/components/ui/Button'
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import { projeler as c } from '@/content/pages'
-import { breadcrumbLd, JsonLd, ogDefaults } from '@/lib/seo'
+import { contact as contactEn } from '@/content/en/home'
+import { contact as contactTr } from '@/content/home'
+import { ROUTES, type Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+import { breadcrumbLd, JsonLd, ORG_ID, SITE_URL } from '@/lib/seo'
 import { getPosts } from '@/lib/wp/client'
+import { pageContent } from './content'
 
-export const revalidate = 60
-
-export const metadata: Metadata = {
-  title: c.meta.title,
-  description: c.meta.description,
-  alternates: { canonical: '/haberler' },
-  openGraph: { ...ogDefaults, title: `${c.meta.title} – ELIS360 NEWS`, description: c.meta.description, url: '/haberler' },
-}
-
-/** Haberler — PDF s.7: seçili projeler vitrini + proje kartları + ELIS360 Journal (WordPress). */
-export default async function HaberlerPage() {
-  const journal = await getPosts({ first: 6 })
+/** Haberler / Projects — PDF s.7: vitrin + proje kartları + ELIS360 Journal (WordPress; yazılar Türkçe → yalnızca TR). */
+export async function ProjectsPage({ locale }: { locale: Locale }) {
+  const c = pageContent(locale).projects
+  const t = ui(locale)
+  const tr = locale === 'tr'
+  const journal = tr ? await getPosts({ first: 6 }) : []
+  const pageName = tr ? 'Haberler' : 'Projects'
   return (
     <main className="bg-paper-cream">
-      <JsonLd data={breadcrumbLd([{ name: 'Ana sayfa', path: '/' }, { name: 'Haberler', path: '/haberler' }])} />
+      <JsonLd data={breadcrumbLd([{ name: t.home, path: ROUTES.home[locale] }, { name: pageName, path: ROUTES.projects[locale] }])} />
       <section aria-labelledby="haberler-baslik">
         <div className="shell pb-section-sm pt-[clamp(56px,6vw,96px)]">
-          <nav aria-label="Konum" className="mb-[34px] font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+          <nav aria-label={t.breadcrumb} className="mb-[34px] font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
             <ol className="flex flex-wrap items-center">
               <li>
-                <Link href="/" className="border-b border-ink/30">
-                  Ana sayfa
+                <Link href={ROUTES.home[locale]} className="border-b border-ink/30">
+                  {t.home}
                 </Link>
               </li>
               <li className="flex items-center">
@@ -39,7 +38,7 @@ export default async function HaberlerPage() {
                   /
                 </span>
                 <span aria-current="page" className="text-ink">
-                  Haberler
+                  {pageName}
                 </span>
               </li>
             </ol>
@@ -82,7 +81,27 @@ export default async function HaberlerPage() {
         </section>
       )}
 
-      <CtaBand />
+      <CtaBand locale={locale} />
+    </main>
+  )
+}
+
+/** İletişim / Contact — JS kapalı gönderimden sonra /api/contact buraya durum parametresiyle döner. */
+export function ContactPage({ locale, status }: { locale: Locale; status?: 'ok' | 'hata' }) {
+  const content = locale === 'en' ? contactEn : contactTr
+  return (
+    <main>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ContactPage',
+          url: `${SITE_URL}${ROUTES.contact[locale]}`,
+          name: ui(locale).footer.contact,
+          inLanguage: locale,
+          about: { '@id': ORG_ID },
+        }}
+      />
+      <ContactSection content={content} headingLevel={1} status={status} showIndex={false} locale={locale} />
     </main>
   )
 }

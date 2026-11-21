@@ -5,7 +5,17 @@
  */
 export type WeatherKind = 'clear' | 'partly' | 'cloud' | 'fog' | 'rain' | 'snow' | 'storm'
 
-export function describeWeather(code: number): { kind: WeatherKind; label: string } {
+const EN: Record<string, string> = {
+  Açık: 'Clear', 'Az bulutlu': 'Mostly clear', 'Parçalı bulutlu': 'Partly cloudy', Kapalı: 'Overcast', Sisli: 'Fog',
+  Çisenti: 'Drizzle', Yağmurlu: 'Rain', Karlı: 'Snow', 'Gök gürültülü': 'Thunderstorm', Bulutlu: 'Cloudy',
+}
+
+export function describeWeather(code: number, locale: 'tr' | 'en' = 'tr'): { kind: WeatherKind; label: string } {
+  const r = describeWeatherTr(code)
+  return locale === 'en' ? { ...r, label: EN[r.label] ?? r.label } : r
+}
+
+function describeWeatherTr(code: number): { kind: WeatherKind; label: string } {
   if (code === 0) return { kind: 'clear', label: 'Açık' }
   if (code === 1) return { kind: 'partly', label: 'Az bulutlu' }
   if (code === 2) return { kind: 'partly', label: 'Parçalı bulutlu' }

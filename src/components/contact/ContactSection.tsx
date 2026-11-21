@@ -4,6 +4,8 @@ import { SectionMotif } from '@/components/ui/SectionMotif'
 import { WhatsAppLink } from '@/components/ui/WhatsApp'
 import type { contact as Content } from '@/content/home'
 import { site } from '@/content/site'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
 
 const dt = 'font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted'
 
@@ -16,11 +18,13 @@ export function ContactSection({
   headingLevel = 2,
   status,
   showIndex = true,
+  locale = 'tr',
 }: {
   content: typeof Content
   headingLevel?: 1 | 2
   status?: 'ok' | 'hata'
   showIndex?: boolean
+  locale?: Locale
 }) {
   const H = headingLevel === 1 ? 'h1' : 'h2'
   return (
@@ -36,7 +40,7 @@ export function ContactSection({
             <p className="mb-9 text-body font-light leading-[1.75] text-[#232A33]">{c.text}</p>
             <dl>
               <div className="flex justify-between gap-4 border-t border-rule py-4">
-                <dt className={dt}>E-posta</dt>
+                <dt className={dt}>{ui(locale).email}</dt>
                 <dd className="min-w-0">
                   <a href={`mailto:${site.email}`} className="break-all border-b-2 border-accent pb-0.5 font-mono text-[14px] font-semibold">
                     {site.email}
@@ -47,7 +51,7 @@ export function ContactSection({
                 <div className="flex justify-between gap-4 border-t border-rule py-4">
                   <dt className={dt}>WhatsApp</dt>
                   <dd>
-                    <WhatsAppLink className="border-b-2 border-accent pb-0.5 font-mono text-[14px] font-semibold" />
+                    <WhatsAppLink locale={locale} className="border-b-2 border-accent pb-0.5 font-mono text-[14px] font-semibold" />
                   </dd>
                 </div>
               )}
@@ -59,7 +63,7 @@ export function ContactSection({
               ))}
             </dl>
           </div>
-          <ContactForm initial={status} headingLevel={headingLevel === 1 ? 2 : 3} quickOptions={c.quickOptions} />
+          <ContactForm initial={status} headingLevel={headingLevel === 1 ? 2 : 3} quickOptions={c.quickOptions} locale={locale} />
         </div>
       </div>
     </section>

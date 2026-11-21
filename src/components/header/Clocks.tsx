@@ -46,13 +46,13 @@ function Time({ timeZone, tick }: { timeZone: string; tick: number | null }) {
 }
 
 /** Yerel saat (vurgulu) + diğer şehirler (dar ekranda gizli). */
-export function Clocks({ clocks }: { clocks: readonly Clock[] }) {
+export function Clocks({ clocks, locale = 'tr' }: { clocks: readonly Clock[]; locale?: 'tr' | 'en' }) {
   const tick = useTick()
   const [local, ...others] = clocks
   return (
     <>
       <span className="text-white">
-        <Time timeZone={local.timeZone} tick={tick} /> <span className="text-onDark-glass">{local.label}</span>
+        <Time timeZone={local.timeZone} tick={tick} /> <span className="text-onDark-glass">{locale === 'en' ? 'TRT' : local.label}</span>
       </span>
       <span className="hidden gap-4 text-onDark-glass lg:inline-flex">
         {others.map((c) => (

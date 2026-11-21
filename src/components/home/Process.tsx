@@ -3,7 +3,7 @@ import { SectionLabel } from '@/components/ui/SectionLabel'
 /** Çalışma yöntemi — üç aşama (Prodüksiyon sayfasında). */
 type Content = { index?: string; label: string; title: string; steps: readonly { title: string; text: string }[] }
 
-export function Process({ content: c }: { content: Content }) {
+export function Process({ content: c, stepLabel = 'AŞAMA' }: { content: Content; stepLabel?: string }) {
   return (
     <section aria-labelledby="yontem-baslik">
       <div className="shell py-section">
@@ -15,7 +15,7 @@ export function Process({ content: c }: { content: Content }) {
           {c.steps.map((s, i) => (
             <li key={s.title} className="min-w-0 border-t border-rule pt-6 lg:col-span-4">
               <p className="mb-3.5 font-mono text-[11px] font-semibold tracking-[0.22em] text-ink-muted">
-                AŞAMA {String(i + 1).padStart(2, '0')}
+                {stepLabel} {String(i + 1).padStart(2, '0')}
               </p>
               <h3 className="mb-3 font-display text-[24px] font-semibold tracking-[-0.01em]">{s.title}</h3>
               <p className="text-[15px] font-light leading-[1.72] text-[#232A33]">{s.text}</p>

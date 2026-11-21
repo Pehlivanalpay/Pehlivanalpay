@@ -36,14 +36,22 @@ export function normalize(raw: Record<string, unknown>): ContactInput {
   return out
 }
 
-export function validate(input: ContactInput): ContactErrors {
+const LABELS_EN: Record<ContactField, string> = {
+  need: 'Request type', name: 'Full name', org: 'Organisation', email: 'Email', country: 'Country',
+  city: 'Filming location', dates: 'Dates', team: 'Crew needed', message: 'Project summary',
+}
+
+/** Alan doğrulaması. Mesajlar formun diline göre (istemci ve sunucu aynı metni üretir). */
+export function validate(input: ContactInput, locale: 'tr' | 'en' = 'tr'): ContactErrors {
+  const en = locale === 'en'
   const e: ContactErrors = {}
   for (const [k, f] of Object.entries(contactFields) as [ContactField, (typeof contactFields)[ContactField]][]) {
     const v = input[k]
-    if (f.required && !v) e[k] = `${f.label} alanı zorunludur.`
-    else if (v.length > f.max) e[k] = `${f.label} en fazla ${f.max} karakter olabilir.`
+    const label = en ? LABELS_EN[k] : f.label
+    if (f.required && !v) e[k] = en ? `${label} is required.` : `${label} alanı zorunludur.`
+    else if (v.length > f.max) e[k] = en ? `${label} can be at most ${f.max} characters.` : `${label} en fazla ${f.max} karakter olabilir.`
   }
-  if (!e.email && input.email && !EMAIL_RE.test(input.email)) e.email = 'Geçerli bir e-posta adresi yazın.'
-  if (!e.message && input.message && input.message.length < 10) e.message = 'Projenizi birkaç cümleyle anlatın.'
+  if (!e.email && input.email && !EMAIL_RE.test(input.email)) e.email = en ? 'Please enter a valid email address.' : 'Geçerli bir e-posta adresi yazın.'
+  if (!e.message && input.message && input.message.length < 10) e.message = en ? 'Please describe your project in a few sentences.' : 'Projenizi birkaç cümleyle anlatın.'
   return e
 }

@@ -36,17 +36,17 @@ function Skel({ w }: { w: string }) {
  * Şehir + hava durumu. Veri gelene kadar sabit genişlikli iskelet gösterir.
  * Kaynak: /api/conditions (Vercel konum başlıkları + Open-Meteo).
  */
-export function Conditions() {
+export function Conditions({ locale = 'tr' }: { locale?: 'tr' | 'en' }) {
   const [data, setData] = useState<Data | null>(null)
 
   useEffect(() => {
     const ctrl = new AbortController()
-    fetch('/api/conditions', { signal: ctrl.signal })
+    fetch(`/api/conditions?lang=${locale}`, { signal: ctrl.signal })
       .then((r) => (r.ok ? (r.json() as Promise<Data>) : null))
       .then((d) => d && setData(d))
       .catch(() => {})
     return () => ctrl.abort()
-  }, [])
+  }, [locale])
 
   const Icon = data?.kind ? icons[data.kind] : WxPartly
   const hasWeather = data?.temperature != null
@@ -58,8 +58,8 @@ export function Conditions() {
     <>
       <span className="inline-flex min-w-[5.5em] items-center gap-[7px] uppercase text-white" aria-busy={!data}>
         <PinIcon />
-        {data ? data.city.toLocaleUpperCase('tr-TR') : <Skel w="3.7em" />}
-        {!data && <span className="sr-only">Konum yükleniyor</span>}
+        {data ? data.city.toLocaleUpperCase(locale === 'en' ? 'en-GB' : 'tr-TR') : <Skel w="3.7em" />}
+        {!data && <span className="sr-only">{locale === 'en' ? 'Loading location' : 'Konum yükleniyor'}</span>}
       </span>
       <span className="inline-flex min-w-[16.8em] items-center gap-[7px]" aria-busy={!data}>
         {/* Hava verisi alınamazsa alan boş kalır ama yeri korunur. */}

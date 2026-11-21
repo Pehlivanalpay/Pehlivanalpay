@@ -34,6 +34,7 @@ function readGeo(h: Headers): { city: string; lat: number; lon: number } | null 
 }
 
 export async function GET(req: NextRequest) {
+  const locale = req.nextUrl.searchParams.get('lang') === 'en' ? 'en' : 'tr'
   const geo = readGeo(req.headers)
   const fb = site.fallbackLocation
   const city = geo?.city ?? fb.city
@@ -54,7 +55,7 @@ export async function GET(req: NextRequest) {
       const t = data.current?.temperature_2m
       const code = data.current?.weather_code
       if (typeof t === 'number') body.temperature = Math.round(t)
-      if (typeof code === 'number') Object.assign(body, describeWeather(code))
+      if (typeof code === 'number') Object.assign(body, describeWeather(code, locale))
     }
   } catch {
     // Hava servisine ulaşılamazsa yalnızca şehir döner; arayüz hava kısmını gizler.

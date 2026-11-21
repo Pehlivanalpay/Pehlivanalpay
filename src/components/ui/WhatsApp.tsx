@@ -1,10 +1,12 @@
 import { site } from '@/content/site'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
 
 /**
  * WhatsApp (PDF not 03): mobilde sabit yüzen düğme; masaüstünde iletişim alanının yanında metin bağlantısı.
  * `site.whatsapp` boşken hiçbiri gösterilmez.
  */
-export const whatsappHref = () => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent('Merhaba, bir proje hakkında bilgi almak istiyorum.')}`
+export const whatsappHref = (locale: Locale = 'tr') => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(ui(locale).whatsapp.message)}`
 
 export const WhatsAppIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" {...p}>
@@ -12,25 +14,26 @@ export const WhatsAppIcon = (p: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export function WhatsAppLink({ className }: { className?: string }) {
+export function WhatsAppLink({ className, locale = 'tr' }: { className?: string; locale?: Locale }) {
   if (!site.whatsapp) return null
   return (
-    <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={whatsappHref(locale)} target="_blank" rel="noopener noreferrer" className={className}>
       {site.whatsappDisplay}
     </a>
   )
 }
 
 /** Mobilde sağ altta sabit düğme (960px ve üstünde gizli). */
-export function WhatsAppFloat() {
+export function WhatsAppFloat({ locale = 'tr' }: { locale?: Locale }) {
   if (!site.whatsapp) return null
+  const t = ui(locale).whatsapp
   return (
-    <aside aria-label="Hızlı iletişim" className="lg:hidden">
+    <aside aria-label={t.region} className="lg:hidden">
       <a
-        href={whatsappHref()}
+        href={whatsappHref(locale)}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="WhatsApp ile yazın"
+        aria-label={t.aria}
         className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#1F7A4D] text-white shadow-[0_6px_20px_rgba(7,17,31,.35)]"
       >
         <WhatsAppIcon />

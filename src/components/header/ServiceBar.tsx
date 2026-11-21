@@ -1,7 +1,8 @@
 import { Clocks } from './Clocks'
 import { Conditions } from './Conditions'
 import { InstagramIcon, LinkedInIcon, YouTubeIcon } from '@/components/ui/icons'
-import type { SocialLink } from '@/content/site'
+import { PLACEHOLDER_HREF, type SocialLink } from '@/content/site'
+import type { Locale } from '@/i18n/config'
 
 const socialIcons = { LinkedIn: LinkedInIcon, Instagram: InstagramIcon, YouTube: YouTubeIcon }
 
@@ -9,21 +10,25 @@ type ServiceBarProps = {
   clocks: readonly { label: string; timeZone: string }[]
   social: readonly SocialLink[]
   email: string
+  locale: Locale
 }
 
 /** Header 2. katman (42px): konum, hava, 4 saat, sosyal, e-posta. Kayar. */
-export function ServiceBar({ clocks, social, email }: ServiceBarProps) {
+export function ServiceBar({ clocks, social, email, locale }: ServiceBarProps) {
+  // Adresi girilmemiş (#) hesaplar canlıda gösterilmez.
+  const links = social.filter((s) => s.href && s.href !== PLACEHOLDER_HREF)
   return (
     <div className="border-b border-white/10 text-onDark-glass">
       <div className="shell flex min-h-[42px] flex-wrap items-center justify-between gap-x-7 gap-y-1 font-mono text-[11px] tracking-[0.14em]">
         <div className="flex flex-wrap items-center gap-x-[22px] gap-y-1.5">
-          <Conditions />
+          <Conditions locale={locale} />
           <span aria-hidden="true" className="hidden h-3.5 w-px bg-white/20 lg:inline-block" />
-          <Clocks clocks={clocks} />
+          <Clocks clocks={clocks} locale={locale} />
         </div>
         <div className="flex flex-wrap items-center gap-x-[18px] gap-y-1.5">
+          {links.length > 0 && (
           <ul className="flex items-center">
-            {social.map(({ name, href }) => {
+            {links.map(({ name, href }) => {
               const Icon = socialIcons[name]
               return (
                 <li key={name}>
@@ -40,6 +45,7 @@ export function ServiceBar({ clocks, social, email }: ServiceBarProps) {
               )
             })}
           </ul>
+          )}
           <a href={`mailto:${email}`} className="hidden text-white lg:inline">
             {email}
           </a>

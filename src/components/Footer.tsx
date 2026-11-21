@@ -1,12 +1,17 @@
 import Link from 'next/link'
 import { LogoMark } from '@/components/ui/LogoMark'
 import { WhatsAppLink } from '@/components/ui/WhatsApp'
-import { footer, site } from '@/content/site'
+import { footerEn } from '@/content/en/site'
+import { footer as footerTr, site } from '@/content/site'
+import { EN_LIVE, route, type Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
 import { prefetchFor } from '@/lib/routes'
 
 const colTitle = 'mb-[18px] font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-onDark-glass'
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const t = ui(locale).footer
+  const footer = locale === 'en' ? { ...footerTr, ...footerEn } : footerTr
   return (
     <footer className="surface-dark bg-ink text-onDark">
       <div className="shell pt-14">
@@ -23,32 +28,37 @@ export function Footer() {
           </div>
 
           {footer.columns.map((col) => (
-            <nav key={col.title} aria-label={col.label} className={`min-w-0 ${col.span}`}>
-              <p className={colTitle}>{col.title}</p>
+            <nav key={col.key} aria-label={col.key === 'services' ? t.servicesAria : t.companyAria} className={`min-w-0 ${col.span}`}>
+              <p className={colTitle}>{col.key === 'services' ? t.services : t.company}</p>
               <ul className="flex flex-col gap-[3px] text-[15px] font-light">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link href={l.href} prefetch={prefetchFor(l.href)} className="inline-block py-1">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
+                {(
+                  col.links as readonly {
+                    label: string
+                    href: string
+                    lang?: string
+                  }[]
+                )
+                  .filter((l) => EN_LIVE || l.lang !== 'en')
+                  .map((l) => (
+                    <li key={l.label}>
+                      <Link href={l.href} prefetch={prefetchFor(l.href)} lang={l.lang} hrefLang={l.lang} className="inline-block py-1">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </nav>
           ))}
 
           <div className="min-w-0 lg:col-span-2">
-            <p className={colTitle}>İletişim</p>
-            <a
-              href={`mailto:${site.email}`}
-              className="break-all border-b border-accent-light pb-0.5 font-mono text-[13px] leading-[1.6] text-white"
-            >
+            <p className={colTitle}>{t.contact}</p>
+            <a href={`mailto:${site.email}`} className="break-all border-b border-accent-light pb-0.5 font-mono text-[13px] leading-[1.6] text-white">
               {site.email}
             </a>
             {site.whatsapp && (
               <p className="mt-4 font-mono text-[13px] text-white">
                 <span className="mb-1 block text-[11px] uppercase tracking-[0.2em] text-onDark-glass">WhatsApp</span>
-                <WhatsAppLink className="border-b border-accent-light pb-0.5" />
+                <WhatsAppLink locale={locale} className="border-b border-accent-light pb-0.5" />
               </p>
             )}
           </div>
@@ -56,7 +66,13 @@ export function Footer() {
 
         {/* max-lg:pb-24: mobilde sabit WhatsApp düğmesi son satırı örtmesin */}
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2.5 border-t border-rule-dark py-5 max-lg:pb-24 font-mono text-[11px] uppercase tracking-[0.16em] text-onDark-glass">
-          <span>{footer.bottom.copyright}</span>
+          <span>
+            {footer.bottom.copyright}
+            <span aria-hidden="true"> · </span>
+            <Link href={route('privacy', locale)} className="underline-offset-4 hover:underline">
+              {t.privacy}
+            </Link>
+          </span>
           {/* lang="en": Türkçe büyük harf dönüşümü i → İ yapar ("FİXİNG"); İngilizce metinde I olmalı */}
           <span lang="en" className="flex flex-wrap gap-x-[26px] gap-y-2">
             {footer.bottom.lines.map((l) => (

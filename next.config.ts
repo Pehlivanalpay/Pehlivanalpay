@@ -2,9 +2,29 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
+  // İki kök layout (TR / EN) olduğu için eşleşmeyen adreslere ortak 404: src/app/global-not-found.tsx
+  experimental: { globalNotFound: true },
   // cPanel (Passenger) için kendi kendine yeten paket: .next/standalone/server.js
   // Paketleme: npm run build:cpanel → elis360-site.zip (docs/deploy-cpanel.md)
   output: 'standalone',
+  // Güvenlik başlıkları — tüm yanıtlar.
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
+          // Betik kısıtlaması yok (Next satır içi betikleri); yalnızca çerçeveleme, form hedefi, eklenti ve base.
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'; form-action 'self'; object-src 'none'; base-uri 'self'" },
+        ],
+      },
+    ]
+  },
   // Eski adresler → yeni sayfa yapısı (2026-11). Kalıcı: arama motorları yeni adresi öğrenir.
   async redirects() {
     return [{ source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true }]

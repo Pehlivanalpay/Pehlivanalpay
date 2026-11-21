@@ -16,6 +16,8 @@ jobs:
       # WordPress hazır olunca: Settings → Secrets and variables → Actions → Variables → WP_URL
       # (boşken sayfalar haber olmadan derlenir; sunucuda ilk 60 sn içinde WordPress'ten tazelenir)
       WP_URL: ${{ vars.WP_URL }}
+      # İngilizce sürüm onaylanınca: aynı yerde Variables → NEXT_PUBLIC_EN_LIVE = 1 (boşken /en noindex ve menüde yok)
+      NEXT_PUBLIC_EN_LIVE: ${{ vars.NEXT_PUBLIC_EN_LIVE }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

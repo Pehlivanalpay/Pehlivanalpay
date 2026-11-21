@@ -31,27 +31,48 @@ const rateLimited = createRateLimit({ windowMs: 10 * 60 * 1000, max: 5 })
 
 type Result = { ok: true } | { ok: false; error: string; fields?: Record<string, string> }
 
+const MSG = {
+  tr: {
+    foreign: 'Geçersiz istek.', tooLong: 'Mesaj çok uzun.', unreadable: 'Form okunamadı.',
+    tooFast: 'Form çok hızlı gönderildi. Birkaç saniye sonra tekrar deneyin.', rate: 'Çok fazla deneme. Birkaç dakika sonra tekrar deneyin.',
+    fix: 'Lütfen işaretli alanları düzeltin.', links: 'Mesaj çok fazla bağlantı içeriyor.',
+    failed: (email: string) => `Mesaj şu an gönderilemedi. Lütfen doğrudan ${email} adresine yazın.`,
+  },
+  en: {
+    foreign: 'Invalid request.', tooLong: 'Message is too long.', unreadable: 'The form could not be read.',
+    tooFast: 'The form was sent too quickly. Please try again in a few seconds.', rate: 'Too many attempts. Please try again in a few minutes.',
+    fix: 'Please correct the highlighted fields.', links: 'The message contains too many links.',
+    failed: (email: string) => `We couldn’t send your message right now. Please email us directly at ${email}.`,
+  },
+}
+
 export async function POST(req: NextRequest) {
   const isForm = !(req.headers.get('content-type') ?? '').includes('application/json')
+  // Dil: form ve fetch ?lang=en ile gönderir (İngilizce sayfalar).
+  const locale = req.nextUrl.searchParams.get('lang') === 'en' ? 'en' : 'tr'
+  const m = MSG[locale]
   const reply = (r: Result, status: number) =>
     isForm
-      ? NextResponse.redirect(new URL(`/iletisim?durum=${r.ok ? 'ok' : 'hata'}#iletisim`, req.url), 303)
+      ? NextResponse.redirect(
+          new URL(locale === 'en' ? `/en/contact?status=${r.ok ? 'ok' : 'error'}#iletisim` : `/iletisim?durum=${r.ok ? 'ok' : 'hata'}#iletisim`, req.url),
+          303,
+        )
       : NextResponse.json(r, { status })
 
   // 1. Köken
-  if (foreignOrigin(req.headers, req.nextUrl.host)) return reply({ ok: false, error: 'Geçersiz istek.' }, 403)
+  if (foreignOrigin(req.headers, req.nextUrl.host)) return reply({ ok: false, error: m.foreign }, 403)
 
   // Gövde
   if (Number(req.headers.get('content-length') ?? 0) > MAX_BODY_BYTES) {
-    return reply({ ok: false, error: 'Mesaj çok uzun.' }, 413)
+    return reply({ ok: false, error: m.tooLong }, 413)
   }
   let raw: Record<string, unknown>
   try {
     raw = isForm ? Object.fromEntries(await req.formData()) : await req.json()
   } catch {
-    return reply({ ok: false, error: 'Form okunamadı.' }, 400)
+    return reply({ ok: false, error: m.unreadable }, 400)
   }
-  if (!raw || typeof raw !== 'object') return reply({ ok: false, error: 'Form okunamadı.' }, 400)
+  if (!raw || typeof raw !== 'object') return reply({ ok: false, error: m.unreadable }, 400)
 
   // 2. Bal küpü — bota başarı gibi görünsün ki yeniden denemesin
   if (typeof raw[HONEYPOT] === 'string' && raw[HONEYPOT]) return reply({ ok: true }, 200)
@@ -60,37 +81,37 @@ export async function POST(req: NextRequest) {
   if (raw[TIMESTAMP]) {
     const ts = Number(raw[TIMESTAMP])
     if (!Number.isFinite(ts) || Date.now() - ts < MIN_FILL_MS) {
-      return reply({ ok: false, error: 'Form çok hızlı gönderildi. Birkaç saniye sonra tekrar deneyin.' }, 400)
+      return reply({ ok: false, error: m.tooFast }, 400)
     }
   }
 
   // 4. Hız sınırı
   if (rateLimited(clientIp(req.headers))) {
-    return reply({ ok: false, error: 'Çok fazla deneme. Birkaç dakika sonra tekrar deneyin.' }, 429)
+    return reply({ ok: false, error: m.rate }, 429)
   }
 
   // Doğrulama
   const input = normalize(raw)
-  const errors = validate(input)
+  const errors = validate(input, locale)
   if (Object.keys(errors).length) {
-    return reply({ ok: false, error: 'Lütfen işaretli alanları düzeltin.', fields: errors }, 422)
+    return reply({ ok: false, error: m.fix, fields: errors }, 422)
   }
 
   // 5. İçerik sezgisi
   if ((input.message.match(/https?:\/\//gi) ?? []).length > 3) {
-    return reply({ ok: false, error: 'Mesaj çok fazla bağlantı içeriyor.' }, 422)
+    return reply({ ok: false, error: m.links }, 422)
   }
 
   try {
-    await sendMail(input)
+    await sendMail(input, locale)
   } catch (err) {
     console.error('[contact] e-posta gönderilemedi', err)
-    return reply({ ok: false, error: `Mesaj şu an gönderilemedi. Lütfen doğrudan ${site.email} adresine yazın.` }, 502)
+    return reply({ ok: false, error: m.failed(site.email) }, 502)
   }
   return reply({ ok: true }, 200)
 }
 
-async function sendMail(input: ContactInput) {
+async function sendMail(input: ContactInput, locale: 'tr' | 'en' = 'tr') {
   const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env
   const text = [
     `Destek türü: ${input.need || '—'}`,
@@ -128,7 +149,7 @@ async function sendMail(input: ContactInput) {
     to: process.env.CONTACT_TO ?? site.email,
     // Yanıtla → doğrudan formu dolduran kişiye. Adres doğrulamadan geçti (validate).
     replyTo: { name: input.name, address: input.email },
-    subject: `${input.need ? `[${input.need}] ` : ''}Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
+    subject: `${locale === 'en' ? '[EN] ' : ''}${input.need ? `[${input.need}] ` : ''}Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
     text, // yalnızca düz metin — kullanıcı girdisi HTML olarak yorumlanmaz
   })
 }

@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import type { serviceAreas as Content } from '@/content/home'
+import type { Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
+
 
 /** 03 — Hizmet alanları: her biri kendi sayfasına giden beş kart. Marka & PR kartı koyu (PDF). */
-export function ServiceAreas({ content: c }: { content: typeof Content }) {
+export function ServiceAreas({ content: c, locale = 'tr' }: { content: typeof Content; locale?: Locale }) {
   return (
     <section aria-labelledby="hizmet-alanlari-baslik" className="border-t border-rule">
       <div className="shell py-section">
@@ -34,7 +37,7 @@ export function ServiceAreas({ content: c }: { content: typeof Content }) {
                     <span className={`block text-small ${dark ? 'text-onDark-muted' : 'text-ink-mono'}`}>{s.text}</span>
                   </span>
                   <span className={`font-mono text-[12px] font-semibold uppercase tracking-[0.16em] ${dark ? 'text-onDark-glass' : 'text-ink-muted'}`}>
-                    Sayfaya git →
+                    {ui(locale).goToPage}
                   </span>
                 </Link>
               </li>

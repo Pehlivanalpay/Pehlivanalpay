@@ -1,7 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState, type FormEvent } from 'react'
+import Link from 'next/link'
 import { buttonClass } from '@/components/ui/Button'
+import { route, type Locale } from '@/i18n/config'
+import { ui } from '@/i18n/ui'
 import {
   contactFields,
   HONEYPOT,
@@ -27,11 +30,14 @@ export function ContactForm({
   initial,
   headingLevel = 3,
   quickOptions = [],
+  locale = 'tr',
 }: {
   initial?: 'ok' | 'hata'
   headingLevel?: 2 | 3
   quickOptions?: readonly string[]
+  locale?: Locale
 }) {
+  const t = ui(locale).form
   const FormHeading = headingLevel === 2 ? 'h2' : 'h3'
   const tsRef = useRef<HTMLInputElement>(null)
   const statusRef = useRef<HTMLParagraphElement>(null)
@@ -40,7 +46,7 @@ export function ContactForm({
     initial === 'ok'
       ? { kind: 'ok' }
       : initial === 'hata'
-        ? { kind: 'error', message: 'Mesaj gönderilemedi. Lütfen alanları kontrol edip tekrar deneyin.' }
+        ? { kind: 'error', message: ui(locale).form.failed }
         : { kind: 'idle' },
   )
 
@@ -53,7 +59,7 @@ export function ContactForm({
     e.preventDefault()
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form))
-    const errs = validate(normalize(data))
+    const errs = validate(normalize(data), locale)
     setErrors(errs)
     const first = Object.keys(errs)[0] as ContactField | undefined
     if (first) {
@@ -63,7 +69,7 @@ export function ContactForm({
 
     setStatus({ kind: 'sending' })
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(`/api/contact?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -78,10 +84,10 @@ export function ContactForm({
         setStatus({ kind: 'ok' })
       } else {
         if (body && !body.ok && body.fields) setErrors(body.fields)
-        setStatus({ kind: 'error', message: body && !body.ok ? body.error : 'Mesaj gönderilemedi. Lütfen tekrar deneyin.' })
+        setStatus({ kind: 'error', message: body && !body.ok ? body.error : t.retry })
       }
     } catch {
-      setStatus({ kind: 'error', message: 'Bağlantı kurulamadı. Lütfen tekrar deneyin.' })
+      setStatus({ kind: 'error', message: t.network })
     }
     statusRef.current?.focus()
   }
@@ -98,7 +104,7 @@ export function ContactForm({
   const input = (k: Exclude<ContactField, 'message' | 'need'>, type: string, autoComplete: string, placeholder?: string, wide = false) => (
     <div className={`flex min-w-0 flex-col gap-[9px] ${wide ? '' : 'flex-[1_1_220px]'}`}>
       <label htmlFor={`f-${k}`} className={label}>
-        {contactFields[k].label}
+        {t.labels[k]}
         {contactFields[k].required && <span aria-hidden="true"> *</span>}
       </label>
       <input
@@ -119,7 +125,7 @@ export function ContactForm({
 
   return (
     <form
-      action="/api/contact"
+      action={`/api/contact?lang=${locale}`}
       method="post"
       noValidate
       onSubmit={onSubmit}
@@ -128,14 +134,14 @@ export function ContactForm({
     >
       <div>
         <FormHeading id="form-baslik" className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-ink-muted">
-          Proje bilgi formu
+          {t.heading}
         </FormHeading>
-        <p className="mt-2 text-[13px] text-ink-muted">* işaretli alanlar zorunludur.</p>
+        <p className="mt-2 text-[13px] text-ink-muted">{t.required}</p>
       </div>
 
       {quickOptions.length > 0 && (
         <fieldset className="min-w-0">
-          <legend className={`${label} mb-3`}>Hızlı destek seçenekleri</legend>
+          <legend className={`${label} mb-3`}>{t.quick}</legend>
           <div className="flex flex-wrap gap-2.5">
             {quickOptions.map((o) => (
               <label
@@ -159,13 +165,13 @@ export function ContactForm({
         {input('country', 'text', 'country-name')}
       </div>
       <div className="flex flex-wrap gap-[22px]">
-        {input('city', 'text', 'off', 'ör. İstanbul, Hatay')}
-        {input('dates', 'text', 'off', 'ör. 12–15 Aralık')}
+        {input('city', 'text', 'off', t.placeholders.city)}
+        {input('dates', 'text', 'off', t.placeholders.dates)}
       </div>
-      {input('team', 'text', 'off', 'ör. kameraman + ses, fixer, drone', true)}
+      {input('team', 'text', 'off', t.placeholders.team, true)}
       <div className="flex flex-col gap-[9px]">
         <label htmlFor="f-message" className={label}>
-          {contactFields.message.label}
+          {t.labels.message}
           <span aria-hidden="true"> *</span>
         </label>
         <textarea
@@ -183,10 +189,19 @@ export function ContactForm({
 
       {/* Spam koruması: bal küpü (görünmez) + açılış zamanı */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="f-website">Web siteniz (boş bırakın)</label>
+        <label htmlFor="f-website">{t.honeypot}</label>
         <input id="f-website" name={HONEYPOT} type="text" tabIndex={-1} autoComplete="off" />
       </div>
       <input ref={tsRef} type="hidden" name={TIMESTAMP} defaultValue="" />
+
+      <p className="text-[13px] leading-[1.6] text-ink-muted">
+        {t.privacy[0]}{' '}
+        <Link href={route('privacy', locale)} className="border-b border-ink/40 text-ink">
+          {t.privacy[1]}
+        </Link>
+        {locale === 'en' ? '' : ' '}
+        {t.privacy[2]}
+      </p>
 
       <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
         <button
@@ -194,7 +209,7 @@ export function ContactForm({
           disabled={status.kind === 'sending'}
           className={buttonClass('primary', 'lg', 'cursor-pointer border-0 px-9 disabled:cursor-wait disabled:opacity-70')}
         >
-          {status.kind === 'sending' ? 'Gönderiliyor…' : 'Formu gönder'}
+          {status.kind === 'sending' ? t.sending : t.submit}
         </button>
         <p
           ref={statusRef}
@@ -202,7 +217,7 @@ export function ContactForm({
           role="status"
           className={`text-[14px] outline-none ${status.kind === 'error' ? 'text-accent' : 'text-ink-body'}`}
         >
-          {status.kind === 'ok' && 'Teşekkürler — mesajınız bize ulaştı. En kısa sürede dönüş yapacağız.'}
+          {status.kind === 'ok' && t.ok}
           {status.kind === 'error' && status.message}
         </p>
       </div>
