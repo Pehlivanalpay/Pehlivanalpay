@@ -3,6 +3,7 @@ import { BulletColumns } from '@/components/sections/BulletColumns'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { ImageBand } from '@/components/sections/ImageBand'
 import { ListSection } from '@/components/sections/ListSection'
+import { MediaSplit } from '@/components/sections/MediaSplit'
 import { PageHero } from '@/components/sections/PageHero'
 import { fikserlik as c } from '@/content/pages'
 import { breadcrumbLd, JsonLd, ogDefaults, serviceLd } from '@/lib/seo'
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default function FixerPage() {
   return (
     <main>
-      <JsonLd data={serviceLd({ path: '/fixer-in-turkiye', name: 'Fixer in Türkiye', serviceType: 'Fixing', description: c.meta.description, items: [...c.columns.flatMap((x) => x.items), ...c.detail.items] })} />
+      <JsonLd data={serviceLd({ path: '/fixer-in-turkiye', name: 'Fixer in Türkiye', serviceType: 'Fixing', description: c.meta.description, items: [...c.columns.flatMap((x) => x.items), ...c.logistics.points, ...c.detail.items] })} />
       <JsonLd data={breadcrumbLd([{ name: 'Ana sayfa', path: '/' }, { name: 'Fikserlik', path: '/fixer-in-turkiye' }])} />
       <PageHero
         label={c.hero.label}
@@ -34,6 +35,7 @@ export default function FixerPage() {
         breadcrumb={c.hero.breadcrumb}
       />
       <BulletColumns columns={c.columns} />
+      <MediaSplit id="lojistik" label={c.logistics.label} title={c.logistics.title} text={c.logistics.text} points={c.logistics.points} image={c.logistics.image} />
       <ImageBand label={c.band.label} title={c.band.title} text={c.band.text} image={c.band.image} />
       <ListSection id="hizmet-listesi" label={c.detail.label} title={c.detail.title} text={c.detail.text} items={c.detail.items} motif />
       <CtaBand />

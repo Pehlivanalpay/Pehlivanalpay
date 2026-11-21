@@ -1,15 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Archivo, IBM_Plex_Mono, Inter } from 'next/font/google'
 import { AdSlot } from '@/components/header/AdSlot'
-import { BreakingBar } from '@/components/header/BreakingBar'
 import { Masthead } from '@/components/header/Masthead'
 import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/ui/WhatsApp'
 import { mainNav, site } from '@/content/site'
-import { newsTime } from '@/lib/format'
-import { getPosts } from '@/lib/wp/client'
 import { JsonLd, ogDefaults, organizationLd, SITE_URL } from '@/lib/seo'
 import './globals.css'
 
@@ -48,10 +45,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#07111F' }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Son dakika: WordPress'te "Son dakika" işaretli en yeni 2 yazı. Yoksa şerit hiç çizilmez.
-  const breaking = (await getPosts({ first: 2, breaking: true })).map((p) => ({ time: newsTime(p.date), title: p.title, href: `/haber/${p.slug}` }))
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" className={`${archivo.variable} ${plexMono.variable} ${inter.variable}`}>
       <body>
@@ -85,8 +79,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           ]}
         />
 
-        {/* 5 — Son dakika (kayar). Boş dizi verilirse render edilmez. */}
-        <BreakingBar items={breaking} />
+        {/* Son dakika şeridi 2026-11'de kaldırıldı (müşteri kararı). Bileşen: git geçmişinde
+            src/components/header/BreakingBar.tsx — geri gelirse buraya eklenir. */}
 
         <div id="icerik" tabIndex={-1} className="outline-none">
           {children}

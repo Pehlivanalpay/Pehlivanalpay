@@ -15,17 +15,13 @@ export const hero = {
   image: images.studyo,
   /** Süs: kayıt göstergesi, zaman kodu, koordinat. null → gizle. */
   telemetry: { timecode: '00:14:22:06', coords: '41.0082°N 28.9784°E' } as { timecode: string; coords: string } | null,
-  panel: {
-    title: 'Güven göstergeleri',
-    meta: 'TR · EN',
-    stats: [
-      { label: 'Medya deneyimi', value: '30', unit: 'yıl' },
-      { label: 'Hizmet ağı', value: 'Türkiye', unit: 'geneli' },
-      { label: 'Çalışma dili', value: 'TR · EN', unit: '' },
-      { label: 'Hizmet alanı', value: '05', unit: 'başlık' },
-    ],
-    note: 'Araştırma, izin, ekip, ulaşım, çekim ve iletişim planı tek merkezden yürütülür.',
-  },
+  /** Hero altındaki gösterge şeridi (PDF s.1). */
+  stats: [
+    { value: '30', unit: 'yıl', label: 'Medya deneyimi' },
+    { value: 'Türkiye', unit: 'geneli', label: 'Hizmet ağı' },
+    { value: 'TR · EN', unit: '', label: 'Çalışma dili' },
+    { value: '05', unit: '', label: 'Hizmet alanı' },
+  ],
 }
 
 export const twoArms = {

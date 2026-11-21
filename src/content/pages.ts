@@ -36,6 +36,13 @@ export const fikserlik = {
       items: ['Kameraman ve görüntü yönetmeni', 'Kamera, ışık ve ses ekipmanı', 'Drone ve çok kameralı çekim', 'Canlı yayın ve teknik bağlantı', 'Kurgu, seslendirme ve post prodüksiyon'],
     },
   ],
+  logistics: {
+    label: 'Ulaşım ve lojistik',
+    title: 'Havalimanından sahaya, ekip ve ekipmanla birlikte.',
+    text: 'Ekibinizi karşılıyor, ekipmanınızı güvenle taşıyor; ulaşım, konaklama ve saha lojistiğini çekim planına göre kuruyoruz.',
+    points: ['Havalimanı karşılama ve transfer', 'Ekip ve ekipman taşıma', 'Konaklama ve saha lojistiğinin planlanması', 'Güvenli ulaşım ve alternatif güzergâh'],
+    image: images.havalimaniLojistik,
+  },
   band: {
     label: 'Çekim ekibi',
     title: 'Kamera, ışık, ses ve yönetmen monitörü — tek ekip.',

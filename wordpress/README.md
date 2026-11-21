@@ -91,7 +91,7 @@ Değişkenleri girdikten sonra **yeniden dağıtın** (Deployments → Redeploy)
 
 Yazı ekranının sağında **"ELIS360 — haber ayarları"** kutusu:
 
-- **Son dakika** — header'daki kırmızı şeritte görünür (en yeni 2 tanesi)
+- **Son dakika** — şu an sitede kullanılmıyor (şerit 2026-11'de kaldırıldı); işaretlemek zararsız
 - **Özel haber** — manşette kırmızı "Özel haber" rozeti; en yeni özel haber manşete çıkar
 - **Sponsorlu içerik** — sitede HER ZAMAN "Sponsorlu içerik" etiketiyle çıkar, haber listelerine
   karışmaz, arama motorlarında haber olarak sıralanmaz. Bu etiket kaldırılamaz (editoryal yükümlülük).

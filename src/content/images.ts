@@ -52,4 +52,10 @@ export const images = {
     width: 1600,
     height: 901,
   },
+  havalimaniLojistik: {
+    src: '/images/havalimani-lojistik.jpg',
+    alt: 'Havalimanı çıkışında yabancı çekim ekibini karşılayan saha ekibi; kamera kasaları ve tripodlar minibüse yükleniyor',
+    width: 1600,
+    height: 900,
+  },
 } as const

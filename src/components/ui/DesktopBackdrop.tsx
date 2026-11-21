@@ -18,12 +18,15 @@ export function DesktopBackdrop({
   width,
   height,
   priority = false,
+  alt = '',
   className = '',
 }: {
   src: string
   width: number
   height: number
   priority?: boolean
+  /** Dekoratif zemin için boş; içerik görseli olarak kullanılıyorsa açıklama. */
+  alt?: string
   className?: string
 }) {
   const {
@@ -39,7 +42,7 @@ export function DesktopBackdrop({
       <source media={DESKTOP} srcSet={srcSet} sizes="100vw" />
       <img
         src={BLANK}
-        alt=""
+        alt={alt}
         decoding="async"
         fetchPriority={priority ? 'high' : undefined}
         className={`absolute inset-0 hidden h-full w-full lg:block ${className}`}

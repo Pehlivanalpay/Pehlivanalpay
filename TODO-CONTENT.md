@@ -10,7 +10,7 @@ Durum: ☐ bekliyor · ☑ tamam
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
 | ☐ | Sosyal hesap adresleri: LinkedIn, Instagram, YouTube | `src/content/site.ts` → `site.social` | Şu an `#`. Tam URL girilince yeni sekmede açılır. |
-| ☑ | Son dakika manşetleri | WordPress → yazıda "Son dakika" kutusu | WordPress'e bağlandı. İşaretli yazı yoksa şerit görünmez. |
+| ☑ | Son dakika şeridi | — | 2026-11: müşteri kararıyla kaldırıldı. WordPress'teki "Son dakika" kutusu şimdilik sitede bir şey göstermez. |
 | ☐ | Reklam / sponsor içeriği (970×90) | `src/app/layout.tsx` → `<AdSlot>` | `children` verilmezse kesik çizgili yer tutucu çizilir. Önce kendi sponsor bileşeni, sonra Google Ad Manager. Satılmamışsa `<AdSlot />` satırı kaldırılmalı. |
 | ☐ | Arama sonuç sayfası `/ara?q=` | `Masthead` → `searchAction` | Sayfa yok (404). Sıradaki: WPGraphQL arama. |
 | ☑ | Haber portalı `/haber` | `src/app/haber` | Kuruldu; WordPress bağlanınca gerçek haberler gelir. |

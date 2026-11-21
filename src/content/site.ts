@@ -53,7 +53,6 @@ export const mainNav: NavItem[] = [
   { label: 'İletişim', href: '/iletisim' },
 ]
 
-export type BreakingItem = { time: string; title: string; href: string }
 
 /** Footer. Gri metinler onDark-glass (metalik gri #AAB3C0) — koyu zeminde 8.9:1. */
 export const footer = {
