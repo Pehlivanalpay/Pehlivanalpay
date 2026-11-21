@@ -9,7 +9,6 @@ Durum: ☐ bekliyor · ☑ tamam
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☐ | **İngilizce metinlerin onayı** | `docs/ceviri-onay.md` | Onaylanınca GitHub değişkeni `NEXT_PUBLIC_EN_LIVE=1` → yeniden derleme. O zamana kadar /en arama motorlarına kapalı ve menüde yok. |
 | ☐ | **KVKK metni hukuki kontrolü** | `src/content/legal.ts` | Ticari unvan, MERSİS no, açık adres ve VERBİS durumu eklenmeli. Metin sitenin bugün yaptığı işlemeye göre yazıldı. |
 | ☐ | Sosyal hesap adresleri: LinkedIn, Instagram, YouTube | `src/content/site.ts` → `site.social` | Girilmedikçe sitede ve JSON-LD'de otomatik gizli. |
 | ☐ | Marka & PR görseli | `src/content/pages.ts` → `markaPr.hero.image` | Şu an stüdyo çekimi. PDF: yönetici röportajı, basın toplantısı veya marka filmi seti. |
@@ -31,7 +30,7 @@ Durum: ☐ bekliyor · ☑ tamam
 | ☑ | Kalem |
 |---|---|
 | ☑ | Her menü başlığı ayrı sayfa; `/fikserlik` → `/fixer-in-turkiye` (308) |
-| ☑ | İngilizce sürüm `/en/…` — 9 sayfa, yeniden yazılmış metin, hreflang, iki dilli site haritası, dil anahtarı |
+| ☑ | İngilizce sürüm `/en/…` — yayında (2026-11-21, müşteri onayı); 9 sayfa, yeniden yazılmış metin, hreflang, iki dilli site haritası, dil anahtarı |
 | ☑ | Arama sayfası `/ara`, `/en/search` (kurumsal sayfalar + WordPress yazıları) |
 | ☑ | KVKK `/kvkk` ve Privacy notice `/en/privacy`; form altında bağlantı |
 | ☑ | İki dilli 404 ve hata sayfaları; güvenlik başlıkları (HSTS, CSP frame-ancestors, nosniff…) |

@@ -5,12 +5,11 @@
 export type Locale = 'tr' | 'en'
 
 /**
- * İngilizce yayın anahtarı (derleme anında okunur — GitHub › Settings › Variables › NEXT_PUBLIC_EN_LIVE).
- * Kapalıyken (varsayılan) /en sayfaları açılır ama YAYINDA SAYILMAZ: arama motorlarına kapalı (noindex),
- * dil anahtarında, footer'da, hreflang'de ve site haritasında yer almaz. Müşteri çevirileri
- * www.elis360news.com/en adresinde gözden geçirir; onaydan sonra değişken 1 yapılıp yeniden derlenir.
+ * İngilizce yayın anahtarı (derleme anında okunur). 2026-11-21: müşteri onayıyla YAYINDA (varsayılan açık).
+ * İngilizceyi geçici olarak yayından çekmek için GitHub › Settings › Variables › NEXT_PUBLIC_EN_LIVE = 0:
+ * /en sayfaları açık kalır ama noindex olur; dil anahtarında, footer'da, hreflang'de ve site haritasında yer almaz.
  */
-export const EN_LIVE = process.env.NEXT_PUBLIC_EN_LIVE === '1'
+export const EN_LIVE = process.env.NEXT_PUBLIC_EN_LIVE !== '0'
 export const LOCALES: Locale[] = EN_LIVE ? ['tr', 'en'] : ['tr']
 
 export const ROUTES = {

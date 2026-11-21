@@ -26,20 +26,14 @@ açık kaldığını tek yerde toplar. Ayrıntılı kılavuzlar: `docs/deploy-cp
   CSP (frame-ancestors / form-action / object-src / base-uri); `X-Powered-By` kapalı;
   uygulama dosyaları `.htaccess` ile dışarıya kapalı (deploy § 4).
 
-## 2. İngilizce yayın anahtarı — onay bekliyor
+## 2. İngilizce sürüm — yayında
 
-Talimatınız gereği İngilizce metinler sizin onayınız olmadan **yayında sayılmaz**:
+2026-11-21'de müşteri onayıyla İngilizce sürüm dil anahtarıyla birlikte yayına alındı: menüde TR · EN,
+footer'da "English", hreflang ve iki dilli site haritası açık; /en sayfaları arama motorlarına açık.
 
-| | Onaydan önce (varsayılan) | Onaydan sonra |
-|---|---|---|
-| `www.elis360news.com/en/…` | Açılır — gözden geçirmek için | Açılır |
-| Arama motorları | `noindex` (dizine eklenmez) | Dizine eklenir |
-| Menüdeki TR · EN anahtarı, footer "English" | Yok | Var |
-| hreflang, site haritası | Yalnızca Türkçe | İki dil |
-
-1. `docs/ceviri-onay.md` dosyasında TR ve EN metinler satır satır yan yana. Düzeltmeleri bize yazın.
-2. Onaylayınca: GitHub → **Settings → Secrets and variables → Actions → Variables** →
-   `NEXT_PUBLIC_EN_LIVE` = `1` → **Actions → Build → Run workflow** → yeni paketi yükleyin (§ 3, Güncelleme).
+Metin düzeltmeleri için `docs/ceviri-onay.md` (TR ve EN yan yana) kullanılabilir.
+İngilizceyi geçici olarak yayından çekmek gerekirse: GitHub → Settings → Secrets and variables → Actions →
+Variables → `NEXT_PUBLIC_EN_LIVE` = `0` → yeniden derleme. Sayfalar açık kalır ama noindex olur ve menüden kalkar.
 
 ## 3. Yayına alma (cPanel)
 
@@ -103,13 +97,12 @@ webhook kuruluysa hemen görünür. Editör kılavuzu: `wordpress/README.md`.
 
 | # | Kalem | Sorumlu |
 |---|---|---|
-| 1 | İngilizce metinlerin onayı → `NEXT_PUBLIC_EN_LIVE=1` | Müşteri |
-| 2 | KVKK metnine ticari unvan, MERSİS, adres, VERBİS durumu; hukukçu kontrolü | Müşteri / hukuk |
-| 3 | SMTP değişkenleri ve canlı form testi | Müşteri (cPanel) |
-| 4 | WordPress: SSL, eklentiler, wp-config anahtarları, `WP_URL`, editör hesapları | Müşteri — `wordpress/README.md` |
-| 5 | Sosyal hesap adresleri; Marka & PR ve "Biz kimiz" için özgün görseller | Müşteri |
-| 6 | Fotoğraflardaki kişiler için kullanım izinleri | Müşteri |
-| 7 | Google Search Console: alan adı doğrulama, `sitemap.xml` ve `news-sitemap.xml` gönderimi | Müşteri |
+| 1 | KVKK metnine ticari unvan, MERSİS, adres, VERBİS durumu; hukukçu kontrolü | Müşteri / hukuk |
+| 2 | SMTP değişkenleri ve canlı form testi | Müşteri (cPanel) |
+| 3 | WordPress: SSL, eklentiler, wp-config anahtarları, `WP_URL`, editör hesapları | Müşteri — `wordpress/README.md` |
+| 4 | Sosyal hesap adresleri; Marka & PR ve "Biz kimiz" için özgün görseller | Müşteri |
+| 5 | Fotoğraflardaki kişiler için kullanım izinleri | Müşteri |
+| 6 | Google Search Console: alan adı doğrulama, `sitemap.xml` ve `news-sitemap.xml` gönderimi | Müşteri |
 
 Bilinen sınır: form deneme sınırı sunucu belleğindedir; uygulama yeniden başlayınca sıfırlanır.
 Tek sunuculu cPanel kurulumu için yeterli.
