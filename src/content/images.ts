@@ -60,6 +60,19 @@ const raw = {
     width: 1600,
     height: 900,
   },
+  // Stok (Pexels Lisansı — ticari kullanım serbest, atıf gerekmez). Kaynak: docs/image-credits.md
+  reji: {
+    src: '/images/reji.jpg',
+    alt: 'Yayın rejisinde kulaklıklı iki operatör, çok kameralı canlı yayının görüntülerinin aktığı monitör duvarının önünde',
+    width: 1600,
+    height: 900,
+  },
+  markaFilmSeti: {
+    src: '/images/marka-film-seti.jpg',
+    alt: 'Marka filmi ve röportaj seti: ışık ve fon önünde oturan konuk, kamerayı kuran operatör ve monitörden izleyen yönetmen',
+    width: 1600,
+    height: 900,
+  },
 } as const
 
 /** Her fotoğrafa bulanık ön izleme eklenir (src/content/image-blur.ts — npm run images). */

@@ -11,8 +11,6 @@ Durum: ☐ bekliyor · ☑ tamam
 |---|---|---|---|
 | ☐ | **KVKK metni hukuki kontrolü** | `src/content/legal.ts` | Ticari unvan, MERSİS no, açık adres ve VERBİS durumu eklenmeli. Metin sitenin bugün yaptığı işlemeye göre yazıldı. |
 | ☐ | Sosyal hesap adresleri: LinkedIn, Instagram, YouTube | `src/content/site.ts` → `site.social` | Girilmedikçe sitede ve JSON-LD'de otomatik gizli. |
-| ☐ | **Marka & PR görseli** (müşteri gönderecek) | `public/images/` + `src/content/images.ts` → `markaPr.hero.image` | Şu an ana sayfadaki stüdyo çekiminin aynısı. Gelince değiştirilecek, ardından `npm run images`. |
-| ☐ | **Prodüksiyon reji görseli** (müşteri gönderecek, gerçek reji fotoğrafı) | `produksiyon.hero.image` (şu an `kontrolOdasi`) | Mevcut görsel yapay duruyor. Gelince değiştirilecek, ardından `npm run images`. |
 | ☐ | "Biz kimiz" görseli | `src/content/home.ts` → `about.image` | Şu an kontrol odası. Saha arşivinden gerçek kare önerilir. |
 | ☐ | Görsel izinleri | `public/images/` | Savaşın Çocukları ve saha fotoğraflarındaki kişiler için izin kontrolü (PDF not 05). |
 | ☐ | Reklam / sponsor | `src/components/SiteChrome.tsx` → `<AdSlot>` | İçerik verilmezse yayında hiçbir şey çizilmez. Sponsor gelince `children` olarak eklenir. |
@@ -38,4 +36,5 @@ Durum: ☐ bekliyor · ☑ tamam
 | ☑ | İki dilli 404 ve hata sayfaları; güvenlik başlıkları (HSTS, CSP frame-ancestors, nosniff…) |
 | ☑ | WhatsApp +90 543 228 89 21 (mobil sabit düğme, iletişim, footer, sayfa sonu şeritleri; dile göre hazır mesaj) |
 | ☑ | Son dakika şeridi kaldırıldı; hero "güven göstergeleri" paneli yerine rakam şeridi |
+| ☑ | Marka & PR ve Prodüksiyon ana görselleri: Pexels stok (marka filmi seti, gerçek yayın rejisi) — `docs/image-credits.md`. Kendi çekiminiz gelince aynı adla değiştirin. |
 | ☑ | Renk paleti PDF'e göre; logo eskizden çizildi; site ikonu, paylaşım görseli |

@@ -14,4 +14,6 @@ export const imagesEn = {
   bergamaCekim: withAlt('bergamaCekim', 'A foreign documentary crew at the ancient city of Pergamon: camera operator, fixer with a map, producer taking notes and sound recordist with a boom'),
   sokakCekimi: withAlt('sokakCekimi', 'A documentary shoot on a cobbled street: camera on a dolly, boom microphone, director, and an elderly man walking towards camera'),
   havalimaniLojistik: withAlt('havalimaniLojistik', 'A field team meeting a foreign film crew at the airport, loading camera cases and tripods into a van'),
+  reji: withAlt('reji', 'Two operators wearing headsets in a broadcast gallery, facing a monitor wall showing a live multi-camera feed'),
+  markaFilmSeti: withAlt('markaFilmSeti', 'A brand film and interview set: a guest seated in front of lights and a backdrop, a camera operator setting up and a director watching the monitor'),
 } satisfies Images

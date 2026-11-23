@@ -79,7 +79,7 @@ export const production: typeof P = {
     title: { before: 'From camera to live link —', highlight: 'a complete technical crew.' },
     lead: 'From a one-person rapid news team to a full-scale documentary production, we scale to what your project needs.',
     cta: { label: 'Request crew and kit', href: '/en/contact' },
-    image: images.kontrolOdasi,
+    image: images.reji,
     breadcrumb: [home, { label: 'Production' }],
   },
   list: {
@@ -128,7 +128,7 @@ export const brand: typeof M = {
     title: { before: 'We make your brand’s story', highlight: 'visible and credible', after: '.' },
     lead: 'We help brands not just to be seen, but to be understood — with a communication voice that lasts.',
     cta: { label: 'Book a brand consultation', href: '/en/contact' },
-    image: images.studyo,
+    image: images.markaFilmSeti,
     breadcrumb: [home, { label: 'Brand & PR' }],
   },
   list: {

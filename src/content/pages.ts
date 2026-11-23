@@ -78,7 +78,7 @@ export const produksiyon = {
     title: { before: 'Kameradan canlı bağlantıya,', highlight: 'eksiksiz teknik ekip.' },
     lead: 'İhtiyaca göre tek kişilik hızlı haber ekibinden geniş kapsamlı belgesel prodüksiyonuna kadar farklı ölçeklerde çözümler üretiyoruz.',
     cta: { label: 'Ekip ve ekipman isteyin', href: '/iletisim' },
-    image: images.kontrolOdasi,
+    image: images.reji,
     breadcrumb: [{ label: 'Ana sayfa', href: '/' }, { label: 'Prodüksiyon' }],
   },
   list: {
@@ -127,7 +127,7 @@ export const markaPr = {
     lead: 'Markaların yalnızca görünmesini değil; doğru anlaşılmasını ve sürdürülebilir bir iletişim dili kurmasını sağlıyoruz.',
     cta: { label: 'Marka görüşmesi planlayın', href: '/iletisim' },
     // PDF kuralı: bu sayfada savaş/haber arşivi kullanılmaz — kurumsal/stüdyo çekimi.
-    image: images.studyo,
+    image: images.markaFilmSeti,
     breadcrumb: [{ label: 'Ana sayfa', href: '/' }, { label: 'Marka & PR' }],
   },
   list: {
