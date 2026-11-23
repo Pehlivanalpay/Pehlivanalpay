@@ -6,10 +6,12 @@ import { footer as footerTr, site } from '@/content/site'
 import { EN_LIVE, route, type Locale } from '@/i18n/config'
 import { ui } from '@/i18n/ui'
 import { prefetchFor } from '@/lib/routes'
+import { hasJournal } from '@/lib/wp/client'
 
 const colTitle = 'mb-[18px] font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-onDark-glass'
 
-export function Footer({ locale }: { locale: Locale }) {
+export async function Footer({ locale }: { locale: Locale }) {
+  const journal = locale === 'tr' && (await hasJournal())
   const t = ui(locale).footer
   const footer = locale === 'en' ? { ...footerTr, ...footerEn } : footerTr
   return (
@@ -38,7 +40,7 @@ export function Footer({ locale }: { locale: Locale }) {
                     lang?: string
                   }[]
                 )
-                  .filter((l) => EN_LIVE || l.lang !== 'en')
+                  .filter((l) => (EN_LIVE || l.lang !== 'en') && (journal || l.href !== '/haber'))
                   .map((l) => (
                     <li key={l.label}>
                       <Link href={l.href} prefetch={prefetchFor(l.href)} lang={l.lang} hrefLang={l.lang} className="inline-block py-1">

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { Img } from '@/content/home'
+import { blurProps } from '@/content/images'
 
 /**
  * Görsel kutusu. `image` null ise gri yer tutucu çizer — YAYINDA KALMAMALI
@@ -25,7 +26,7 @@ export function MediaFrame({
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ aspectRatio: ratio }}>
       {image ? (
-        <Image src={image.src} alt={image.alt} fill sizes={sizes} className="object-cover" />
+        <Image src={image.src} alt={image.alt} fill {...blurProps(image)} sizes={sizes} className="object-cover" />
       ) : (
         <div /* check-placeholders: ignore */ className={`flex h-full w-full items-center justify-center bg-placeholder font-mono uppercase text-ink-mono ${labelClassName}`}>
           {label}

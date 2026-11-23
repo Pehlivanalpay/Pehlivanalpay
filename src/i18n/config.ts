@@ -18,7 +18,7 @@ export const ROUTES = {
   production: { tr: '/produksiyon', en: '/en/production' },
   brand: { tr: '/marka-pr', en: '/en/brand-pr' },
   documentary: { tr: '/belgesel', en: '/en/documentary' },
-  projects: { tr: '/haberler', en: '/en/projects' },
+  projects: { tr: '/projeler', en: '/en/projects' },
   contact: { tr: '/iletisim', en: '/en/contact' },
   search: { tr: '/ara', en: '/en/search' },
   privacy: { tr: '/kvkk', en: '/en/privacy' },

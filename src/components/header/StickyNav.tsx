@@ -52,7 +52,7 @@ export function StickyNav({ items, locale }: StickyNavProps) {
   }, [open])
 
   const isCurrent = (href: string) =>
-    !href.includes('#') && (href === home ? pathname === home : pathname.startsWith(href) || (href === '/haberler' && pathname.startsWith('/haber/')))
+    !href.includes('#') && (href === home ? pathname === home : pathname.startsWith(href))
 
   return (
     <div className="surface-dark glass-fx sticky top-0 z-40 border-y border-b-white/[0.12] border-t-white/10 bg-glass-nav">

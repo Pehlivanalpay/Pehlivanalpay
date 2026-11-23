@@ -3,7 +3,9 @@
  * Kural (PDF s.8): fotoğraf üzerine kalıcı yazı basılmaz — kontrol odası görselindeki logo ve
  * "Savaşın Çocukları" kolajındaki başlık kırpılarak çıkarıldı.
  */
-export const images = {
+import { blur } from './image-blur'
+
+const raw = {
   studyo: {
     src: '/images/studyo.jpg',
     alt: 'Haber stüdyosunda çekim: kameraman, ışıkçı, ses teknisyeni ve yönetmen, masada sunucu',
@@ -59,3 +61,11 @@ export const images = {
     height: 900,
   },
 } as const
+
+/** Her fotoğrafa bulanık ön izleme eklenir (src/content/image-blur.ts — npm run images). */
+export const images = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, { ...v, blurDataURL: blur[v.src] as string | undefined }])) as {
+  [K in keyof typeof raw]: (typeof raw)[K] & { blurDataURL?: string }
+}
+
+/** next/image için: ön izleme varsa yüklenirken onu göster (siyah kutu yerine). */
+export const blurProps = (img: { blurDataURL?: string }) => (img.blurDataURL ? { placeholder: 'blur' as const, blurDataURL: img.blurDataURL } : {})

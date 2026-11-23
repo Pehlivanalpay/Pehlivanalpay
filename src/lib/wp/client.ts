@@ -197,3 +197,15 @@ export async function searchPosts(term: string, first = 10): Promise<NewsPost[]>
     return []
   }
 }
+
+/**
+ * ELIS360 Journal yayında mı? (en az bir yazı var mı) — yazı yokken Journal bağlantıları gizlenir ve
+ * /haber sayfaları Projeler'e yönlenir. WordPress'e ulaşılamazsa da false (site çökmez).
+ */
+export async function hasJournal(): Promise<boolean> {
+  try {
+    return (await getPosts({ first: 1 })).length > 0
+  } catch {
+    return false
+  }
+}

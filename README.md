@@ -23,7 +23,7 @@ npm run check:content  # yayın öncesi yer tutucu denetimi
 
 ```
 src/app/(tr)/               Türkçe sayfalar (kök layout <html lang="tr">): /, /fixer-in-turkiye, /produksiyon,
-                            /marka-pr, /belgesel, /haberler, /iletisim, /ara, /kvkk, /haber/…
+                            /marka-pr, /belgesel, /projeler, /iletisim, /ara, /kvkk, /haber/…
 src/app/en/                 İngilizce sayfalar (kök layout <html lang="en">): /en, /en/fixer-in-turkiye, /en/production,
                             /en/brand-pr, /en/documentary, /en/projects, /en/contact, /en/search, /en/privacy
 src/app/global-not-found.tsx iki dilli 404 (adres hiçbir dile ait değilse)

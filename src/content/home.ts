@@ -4,7 +4,7 @@
  */
 import { images } from './images'
 
-export type Img = { src: string; alt: string; width: number; height: number }
+export type Img = { src: string; alt: string; width: number; height: number; blurDataURL?: string }
 
 export const hero = {
   eyebrow: ['Haber', 'Medya', 'İletişim'],
@@ -85,7 +85,7 @@ export const serviceAreas = {
     { num: '02', title: 'Prodüksiyon', text: 'Kamera, ışık, ses, drone, canlı bağlantı, kurgu ve teknik ekip.', href: '/produksiyon' },
     { num: '03', title: 'Marka & PR', text: 'Marka stratejisi, medya ilişkileri, kriz iletişimi ve içerik.', href: '/marka-pr', dark: true },
     { num: '04', title: 'Belgesel', text: 'Araştırmadan karakter seçimine, çekimden post prodüksiyona.', href: '/belgesel' },
-    { num: '05', title: 'Özel projeler', text: 'Fotoğraf sergisi, yayın formatı, kurumsal film ve özgün içerik geliştirme.', href: '/haberler' },
+    { num: '05', title: 'Özel projeler', text: 'Fotoğraf sergisi, yayın formatı, kurumsal film ve özgün içerik geliştirme.', href: '/projeler' },
   ],
 }
 
@@ -93,7 +93,7 @@ export const selectedProjects = {
   index: '04',
   label: 'Seçili projeler',
   title: 'Sahadan seçili işler',
-  allLink: { label: 'Tüm projeler →', href: '/haberler' },
+  allLink: { label: 'Tüm projeler →', href: '/projeler' },
 }
 
 /** Ana sayfadaki "ELIS360 Journal" bölümünün sabit metinleri. Yazılar WordPress'ten gelir. */
@@ -111,7 +111,7 @@ export const contact = {
   label: 'Hızlı destek',
   title: 'Projenizi birlikte planlayalım.',
   text: 'Haber, belgesel, prodüksiyon veya marka iletişimi ihtiyacınızı bize yazın. Size özel ekip ve çalışma planını birlikte oluşturalım.',
-  quickOptions: ['Bir çekim planlıyorum', 'Kameraman arıyorum', 'Türkiye’de fixer gerekiyor', 'Acil saha desteği istiyorum'],
+  quickOptions: ['Bir çekim planlıyorum', 'Kameraman arıyorum', 'Türkiye’de fixer gerekiyor', 'Acil saha desteği istiyorum', 'Belgesel projesi planlıyorum', 'Marka & PR desteği istiyorum'],
   facts: [
     { label: 'Çalışma dili', value: 'Türkçe · İngilizce' },
     { label: 'Kapsam', value: 'Türkiye geneli' },

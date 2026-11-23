@@ -11,7 +11,8 @@ Durum: ☐ bekliyor · ☑ tamam
 |---|---|---|---|
 | ☐ | **KVKK metni hukuki kontrolü** | `src/content/legal.ts` | Ticari unvan, MERSİS no, açık adres ve VERBİS durumu eklenmeli. Metin sitenin bugün yaptığı işlemeye göre yazıldı. |
 | ☐ | Sosyal hesap adresleri: LinkedIn, Instagram, YouTube | `src/content/site.ts` → `site.social` | Girilmedikçe sitede ve JSON-LD'de otomatik gizli. |
-| ☐ | Marka & PR görseli | `src/content/pages.ts` → `markaPr.hero.image` | Şu an stüdyo çekimi. PDF: yönetici röportajı, basın toplantısı veya marka filmi seti. |
+| ☐ | **Marka & PR görseli** (müşteri gönderecek) | `public/images/` + `src/content/images.ts` → `markaPr.hero.image` | Şu an ana sayfadaki stüdyo çekiminin aynısı. Gelince değiştirilecek, ardından `npm run images`. |
+| ☐ | **Prodüksiyon reji görseli** (müşteri gönderecek, gerçek reji fotoğrafı) | `produksiyon.hero.image` (şu an `kontrolOdasi`) | Mevcut görsel yapay duruyor. Gelince değiştirilecek, ardından `npm run images`. |
 | ☐ | "Biz kimiz" görseli | `src/content/home.ts` → `about.image` | Şu an kontrol odası. Saha arşivinden gerçek kare önerilir. |
 | ☐ | Görsel izinleri | `public/images/` | Savaşın Çocukları ve saha fotoğraflarındaki kişiler için izin kontrolü (PDF not 05). |
 | ☐ | Reklam / sponsor | `src/components/SiteChrome.tsx` → `<AdSlot>` | İçerik verilmezse yayında hiçbir şey çizilmez. Sponsor gelince `children` olarak eklenir. |
@@ -29,7 +30,8 @@ Durum: ☐ bekliyor · ☑ tamam
 
 | ☑ | Kalem |
 |---|---|
-| ☑ | Her menü başlığı ayrı sayfa; `/fikserlik` → `/fixer-in-turkiye` (308) |
+| ☑ | Her menü başlığı ayrı sayfa; `/fikserlik` → `/fixer-in-turkiye`, `/haberler` → `/projeler` (308) |
+| ☑ | 2026-11-23 revizyonu: menüde "Projeler", Journal yazı yokken gizli (`/haber` → `/projeler`), "Özel görüntüler" → Fikserlik, Fikserlik başlığı Türkçe, iki yeni hızlı destek seçeneği, görsellerde önyükleme + bulanık ön izleme |
 | ☑ | İngilizce sürüm `/en/…` — yayında (2026-11-21, müşteri onayı); 9 sayfa, yeniden yazılmış metin, hreflang, iki dilli site haritası, dil anahtarı |
 | ☑ | Arama sayfası `/ara`, `/en/search` (kurumsal sayfalar + WordPress yazıları) |
 | ☑ | KVKK `/kvkk` ve Privacy notice `/en/privacy`; form altında bağlantı |

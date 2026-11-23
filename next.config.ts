@@ -27,7 +27,11 @@ const nextConfig: NextConfig = {
   },
   // Eski adresler → yeni sayfa yapısı (2026-11). Kalıcı: arama motorları yeni adresi öğrenir.
   async redirects() {
-    return [{ source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true }]
+    return [
+      { source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true },
+      // 2026-11-23: menüdeki "Haberler" → "Projeler" (sayfa seçili projeleri gösteriyor)
+      { source: '/haberler', destination: '/projeler', permanent: true },
+    ]
   },
   images: {
     // 50: yalnızca ağır filtrelenmiş dekoratif fotoğraflar (hero zemini, motifler) — gri ton + düşük opaklık altında fark görünmez.

@@ -50,7 +50,7 @@ export const mainNav: NavItem[] = [
   { label: 'Prodüksiyon', href: '/produksiyon' },
   { label: 'Marka & PR', href: '/marka-pr' },
   { label: 'Belgesel', href: '/belgesel' },
-  { label: 'Haberler', href: '/haberler', live: true },
+  { label: 'Projeler', href: '/projeler', live: true },
   { label: 'İletişim', href: '/iletisim' },
 ]
 
@@ -73,7 +73,7 @@ export const footer = {
       key: 'company' as const,
       span: 'lg:col-span-2',
       links: [
-        { label: 'Haberler', href: '/haberler' },
+        { label: 'Projeler', href: '/projeler' },
         { label: 'ELIS360 Journal', href: '/haber' },
         { label: 'İletişim', href: '/iletisim' },
         { label: 'English', href: '/en', lang: 'en' },

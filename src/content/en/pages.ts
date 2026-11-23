@@ -17,10 +17,8 @@ export const fixer: typeof F = {
   },
   hero: {
     label: 'Fixer in Türkiye',
-    title: { before: 'Your trusted production partner', highlight: 'across Türkiye' },
-    titleLang: 'en',
+    title: { before: 'Your trusted production partner', highlight: 'across Türkiye', after: '.' },
     lead: 'From initial research to final delivery: local access, permits, logistics, crew and production support anywhere in Türkiye.',
-    leadLang: 'en',
     leadTr: 'From the big cities to border regions, rural areas and disaster zones — we know how to get your team where the story is.',
     cta: { label: 'Plan your shoot', href: '/en/contact' },
     image: images.kaleKesif,

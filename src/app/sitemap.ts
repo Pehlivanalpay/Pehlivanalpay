@@ -33,8 +33,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: EN_LIVE ? { languages: { tr: abs(ROUTES[key].tr), en: abs(ROUTES[key].en), 'x-default': abs(ROUTES[key].tr) } } : undefined,
       })),
     ),
-    { url: `${SITE_URL}/haber`, changeFrequency: 'hourly', priority: 0.9 },
-    ...NEWS_CATEGORIES.map((c) => ({ url: `${SITE_URL}/haber/kategori/${c.slug}`, changeFrequency: 'hourly' as const, priority: 0.6 })),
+    // Journal: yalnızca yayında yazı varken (yoksa /haber Projeler'e yönlenir)
+    ...(posts.length
+      ? [
+          { url: `${SITE_URL}/haber`, changeFrequency: 'hourly' as const, priority: 0.9 },
+          ...NEWS_CATEGORIES.map((c) => ({ url: `${SITE_URL}/haber/kategori/${c.slug}`, changeFrequency: 'hourly' as const, priority: 0.6 })),
+        ]
+      : []),
     ...posts.map((p) => ({ url: `${SITE_URL}/haber/${p.slug}`, lastModified: p.modified, changeFrequency: 'weekly' as const, priority: 0.7 })),
   ]
 }

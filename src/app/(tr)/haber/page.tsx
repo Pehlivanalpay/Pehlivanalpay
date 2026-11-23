@@ -7,6 +7,7 @@ import { LeadStory } from '@/components/news/LeadStory'
 import { NewsletterBox } from '@/components/news/NewsletterBox'
 import { SponsoredCard } from '@/components/news/SponsoredCard'
 import { ogDefaults } from '@/lib/seo'
+import { redirect } from 'next/navigation'
 import { getPosts } from '@/lib/wp/client'
 import { NEWS_CATEGORIES } from '@/lib/wp/types'
 
@@ -30,6 +31,8 @@ export default async function HaberPage() {
     getPosts({ first: 3, category: 'video' }),
     getPosts({ first: 1, sponsored: true }),
   ])
+  // Henüz yazı yoksa boş sayfa göstermek yerine Projeler'e (müşteri isteği, 2026-11-23)
+  if (latest.length === 0) redirect('/projeler')
   // Manşet: en yeni "özel haber", yoksa en yeni yazı
   const lead = latest.find((p) => p.isExclusive) ?? latest[0]
   const rest = latest.filter((p) => p !== lead).slice(0, 5)

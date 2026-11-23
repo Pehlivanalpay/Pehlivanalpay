@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { CategoryStrip } from '@/components/news/CategoryStrip'
 import { LatestList } from '@/components/news/LatestList'
 import { LeadStory } from '@/components/news/LeadStory'
 import { CardGrid, NewsCard } from '@/components/news/NewsCard'
 import { ogDefaults } from '@/lib/seo'
-import { getPosts } from '@/lib/wp/client'
+import { getPosts, hasJournal } from '@/lib/wp/client'
 import { NEWS_CATEGORIES } from '@/lib/wp/types'
 
 export const revalidate = 60
@@ -36,6 +36,7 @@ export default async function CategoryPage({ params }: Props) {
   const { slug } = await params
   const category = NEWS_CATEGORIES.find((x) => x.slug === slug)
   if (!category) notFound()
+  if (!(await hasJournal())) redirect('/projeler')
   const posts = await getPosts({ first: 24, category: slug })
   const [lead, ...rest] = posts
   const side = rest.slice(0, 4)

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ProjectCard } from '@/content/pages'
+import { blurProps } from '@/content/images'
 
 /** Kurum adı gerektirmeyen proje kartları (PDF s.7). Akışkan ızgara: auto-fit, en dar 300px. */
 export function ProjectCards({ cards, headingLevel = 3 }: { cards: readonly ProjectCard[]; headingLevel?: 2 | 3 }) {
@@ -9,12 +10,13 @@ export function ProjectCards({ cards, headingLevel = 3 }: { cards: readonly Proj
     <ul className="grid gap-8 [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))]">
       {cards.map((c) => (
         <li key={c.title} className="min-w-0">
-          <Link href={c.href ?? '/haberler'} className="block">
+          <Link href={c.href ?? '/projeler'} className="block">
             <div className="relative aspect-[3/2] overflow-hidden bg-ink">
               <Image
                 src={c.image.src}
                 alt={c.image.alt}
                 fill
+                {...blurProps(c.image)}
                 sizes="(min-width: 960px) 33vw, 100vw"
                 className="object-cover"
               />

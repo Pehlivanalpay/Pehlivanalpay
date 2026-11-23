@@ -14,13 +14,13 @@ import { breadcrumbLd, JsonLd, ORG_ID, SITE_URL } from '@/lib/seo'
 import { getPosts } from '@/lib/wp/client'
 import { pageContent } from './content'
 
-/** Haberler / Projects — PDF s.7: vitrin + proje kartları + ELIS360 Journal (WordPress; yazılar Türkçe → yalnızca TR). */
+/** Projeler / Projects — PDF s.7: vitrin + proje kartları + ELIS360 Journal (WordPress; yazılar Türkçe → yalnızca TR). */
 export async function ProjectsPage({ locale }: { locale: Locale }) {
   const c = pageContent(locale).projects
   const t = ui(locale)
   const tr = locale === 'tr'
   const journal = tr ? await getPosts({ first: 6 }) : []
-  const pageName = tr ? 'Haberler' : 'Projects'
+  const pageName = tr ? 'Projeler' : 'Projects'
   return (
     <main className="bg-paper-cream">
       <JsonLd data={breadcrumbLd([{ name: t.home, path: ROUTES.home[locale] }, { name: pageName, path: ROUTES.projects[locale] }])} />

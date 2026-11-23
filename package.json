@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check:content": "node scripts/check-placeholders.mjs",
     "build:cpanel": "bash scripts/build-cpanel.sh",
-    "translations": "node scripts/translation-review.mjs"
+    "translations": "node scripts/translation-review.mjs",
+    "images": "node scripts/image-placeholders.mjs"
   },
   "dependencies": {
     "next": "16.4.6",

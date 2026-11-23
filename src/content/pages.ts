@@ -17,11 +17,9 @@ export const fikserlik = {
   hero: {
     // Doğrudan büyük harf: CSS'in Türkçe dönüşümü "IN"i "İN" yapmasın
     label: 'FIXER IN TÜRKİYE / FİKSERLİK',
-    title: { before: 'Your trusted production partner', highlight: 'across Türkiye' },
-    titleLang: 'en',
-    lead: 'From initial research to final delivery: local access, permits, logistics, crew and production support anywhere in Türkiye.',
-    leadLang: 'en',
-    leadTr: 'İlk araştırmadan son teslime kadar: Türkiye’nin her yerinde yerel erişim, izinler, lojistik, ekip ve prodüksiyon desteği.',
+    title: { before: 'Türkiye genelinde', highlight: 'güvenilir prodüksiyon ortağınız', after: '.' },
+    lead: 'İlk araştırmadan son teslime kadar: Türkiye’nin her yerinde yerel erişim, izinler, lojistik, ekip ve prodüksiyon desteği.',
+    leadTr: 'Büyük şehirlerden sınır bölgelerine, kırsal alanlardan afet bölgelerine — ekibinizi hikâyenin olduğu yere ulaştırmayı biliyoruz.',
     cta: { label: 'Projenizi planlayalım', href: '/iletisim' },
     image: images.kaleKesif,
     breadcrumb: [{ label: 'Ana sayfa', href: '/' }, { label: 'Fikserlik' }],
@@ -202,12 +200,12 @@ export const belgesel = {
   },
 }
 
-/* ── Haberler / seçili projeler — /haberler ─────────────────────────────── */
+/* ── Projeler / seçili projeler — /projeler ──────────────────────────────── */
 
 export const projeler = {
   meta: {
-    title: 'Haberler ve seçili projeler',
-    description: 'ELIS360 NEWS sahadan seçili projeler: fikserlik, belgesel, marka ve canlı yayın işleri; ELIS360 Journal haber, rehber ve saha hikâyeleri.',
+    title: 'Projeler',
+    description: 'ELIS360 NEWS sahadan seçili projeler: Türkiye’de fikserlik, belgesel, marka ve canlı yayın işleri.',
   },
   hero: {
     label: 'Sahadan seçili projeler',
@@ -228,6 +226,6 @@ export const projeler = {
   cards: [
     { title: 'Savaşın Çocukları', text: 'Fotoğraf sergisi ve belgesel projesi', image: images.savasinCocuklari, href: '/belgesel' },
     { title: 'Canlı yayın desteği', text: 'Ekip, bağlantı ve saha koordinasyonu', image: images.kontrolOdasi, href: '/produksiyon' },
-    { title: 'Özel görüntüler', text: 'Uluslararası haber ve dosya içerikleri', image: images.sahaEkip, href: '/haber' },
+    { title: 'Özel görüntüler', text: 'Uluslararası haber ve dosya içerikleri', image: images.sahaEkip, href: '/fixer-in-turkiye' },
   ] satisfies ProjectCard[],
 }

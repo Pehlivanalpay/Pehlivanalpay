@@ -4,6 +4,7 @@ import { buttonClass } from '@/components/ui/Button'
 import type { Img } from '@/content/home'
 import type { Locale } from '@/i18n/config'
 import { ui } from '@/i18n/ui'
+import { blurProps } from '@/content/images'
 
 
 type Title = { before: string; highlight: string; after?: string }
@@ -105,6 +106,9 @@ export function PageHero({
                 width={image.width}
                 height={image.height}
                 sizes="(min-width: 960px) 50vw, 100vw"
+                // Sayfanın ana görseli: önyüklenir (LCP) ve yüklenirken bulanık ön izleme görünür
+                priority
+                {...blurProps(image)}
                 className="block aspect-[16/10] w-full object-cover"
               />
               <div aria-hidden="true" className="absolute inset-0 bg-scan-dark" />

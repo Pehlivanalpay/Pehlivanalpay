@@ -9,7 +9,7 @@ açık kaldığını tek yerde toplar. Ayrıntılı kılavuzlar: `docs/deploy-cp
 
 | Dil | Sayfalar |
 |---|---|
-| Türkçe | `/` · `/fixer-in-turkiye` · `/produksiyon` · `/marka-pr` · `/belgesel` · `/haberler` · `/iletisim` · `/ara` · `/kvkk` · `/haber` (WordPress haber portalı: yazı, kategori, önizleme) |
+| Türkçe | `/` · `/fixer-in-turkiye` · `/produksiyon` · `/marka-pr` · `/belgesel` · `/projeler` · `/iletisim` · `/ara` · `/kvkk` · `/haber` (WordPress haber portalı: yazı, kategori, önizleme) |
 | English | `/en` · `/en/fixer-in-turkiye` · `/en/production` · `/en/brand-pr` · `/en/documentary` · `/en/projects` · `/en/contact` · `/en/search` · `/en/privacy` |
 
 - **İngilizce metinler** çeviri değil, yabancı yayın kuruluşları ve yapımcılar için yeniden yazıldı.
@@ -69,7 +69,7 @@ GitHub'da commit → Actions paketi üretir → § 3 Güncelleme.
 | Ne | Türkçe | English |
 |---|---|---|
 | Ana sayfa | `src/content/home.ts` | `src/content/en/home.ts` |
-| Hizmet sayfaları, Haberler/Projects | `src/content/pages.ts` | `src/content/en/pages.ts` |
+| Hizmet sayfaları, Projeler/Projects | `src/content/pages.ts` | `src/content/en/pages.ts` |
 | Menü, footer, e-posta, WhatsApp, sosyal hesaplar | `src/content/site.ts` | `src/content/en/site.ts` |
 | Düğmeler, form etiketleri, hata mesajları | `src/i18n/ui.ts` (`tr`) | `src/i18n/ui.ts` (`en`) |
 | KVKK / Privacy | `src/content/legal.ts` (`kvkk`) | `src/content/legal.ts` (`privacy`) |
@@ -78,7 +78,9 @@ GitHub'da commit → Actions paketi üretir → § 3 Güncelleme.
 İngilizce dosyalar Türkçe dosyalarla aynı yapıdadır: bir alan eklenip karşılığı unutulursa derleme hata
 verir. Metin değişince `npm run translations` çeviri onay dosyasını yeniler.
 
-**Haberler** WordPress'ten gelir (cms.elis360news.com/wp/wp-admin). Yayımlanan yazı sitede 60 sn içinde,
+**ELIS360 Journal** (haberler, `/haber`) WordPress'ten gelir (cms.elis360news.com/wp/wp-admin). Yayında hiç yazı yokken
+Journal bağlantıları gizlenir ve `/haber` Projeler sayfasına yönlenir; ilk yazı yayımlanınca kendiliğinden açılır.
+Yayımlanan yazı sitede 60 sn içinde,
 webhook kuruluysa hemen görünür. Editör kılavuzu: `wordpress/README.md`.
 
 ## 5. Geliştirici notları

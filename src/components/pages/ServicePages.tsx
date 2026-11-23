@@ -12,6 +12,7 @@ import { ROUTES, type Locale } from '@/i18n/config'
 import { ui } from '@/i18n/ui'
 import { breadcrumbLd, JsonLd, serviceLd } from '@/lib/seo'
 import { pageContent } from './content'
+import { blurProps } from '@/content/images'
 
 const crumbs = (locale: Locale, name: string, key: keyof typeof ROUTES) =>
   breadcrumbLd([
@@ -38,9 +39,7 @@ export function FixerPage({ locale }: { locale: Locale }) {
       <PageHero
         label={c.hero.label}
         title={c.hero.title}
-        titleLang={locale === 'tr' ? c.hero.titleLang : undefined}
         lead={c.hero.lead}
-        leadLang={locale === 'tr' ? c.hero.leadLang : undefined}
         leadSecondary={c.hero.leadTr}
         cta={c.hero.cta}
         image={c.hero.image}
@@ -108,7 +107,7 @@ export function DocumentaryPage({ locale }: { locale: Locale }) {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {c.visuals.map((v) => (
               <figure key={v.caption} className="relative m-0 min-w-0 overflow-hidden bg-ink">
-                <Image src={v.image.src} alt={v.image.alt} width={v.image.width} height={v.image.height} sizes="(min-width: 960px) 50vw, 100vw" className="block aspect-[16/10] w-full object-cover" />
+                <Image src={v.image.src} alt={v.image.alt} width={v.image.width} height={v.image.height} {...blurProps(v.image)} sizes="(min-width: 960px) 50vw, 100vw" className="block aspect-[16/10] w-full object-cover" />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/[0.92] to-ink/0 px-6 py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white">
                   {v.caption}
                 </figcaption>
@@ -149,7 +148,7 @@ export function DocumentaryPage({ locale }: { locale: Locale }) {
               <blockquote className="border-l-[3px] border-accent pl-5 font-display text-[21px] font-semibold italic leading-[1.4]">{c.feature.quote}</blockquote>
             </div>
             <figure className="m-0 min-w-0 lg:col-span-7">
-              <Image src={c.feature.image.src} alt={c.feature.image.alt} width={c.feature.image.width} height={c.feature.image.height} sizes="(min-width: 960px) 55vw, 100vw" className="block h-auto w-full" />
+              <Image src={c.feature.image.src} alt={c.feature.image.alt} width={c.feature.image.width} height={c.feature.image.height} {...blurProps(c.feature.image)} sizes="(min-width: 960px) 55vw, 100vw" className="block h-auto w-full" />
             </figure>
           </div>
         </div>

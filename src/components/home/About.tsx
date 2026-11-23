@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import type { about as Content } from '@/content/home'
+import { blurProps } from '@/content/images'
 
 const corner = 'absolute h-[26px] w-[26px] border-white/[0.72]'
 
@@ -20,6 +21,7 @@ export function About({ content: c }: { content: typeof Content }) {
               alt={c.image.alt}
               width={c.image.width}
               height={c.image.height}
+              {...blurProps(c.image)}
               sizes="(min-width: 960px) 50vw, 100vw"
               className="block aspect-[16/10] w-full object-cover brightness-[.94] contrast-[1.18] grayscale"
             />

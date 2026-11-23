@@ -98,7 +98,7 @@ export const contact: typeof C = {
   label: 'Quick support',
   title: 'Let’s plan your project.',
   text: 'Tell us what you need for your news, documentary, production or brand project — we’ll put together the right crew and plan with you.',
-  quickOptions: ['I’m planning a shoot', 'I need a camera operator', 'I need a fixer in Türkiye', 'I need urgent field support'],
+  quickOptions: ['I’m planning a shoot', 'I need a camera operator', 'I need a fixer in Türkiye', 'I need urgent field support', 'I’m planning a documentary', 'I need brand & PR support'],
   facts: [
     { label: 'Working languages', value: 'Turkish · English' },
     { label: 'Coverage', value: 'All of Türkiye' },
