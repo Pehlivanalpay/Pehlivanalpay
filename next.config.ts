@@ -31,6 +31,9 @@ const nextConfig: NextConfig = {
       { source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true },
       // 2026-11-23: menüdeki "Haberler" → "Projeler" (sayfa seçili projeleri gösteriyor)
       { source: '/haberler', destination: '/projeler', permanent: true },
+      // Haber portalı 2026-11'de kendi alan adına taşındı: www.elis360news.com
+      { source: '/haber', destination: 'https://www.elis360news.com', permanent: true },
+      { source: '/haber/:path*', destination: 'https://www.elis360news.com/haber/:path*', permanent: true },
     ]
   },
   images: {

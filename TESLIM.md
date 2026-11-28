@@ -1,6 +1,11 @@
 # ELIS360 NEWS — teslim belgesi
 
-Tarih: 2026-11-21 · Alan adı: https://www.elis360news.com · CMS: https://cms.elis360news.com/wp
+Tarih: 2026-11-28 · **Alan adı: https://www.elis360medya.com** (kurumsal site) · Haber sitesi: https://www.elis360news.com
+
+> 2026-11-28: Kurumsal site elis360medya.com alan adına taşındı; elis360news.com artık haber sitesi
+> (ayrı dal: `claude/new-session-y41gd2`). Bu dal (`elis360medya-kurumsal`) kurumsal sitenin kaynağıdır.
+> /haber adresleri www.elis360news.com'a kalıcı yönlenir. cPanel'de elis360medya.com için ayrı bir
+> Node.js uygulaması kurulur — adımlar docs/deploy-cpanel.md ile aynı, yalnızca alan adı farklı.
 
 Bu belge sitenin ne olduğunu, nasıl yayına alındığını, içeriğin nasıl değiştirildiğini ve neyin
 açık kaldığını tek yerde toplar. Ayrıntılı kılavuzlar: `docs/deploy-cpanel.md`, `wordpress/README.md`.

@@ -5,7 +5,7 @@ import { PLACEHOLDER_HREF, site } from '@/content/site'
  * Sitenin kanonik adresi. Vercel'de NEXT_PUBLIC_SITE_URL ile ayarlayın.
  * Varsayılan, kurumsal e-posta alan adından türetildi — TODO-CONTENT.md'de doğrulanacak.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.elis360news.com').replace(/\/$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.elis360medya.com').replace(/\/$/, '')
 export const ORG_ID = `${SITE_URL}/#organization`
 
 /** Open Graph varsayılanları. Sayfa düzeyindeki `openGraph` layout'takini sığ birleştirir — yani ezer;

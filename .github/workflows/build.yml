@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      NEXT_PUBLIC_SITE_URL: https://www.elis360news.com
+      NEXT_PUBLIC_SITE_URL: https://www.elis360medya.com
       # WordPress hazır olunca: Settings → Secrets and variables → Actions → Variables → WP_URL
       # (boşken sayfalar haber olmadan derlenir; sunucuda ilk 60 sn içinde WordPress'ten tazelenir)
       WP_URL: ${{ vars.WP_URL }}
@@ -31,6 +31,6 @@ jobs:
       - run: npm run build:cpanel
       - uses: actions/upload-artifact@v4
         with:
-          name: elis360-site
+          name: elis360medya-site
           path: elis360-site.zip
           retention-days: 30

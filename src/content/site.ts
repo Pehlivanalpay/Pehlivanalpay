@@ -74,7 +74,7 @@ export const footer = {
       span: 'lg:col-span-2',
       links: [
         { label: 'Projeler', href: '/projeler' },
-        { label: 'ELIS360 Journal', href: '/haber' },
+        { label: 'ELIS360 NEWS haber', href: 'https://www.elis360news.com' },
         { label: 'İletişim', href: '/iletisim' },
         { label: 'English', href: '/en', lang: 'en' },
       ],

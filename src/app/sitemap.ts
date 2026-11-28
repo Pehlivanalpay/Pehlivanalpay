@@ -1,8 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { EN_LIVE, LOCALES, ROUTES, type RouteKey } from '@/i18n/config'
 import { SITE_URL } from '@/lib/seo'
-import { getAllSlugs } from '@/lib/wp/client'
-import { NEWS_CATEGORIES } from '@/lib/wp/types'
 
 export const revalidate = 3600
 
@@ -20,9 +18,8 @@ const PAGES: [RouteKey, Freq, number][] = [
   ['privacy', 'yearly', 0.2],
 ]
 
-/** Kurumsal sayfalar (TR + EN) + haber kategorileri + yayındaki yazılar. Google News haritası: /news-sitemap.xml */
+/** Kurumsal sayfalar (TR + EN). Haberler kendi sitesinde: www.elis360news.com */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllSlugs()
   const abs = (p: string) => `${SITE_URL}${p === '/' ? '/' : p}`
   return [
     ...PAGES.flatMap(([key, changeFrequency, priority]) =>
@@ -33,13 +30,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: EN_LIVE ? { languages: { tr: abs(ROUTES[key].tr), en: abs(ROUTES[key].en), 'x-default': abs(ROUTES[key].tr) } } : undefined,
       })),
     ),
-    // Journal: yalnızca yayında yazı varken (yoksa /haber Projeler'e yönlenir)
-    ...(posts.length
-      ? [
-          { url: `${SITE_URL}/haber`, changeFrequency: 'hourly' as const, priority: 0.9 },
-          ...NEWS_CATEGORIES.map((c) => ({ url: `${SITE_URL}/haber/kategori/${c.slug}`, changeFrequency: 'hourly' as const, priority: 0.6 })),
-        ]
-      : []),
-    ...posts.map((p) => ({ url: `${SITE_URL}/haber/${p.slug}`, lastModified: p.modified, changeFrequency: 'weekly' as const, priority: 0.7 })),
   ]
 }
