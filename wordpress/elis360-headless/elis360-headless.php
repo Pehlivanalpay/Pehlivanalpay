@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       ELIS360 Headless
  * Description:       cms.elis360news.com'u yalnızca yönetim paneli + veri kaynağı yapar: önyüzü ana siteye yönlendirir, haber alanlarını (son dakika, özel haber, sponsorlu, video) ekler, yayın bildirimini ve önizlemeyi Next.js'e bağlar, bülten abonelerini saklar.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Requires Plugins:  wp-graphql
@@ -57,7 +57,7 @@ add_action('template_redirect', function () {
 	if (is_singular('post')) {
 		$path = '/haber/' . get_post_field('post_name', get_queried_object_id());
 	} elseif (is_category()) {
-		$path = '/haber/kategori/' . get_queried_object()->slug;
+		$path = '/' . get_queried_object()->slug;
 	}
 	wp_redirect(elis360_frontend_url() . $path, 301);
 	exit;

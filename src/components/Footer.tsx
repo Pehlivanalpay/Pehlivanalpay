@@ -1,19 +1,15 @@
 import Link from 'next/link'
 import { LogoMark } from '@/components/ui/LogoMark'
 import { WhatsAppLink } from '@/components/ui/WhatsApp'
-import { footerEn } from '@/content/en/site'
-import { footer as footerTr, site } from '@/content/site'
-import { EN_LIVE, route, type Locale } from '@/i18n/config'
+import { footer, site } from '@/content/site'
+import { route, type Locale } from '@/i18n/config'
 import { ui } from '@/i18n/ui'
 import { prefetchFor } from '@/lib/routes'
-import { hasJournal } from '@/lib/wp/client'
 
 const colTitle = 'mb-[18px] font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-onDark-glass'
 
-export async function Footer({ locale }: { locale: Locale }) {
-  const journal = locale === 'tr' && (await hasJournal())
+export function Footer({ locale = 'tr' }: { locale?: Locale }) {
   const t = ui(locale).footer
-  const footer = locale === 'en' ? { ...footerTr, ...footerEn } : footerTr
   return (
     <footer className="surface-dark bg-ink text-onDark">
       <div className="shell pt-14">
@@ -33,21 +29,20 @@ export async function Footer({ locale }: { locale: Locale }) {
             <nav key={col.key} aria-label={col.key === 'services' ? t.servicesAria : t.companyAria} className={`min-w-0 ${col.span}`}>
               <p className={colTitle}>{col.key === 'services' ? t.services : t.company}</p>
               <ul className="flex flex-col gap-[3px] text-[15px] font-light">
-                {(
-                  col.links as readonly {
-                    label: string
-                    href: string
-                    lang?: string
-                  }[]
-                )
-                  .filter((l) => (EN_LIVE || l.lang !== 'en') && (journal || l.href !== '/haber'))
-                  .map((l) => (
-                    <li key={l.label}>
-                      <Link href={l.href} prefetch={prefetchFor(l.href)} lang={l.lang} hrefLang={l.lang} className="inline-block py-1">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    {/^https?:/.test(l.href) ? (
+                      <a href={l.href} className="inline-block py-1">
+                        {l.label}
+                        <span aria-hidden="true"> ↗</span>
+                      </a>
+                    ) : (
+                      <Link href={l.href} prefetch={prefetchFor(l.href)} className="inline-block py-1">
                         {l.label}
                       </Link>
-                    </li>
-                  ))}
+                    )}
+                  </li>
+                ))}
               </ul>
             </nav>
           ))}
@@ -75,8 +70,7 @@ export async function Footer({ locale }: { locale: Locale }) {
               {t.privacy}
             </Link>
           </span>
-          {/* lang="en": Türkçe büyük harf dönüşümü i → İ yapar ("FİXİNG"); İngilizce metinde I olmalı */}
-          <span lang="en" className="flex flex-wrap gap-x-[26px] gap-y-2">
+          <span className="flex flex-wrap gap-x-[26px] gap-y-2">
             {footer.bottom.lines.map((l) => (
               <span key={l}>{l}</span>
             ))}

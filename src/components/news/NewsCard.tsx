@@ -29,7 +29,7 @@ export function NewsCard({
           size={video ? 'lg' : 'md'}
           tone={video ? 'dark' : 'light'}
         />
-        <NewsMeta post={post} tone={video ? 'dark' : 'light'} showDuration={video} label={tagLabel} hideTime={!video} className={video ? 'mb-2.5 mt-4' : 'mb-2.5 mt-[18px]'} />
+        <NewsMeta post={post} tone={video ? 'dark' : 'light'} showDuration={video} label={tagLabel} hideTime={!!tagLabel} className={video ? 'mb-2.5 mt-4' : 'mb-2.5 mt-[18px]'} />
         <H className={`font-display font-semibold ${video ? 'text-[20px] leading-[1.2] tracking-[-0.015em] text-white' : 'mb-2.5 text-h3-card'}`}>{post.title}</H>
         {!video && post.excerpt && <p className="text-small text-ink-mono">{post.excerpt}</p>}
       </Link>

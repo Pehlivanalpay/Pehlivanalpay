@@ -198,14 +198,30 @@ export async function searchPosts(term: string, first = 10): Promise<NewsPost[]>
   }
 }
 
+export type PostsPage = { posts: NewsPost[]; endCursor: string | null; hasNextPage: boolean }
+
 /**
- * ELIS360 Journal yayında mı? (en az bir yazı var mı) — yazı yokken Journal bağlantıları gizlenir ve
- * /haber sayfaları Projeler'e yönlenir. WordPress'e ulaşılamazsa da false (site çökmez).
+ * Sayfalı liste (kategori ve son dakika sayfaları). WPGraphQL imleç (cursor) tabanlıdır:
+ * sonraki sayfa için önceki yanıtın `endCursor` değeri `after` olarak verilir.
  */
-export async function hasJournal(): Promise<boolean> {
-  try {
-    return (await getPosts({ first: 1 })).length > 0
-  } catch {
-    return false
+export async function getPostsPage({ first = 24, category, breaking, after }: { first?: number; category?: string; breaking?: boolean; after?: string | null }): Promise<PostsPage> {
+  if (!WP_URL) {
+    if (!usingFixtures) return { posts: [], endCursor: null, hasNextPage: false }
+    const all = fixturePosts
+      .filter((p) => (category ? p.categories.some((c) => c.slug === category) : true))
+      .filter((p) => (breaking ? p.isBreaking : true))
+      .filter((p) => !p.isSponsored)
+    const start = after ? Number(after) || 0 : 0
+    return { posts: all.slice(start, start + first), endCursor: String(start + first), hasNextPage: start + first < all.length }
   }
+  const where = ['orderby: { field: DATE, order: DESC }', category ? 'categoryName: $category' : '', breaking ? 'isBreaking: true' : '', 'isSponsored: false']
+    .filter(Boolean)
+    .join(', ')
+  const data = await gql<{ posts: { pageInfo: { hasNextPage: boolean; endCursor: string | null }; nodes: GqlPost[] } }>(
+    `query Page($first: Int!, $after: String${category ? ', $category: String' : ''}) {
+      posts(first: $first, after: $after, where: { ${where} }) { pageInfo { hasNextPage endCursor } nodes { ${POST_FIELDS} } }
+    }`,
+    { first, after: after ?? null, ...(category ? { category } : {}) },
+  )
+  return { posts: data.posts.nodes.map(normalize), endCursor: data.posts.pageInfo.endCursor, hasNextPage: data.posts.pageInfo.hasNextPage }
 }

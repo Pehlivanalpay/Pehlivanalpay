@@ -3,5 +3,5 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
   ;(await draftMode()).disable()
-  return NextResponse.redirect(new URL('/haber', req.url), 307)
+  return NextResponse.redirect(new URL('/', req.url), 307)
 }

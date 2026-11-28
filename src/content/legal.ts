@@ -9,7 +9,7 @@
 export type LegalSection = { title: string; paragraphs?: readonly string[]; items?: readonly string[] }
 export type LegalDoc = { title: string; label: string; updated: string; intro: string; sections: readonly LegalSection[] }
 
-const UPDATED = '2026-11-21'
+const UPDATED = '2026-11-28'
 
 export const kvkk: LegalDoc = {
   label: 'Kişisel verilerin korunması',
@@ -27,7 +27,7 @@ export const kvkk: LegalDoc = {
     {
       title: 'Hangi verileri işliyoruz?',
       items: [
-        'İletişim formu: ad soyad, kurum, e-posta, ülke, çekim yeri, tarih, ekip ihtiyacı ve proje özetinde yazdıklarınız.',
+        'Haber ihbarı ve iletişim formu: ad soyad, e-posta, varsa kurum, olayın yeri ve zamanı ile mesajınızda yazdıklarınız.',
         'WhatsApp veya e-posta ile bize ulaştığınızda: telefon numaranız, e-posta adresiniz ve mesajınızın içeriği.',
         'Bülten kaydı: e-posta adresiniz.',
         'Teknik veriler: güvenlik ve kötüye kullanımı önleme amacıyla IP adresiniz; hava durumu bilgisini göstermek için IP adresinden tahmin edilen şehir (bu bilgi saklanmaz).',
@@ -36,7 +36,7 @@ export const kvkk: LegalDoc = {
     {
       title: 'Hangi amaçlarla işliyoruz?',
       items: [
-        'Proje talebinizi değerlendirmek, size teklif ve bilgi vermek, sizinle iletişim kurmak.',
+        'Haber ihbarlarını değerlendirmek ve doğrulamak; düzeltme ve cevap hakkı taleplerini yanıtlamak; reklam ve iş birliği taleplerine dönüş yapmak.',
         'Talep ettiğiniz bülten ve duyuruları göndermek.',
         'Sitenin güvenliğini sağlamak; spam ve otomatik gönderimleri engellemek.',
         'Yasal yükümlülüklerimizi yerine getirmek.',
@@ -49,15 +49,21 @@ export const kvkk: LegalDoc = {
       ],
     },
     {
+      title: 'Haber kaynaklarının gizliliği',
+      paragraphs: [
+        'Bize haber ihbarında bulunan kişilerin kimliği, kendi açık izinleri olmadan hiçbir koşulda yayımlanmaz ve üçüncü kişilerle paylaşılmaz. Gönderdiğiniz bilgi ve görüntüler yalnızca haberin doğrulanması ve hazırlanması için kullanılır.',
+      ],
+    },
+    {
       title: 'Kimlere aktarıyoruz?',
       paragraphs: [
-        'Verileriniz satılmaz ve reklam amacıyla paylaşılmaz. Yalnızca hizmeti sunabilmek için kullandığımız barındırma (hosting) ve e-posta hizmet sağlayıcılarımızla ve kanunen yetkili kamu kurumlarıyla, gerekli olduğu ölçüde paylaşılır. Bir projede yurt dışındaki müşterimizle çalışmanız gerekiyorsa aktarım, KVKK m.9’daki şartlara uygun olarak ve yalnızca sizin talebinizle yapılır.',
+        'Verileriniz satılmaz ve reklam amacıyla paylaşılmaz. Yalnızca hizmeti sunabilmek için kullandığımız barındırma (hosting) ve e-posta hizmet sağlayıcılarımızla ve kanunen yetkili kamu kurumlarıyla, gerekli olduğu ölçüde paylaşılır. Yurt dışına aktarım gerekirse KVKK m.9’daki şartlara uygun olarak yapılır.',
       ],
     },
     {
       title: 'Ne kadar süre saklıyoruz?',
       paragraphs: [
-        'İletişim talepleri, talebin sonuçlanmasından itibaren en fazla iki yıl; bülten kaydı, aboneliğinizi sonlandırana kadar saklanır. Güvenlik amaçlı IP kayıtları kısa süreli tutulur ve otomatik olarak silinir. Süresi dolan veriler silinir, yok edilir veya anonim hâle getirilir.',
+        'Haber ihbarları ve iletişim talepleri, değerlendirmenin tamamlanmasından itibaren en fazla iki yıl; bülten kaydı, aboneliğinizi sonlandırana kadar saklanır. Güvenlik amaçlı IP kayıtları kısa süreli tutulur ve otomatik olarak silinir. Süresi dolan veriler silinir, yok edilir veya anonim hâle getirilir.',
       ],
     },
     {

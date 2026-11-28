@@ -156,19 +156,16 @@ export function ContactForm({
         </fieldset>
       )}
 
+      {/* Haber sitesi: ülke ve ekip ihtiyacı alanları kullanılmıyor (prodüksiyon formundan kalma, isteğe bağlı alanlar) */}
       <div className="flex flex-wrap gap-[22px]">
         {input('name', 'text', 'name')}
-        {input('org', 'text', 'organization')}
-      </div>
-      <div className="flex flex-wrap gap-[22px]">
         {input('email', 'email', 'email')}
-        {input('country', 'text', 'country-name')}
       </div>
       <div className="flex flex-wrap gap-[22px]">
         {input('city', 'text', 'off', t.placeholders.city)}
         {input('dates', 'text', 'off', t.placeholders.dates)}
       </div>
-      {input('team', 'text', 'off', t.placeholders.team, true)}
+      {input('org', 'text', 'organization', undefined, true)}
       <div className="flex flex-col gap-[9px]">
         <label htmlFor="f-message" className={label}>
           {t.labels.message}

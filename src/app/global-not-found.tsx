@@ -6,8 +6,8 @@ import { fontVars } from './fonts'
 import './globals.css'
 
 /**
- * Hiçbir rotaya uymayan adresler için iki dilli 404 (iki ayrı kök layout olduğu için gerekli —
- * next.config experimental.globalNotFound). Layout'u atlar; iskeleti burada sade biçimde kurar.
+ * Hiçbir rotaya uymayan adresler için 404 (next.config experimental.globalNotFound).
+ * Layout'u atlar; iskeleti burada sade biçimde kurar.
  */
 export const metadata: Metadata = { title: '404 – ELIS360 NEWS', robots: { index: false } }
 
@@ -25,15 +25,15 @@ export default function GlobalNotFound() {
           </Link>
           <p className="mb-6 font-mono text-label font-semibold uppercase text-accent-light">404</p>
           <h1 className="mb-3 font-display text-h1 font-bold text-white">Sayfa bulunamadı</h1>
-          <p lang="en" className="mb-10 font-display text-h2-block font-bold text-onDark-muted">
-            Page not found
+          <p className="mb-10 max-w-[560px] text-[17px] leading-[1.7] text-onDark-muted">
+            Aradığınız haber kaldırılmış ya da adresi değişmiş olabilir. Son haberlere ana sayfadan ulaşabilirsiniz.
           </p>
           <div className="flex flex-wrap gap-3.5">
             <Link href="/" className={buttonClass('primary', 'lg')}>
               Ana sayfa
             </Link>
-            <Link href="/en" lang="en" className={buttonClass('secondary-dark', 'lg')}>
-              English home
+            <Link href="/son-dakika" className={buttonClass('secondary-dark', 'lg')}>
+              Son dakika
             </Link>
           </div>
         </main>

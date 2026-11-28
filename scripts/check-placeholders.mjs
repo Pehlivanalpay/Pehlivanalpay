@@ -23,6 +23,7 @@ const rules = [
   { dir: 'src/content', re: /href:\s*(PLACEHOLDER_HREF|['"]#['"])/g, why: 'boş bağlantı (#)' },
   { dir: 'src/content', re: /image:\s*null/g, why: 'gri görsel yer tutucusu (görsel yok)' },
   { dir: 'src', re: /bg-placeholder|#C9CDD3/gi, why: 'gri görsel yer tutucusu' },
+  { dir: 'src/content', re: /value:\s*null/g, why: 'künyede boş alan (hukuki bilgi bekliyor)' },
 ]
 
 let hits = 0

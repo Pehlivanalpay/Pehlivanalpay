@@ -2,15 +2,15 @@
  * İletişim formu — alanlar ve doğrulama. İstemci ve sunucu aynı kuralları kullanır.
  */
 export const contactFields = {
-  need: { label: 'Destek türü', max: 80, required: false },
+  need: { label: 'Konu', max: 80, required: false },
   name: { label: 'Ad soyad', max: 120, required: true },
   org: { label: 'Kurum', max: 160, required: false },
   email: { label: 'E-posta', max: 254, required: true },
   country: { label: 'Ülke', max: 80, required: false },
-  city: { label: 'Çekim şehri', max: 120, required: false },
-  dates: { label: 'Tarihler', max: 160, required: false },
+  city: { label: 'Olayın yeri', max: 120, required: false },
+  dates: { label: 'Ne zaman', max: 160, required: false },
   team: { label: 'Ekip ihtiyacı', max: 300, required: false },
-  message: { label: 'Proje özeti', max: 5000, required: true },
+  message: { label: 'Mesajınız', max: 5000, required: true },
 } as const
 
 export type ContactField = keyof typeof contactFields

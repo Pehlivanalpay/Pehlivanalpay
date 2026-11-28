@@ -5,18 +5,19 @@ import { ogDefaults, SITE_URL } from '@/lib/seo'
 import { fontVars } from '../fonts'
 import '../globals.css'
 
-/** Türkçe kök layout (/, /fixer-in-turkiye, …). İngilizce: src/app/en/layout.tsx */
+/** Kök layout — haber sitesi (yalnızca Türkçe). */
 
 const description =
-  'Türkiye’de haberin, prodüksiyonun ve markanızın çözüm ortağı: uluslararası medya ekipleri ve markalar için fikserlik (fixer in Türkiye), prodüksiyon, belgesel, marka ve PR.'
+  'ELIS360 NEWS: Türkiye’den ve dünyadan son dakika ve güncel haberler. Gündem, Türkiye, İzmir ve Ege, dünya, video ve sahadan özel dosyalar.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: 'ELIS360 NEWS – Fixer in Türkiye, prodüksiyon, marka & PR', template: '%s – ELIS360 NEWS' },
+  title: { default: 'ELIS360 NEWS – Son dakika ve güncel haberler', template: '%s – ELIS360 NEWS' },
   description,
   applicationName: site.name,
   openGraph: { ...ogDefaults, description },
   twitter: { card: 'summary_large_image' },
+  alternates: { types: { 'application/rss+xml': [{ url: '/rss.xml', title: 'ELIS360 NEWS' }] } },
 }
 
 export const viewport: Viewport = { themeColor: '#07111F' }

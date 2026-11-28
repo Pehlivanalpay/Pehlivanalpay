@@ -27,10 +27,24 @@ const nextConfig: NextConfig = {
   },
   // Eski adresler → yeni sayfa yapısı (2026-11). Kalıcı: arama motorları yeni adresi öğrenir.
   async redirects() {
+    // 2026-11-28: elis360news.com haber sitesi oldu; kurumsal sayfalar www.elis360medya.com'a taşındı.
+    const MEDYA = 'https://www.elis360medya.com'
+    const corporate: [string, string][] = [
+      ['/fikserlik', '/fixer-in-turkiye'],
+      ['/fixer-in-turkiye', '/fixer-in-turkiye'],
+      ['/produksiyon', '/produksiyon'],
+      ['/marka-pr', '/marka-pr'],
+      ['/belgesel', '/belgesel'],
+      ['/projeler', '/projeler'],
+      ['/haberler', '/projeler'],
+    ]
     return [
-      { source: '/fikserlik', destination: '/fixer-in-turkiye', permanent: true },
-      // 2026-11-23: menüdeki "Haberler" → "Projeler" (sayfa seçili projeleri gösteriyor)
-      { source: '/haberler', destination: '/projeler', permanent: true },
+      ...corporate.map(([source, to]) => ({ source, destination: `${MEDYA}${to}`, permanent: true })),
+      { source: '/en', destination: `${MEDYA}/en`, permanent: true },
+      { source: '/en/:path*', destination: `${MEDYA}/en/:path*`, permanent: true },
+      // Eski haber portalı adresleri → yeni yapı (yazılar /haber/[slug]'da kalır)
+      { source: '/haber', destination: '/', permanent: true },
+      { source: '/haber/kategori/:slug', destination: '/:slug', permanent: true },
     ]
   },
   images: {

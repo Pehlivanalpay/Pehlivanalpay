@@ -93,7 +93,7 @@ Setup Node.js App → uygulama → **Run NPM Install** → bitmesini bekleyin (b
 - [ ] `https://www.elis360news.com` yeni siteyi açıyor
 - [ ] `elis360news.com` ve `http://…` → `https://www.elis360news.com`
 - [ ] `/.next/prerender-manifest.json` ve `/package.json` → 404
-- [ ] /fixer-in-turkiye, /iletisim, /kvkk, /haber, /en açılıyor; mobil görünüm düzgün
+- [ ] /, /gundem, /son-dakika, /kunye, /iletisim açılıyor; /fixer-in-turkiye → www.elis360medya.com; mobil görünüm düzgün
 - [ ] Görseller görünüyor
 - [ ] İletişim formundan deneme mesajı → `info@` kutusuna düşüyor
 

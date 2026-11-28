@@ -1,17 +1,17 @@
 import { AdSlot } from '@/components/header/AdSlot'
+import { BreakingBar } from '@/components/header/BreakingBar'
 import { Masthead } from '@/components/header/Masthead'
 import { ServiceBar } from '@/components/header/ServiceBar'
 import { StickyNav } from '@/components/header/StickyNav'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/ui/WhatsApp'
-import { mainNavEn } from '@/content/en/site'
 import { mainNav, site } from '@/content/site'
 import type { Locale } from '@/i18n/config'
 import { ui } from '@/i18n/ui'
 import { JsonLd, organizationLd } from '@/lib/seo'
 
 /**
- * Sayfa iskeleti — iki dilin kök layout'u da bunu kullanır.
+ * Sayfa iskeleti (kök layout). Katmanlar: reklam → header (servis barı + logo) → yapışkan nav → son dakika.
  *
  * YAPI KURALI: Yapışkan navigasyon <header>'ın DIŞINDA, <body>'nin doğrudan çocuğu olmak ZORUNDA:
  * position:sticky yalnızca ebeveyninin sınırları içinde çalışır. Header'ın içine taşınırsa header
@@ -39,7 +39,10 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
       </header>
 
       {/* 4 — Yapışkan navigasyon: <body>'nin doğrudan çocuğu (yukarıdaki kural) */}
-      <StickyNav items={locale === 'en' ? mainNavEn : mainNav} locale={locale} />
+      <StickyNav items={mainNav} locale={locale} />
+
+      {/* 5 — Son dakika (kayar). Yalnızca "son dakika" işaretli yazı varken çizilir; animasyon yok. */}
+      <BreakingBar />
 
       <div id="icerik" tabIndex={-1} className="outline-none">
         {children}

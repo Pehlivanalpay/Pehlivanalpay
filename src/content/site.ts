@@ -14,7 +14,9 @@ export const site = {
   name: 'ELIS360 NEWS',
   email: 'info@elis360news.com',
   /** Logonun altındaki alt başlık (PDF). */
-  tagline: 'Media • Fixing • Production • Brand & PR',
+  tagline: 'Haber • Gündem • Dosya • Video',
+  /** Kurumsal site (eski elis360news.com içeriği) — 2026-11-28'de taşındı. */
+  corporateUrl: 'https://www.elis360medya.com',
 
   /** WhatsApp hattı — wa.me bağlantısı için uluslararası biçim, yalnızca rakam. Boşken düğmeler gizlenir. */
   whatsapp: '905432288921' as string,
@@ -43,46 +45,48 @@ export const site = {
 
 export type NavItem = { label: string; href: string; live?: boolean }
 
-/** Yapışkan navigasyon — her başlık ayrı sayfa (2026-11 web sitesi önerisi, PDF). */
+/** Yapışkan navigasyon — haber kategorileri (WordPress kategorileriyle aynı adresler: src/lib/wp/types.ts). */
 export const mainNav: NavItem[] = [
   { label: 'Ana sayfa', href: '/' },
-  { label: 'Fikserlik', href: '/fixer-in-turkiye' },
-  { label: 'Prodüksiyon', href: '/produksiyon' },
-  { label: 'Marka & PR', href: '/marka-pr' },
-  { label: 'Belgesel', href: '/belgesel' },
-  { label: 'Projeler', href: '/projeler', live: true },
-  { label: 'İletişim', href: '/iletisim' },
+  { label: 'Son dakika', href: '/son-dakika', live: true },
+  { label: 'Gündem', href: '/gundem' },
+  { label: 'Türkiye', href: '/turkiye' },
+  { label: 'İzmir ve Ege', href: '/izmir-ve-ege' },
+  { label: 'Dünya', href: '/dunya' },
+  { label: 'Video', href: '/video' },
+  { label: 'Özel dosyalar', href: '/ozel-dosyalar' },
 ]
 
-
-/** Footer. Gri metinler onDark-glass (metalik gri #AAB3C0) — koyu zeminde 8.9:1. */
 export const footer = {
-  tagline: 'Yerel bilgi. Güvenilir bağlantılar. Güçlü medya ve iletişim deneyimi.',
+  tagline: 'Sahadan, doğrulanmış ve bağımsız haber. Türkiye’den ve dünyadan, ELIS360 ekibinin gözünden.',
   columns: [
     {
       key: 'services' as const,
       span: 'lg:col-span-3',
       links: [
-        { label: 'Fikserlik — Fixer in Türkiye', href: '/fixer-in-turkiye' },
-        { label: 'Prodüksiyon', href: '/produksiyon' },
-        { label: 'Marka & PR', href: '/marka-pr' },
-        { label: 'Belgesel', href: '/belgesel' },
+        { label: 'Son dakika', href: '/son-dakika' },
+        { label: 'Gündem', href: '/gundem' },
+        { label: 'Türkiye', href: '/turkiye' },
+        { label: 'İzmir ve Ege', href: '/izmir-ve-ege' },
+        { label: 'Dünya', href: '/dunya' },
+        { label: 'Video', href: '/video' },
+        { label: 'Özel dosyalar', href: '/ozel-dosyalar' },
       ],
     },
     {
       key: 'company' as const,
       span: 'lg:col-span-2',
       links: [
-        { label: 'Projeler', href: '/projeler' },
-        { label: 'ELIS360 Journal', href: '/haber' },
-        { label: 'İletişim', href: '/iletisim' },
-        { label: 'English', href: '/en', lang: 'en' },
+        { label: 'Künye', href: '/kunye' },
+        { label: 'Haber ihbarı ve iletişim', href: '/iletisim' },
+        { label: 'RSS', href: '/rss.xml' },
+        { label: 'ELIS360 Medya', href: 'https://www.elis360medya.com' },
       ],
     },
   ],
   bottom: {
     copyright: `© ${new Date().getFullYear()} ELIS360 NEWS`,
-    lines: ['Media · Fixing', 'Production · Brand & PR'],
+    lines: ['Haber · Gündem', 'Dosya · Video'],
     motto: ['Real stories,', 'a brighter tomorrow'],
   },
 }

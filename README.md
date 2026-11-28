@@ -1,6 +1,7 @@
 # ELIS360 NEWS — web sitesi
 
-Next.js (App Router) + TypeScript + Tailwind 3. Headless WordPress (WPGraphQL) Faz 2'de bağlanacak.
+Haber sitesi — Next.js (App Router) + TypeScript + Tailwind 3, içerik headless WordPress'ten (WPGraphQL).
+Kurumsal site ayrı dalda: `elis360medya-kurumsal` (www.elis360medya.com). Teslim belgesi: TESLIM.md
 
 ```bash
 npm install
@@ -22,33 +23,24 @@ npm run check:content  # yayın öncesi yer tutucu denetimi
 ## Yapı
 
 ```
-src/app/(tr)/               Türkçe sayfalar (kök layout <html lang="tr">): /, /fixer-in-turkiye, /produksiyon,
-                            /marka-pr, /belgesel, /projeler, /iletisim, /ara, /kvkk, /haber/…
-src/app/en/                 İngilizce sayfalar (kök layout <html lang="en">): /en, /en/fixer-in-turkiye, /en/production,
-                            /en/brand-pr, /en/documentary, /en/projects, /en/contact, /en/search, /en/privacy
-src/app/global-not-found.tsx iki dilli 404 (adres hiçbir dile ait değilse)
-src/components/SiteChrome.tsx her iki dilin ortak iskeleti: reklam → header → yapışkan nav → içerik → footer
-src/components/pages/       sayfa gövdeleri — iki dil aynı bileşeni kullanır (HomePage, ServicePages, OtherPages, SearchPage, LegalPage)
-src/components/sections/    sayfalarda ortak bölümler (PageHero, ListSection, ImageBand…)
-src/i18n/config.ts          rota eşlemesi TR↔EN, hreflang, dil anahtarı, EN yayın anahtarı (EN_LIVE)
-src/i18n/ui.ts              arayüz metinleri (düğmeler, form, hata mesajları) iki dilde
-src/content/                Türkçe içerik: home.ts, pages.ts, images.ts, site.ts, legal.ts (KVKK + privacy)
-src/content/en/             İngilizce içerik — Türkçe dosyalarla aynı yapı (TypeScript zorunlu kılar)
-src/app/api/conditions      ziyaretçi şehri + hava (Open-Meteo), ?lang=en
-src/app/api/contact         form gönderimi: doğrulama, spam koruması, SMTP (nodemailer); ?lang=en
-src/app/api/revalidate      WordPress yayın bildirimi → önbellek tazeleme
-src/app/api/preview         WordPress önizleme → taslak modu
-src/app/api/newsletter      bülten kaydı → WordPress
-src/app/news-sitemap.xml    Google News site haritası (son 48 saat)
-src/app/sitemap.ts          iki dilli site haritası (hreflang karşılıklarıyla)
-src/lib/search.ts           kurumsal sayfalarda arama; WordPress yazıları: lib/wp/client.ts → searchPosts
-src/lib/wp/                 WPGraphQL istemcisi, örnek veri, HTML temizleme
-src/lib/seo.tsx             JSON-LD (Organization, Service, Breadcrumb), SITE_URL
+src/app/(tr)/page.tsx       haber ana sayfası (manşet, son haberler, kategori blokları, bülten; yazı yokken boş durum)
+src/app/(tr)/[kategori]     kategori sayfaları (/gundem, /turkiye, /izmir-ve-ege, /dunya, /video, /ozel-dosyalar)
+src/app/(tr)/son-dakika     son dakika akışı (sayfalı)
+src/app/(tr)/haber/[slug]   haber; /haber/onizleme/[id] taslak önizleme
+src/app/(tr)/kunye          künye + yayın ilkeleri + düzeltme politikası
+src/app/(tr)/iletisim, ara, kvkk
+src/app/rss.xml, sitemap.ts, news-sitemap.xml, robots.ts
+src/app/api/                contact (haber ihbarı, SMTP), newsletter, revalidate (WordPress bildirimi), preview, conditions
+src/components/SiteChrome.tsx iskelet: reklam → header → yapışkan nav → son dakika şeridi → içerik → footer
+src/components/header/      AdSlot, ServiceBar, Masthead, StickyNav, BreakingBar, Clocks, Conditions
+src/components/news/        LeadStory, NewsCard, CategoryBlock, LatestList, PostsListPage, ArticleView, ShareLinks…
+src/content/                site.ts (menü/footer), news.ts (kategori metinleri), kunye.ts, home.ts (iletişim), legal.ts
+src/lib/wp/                 WPGraphQL istemcisi (liste, sayfalama, arama, önizleme), örnek veri, HTML temizleme
+src/lib/seo.tsx             JSON-LD (NewsMediaOrganization, NewsArticle, Breadcrumb), SITE_URL
 src/proxy.ts                elis360news.com → www (308)
-wordpress/                  ELIS360 Headless eklentisi + kurulum kılavuzu
-scripts/                    build-cpanel.sh (paket), check-placeholders.mjs, translation-review.mjs
+next.config.ts              kurumsal ve /en adresleri → www.elis360medya.com (308)
+wordpress/                  ELIS360 Headless eklentisi (1.1.0) + kurulum kılavuzu
 TESLIM.md                   teslim belgesi — buradan başlayın
-docs/ceviri-onay.md         TR↔EN metinler yan yana (onay için)
 ```
 
 **Yapışkan navigasyon `<header>`'ın içine taşınmamalı** — açıklaması `StickyNav.tsx` ve `SiteChrome.tsx` içinde.

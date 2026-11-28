@@ -7,12 +7,12 @@ import { ui } from '@/i18n/ui'
 import { searchPages } from '@/lib/search'
 import { searchPosts } from '@/lib/wp/client'
 
-/** Site araması — kurumsal sayfalar (her iki dil) + WordPress yazıları (yalnızca Türkçe). */
+/** Site araması — önce haberler (WordPress), sonra kategoriler ve sabit sayfalar. */
 export async function SearchPage({ locale, q: raw }: { locale: Locale; q?: string }) {
   const t = ui(locale).searchPage
   const q = (raw ?? '').trim().slice(0, 100)
   const pages = q ? searchPages(q, locale) : []
-  const posts = q && locale === 'tr' ? await searchPosts(q) : []
+  const posts = q ? await searchPosts(q, 20) : []
   const total = pages.length + posts.length
 
   return (
@@ -44,6 +44,12 @@ export async function SearchPage({ locale, q: raw }: { locale: Locale; q?: strin
             {!q ? t.empty : total ? t.results(total, q) : t.none}
           </p>
 
+          {posts.length > 0 && (
+            <section aria-label={t.articles} className="mb-12 max-w-[860px]">
+              <LatestList posts={posts} title={t.articles} />
+            </section>
+          )}
+
           {pages.length > 0 && (
             <section aria-labelledby="arama-sayfalar" className="mb-12">
               <h2 id="arama-sayfalar" className="mb-4 font-mono text-label font-semibold uppercase text-accent">
@@ -59,12 +65,6 @@ export async function SearchPage({ locale, q: raw }: { locale: Locale; q?: strin
                   </li>
                 ))}
               </ul>
-            </section>
-          )}
-
-          {posts.length > 0 && (
-            <section aria-label={t.articles} className="max-w-[860px]">
-              <LatestList posts={posts} title={t.articles} />
             </section>
           )}
 

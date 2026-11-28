@@ -1,40 +1,35 @@
-# TODO-CONTENT — açık içerik kalemleri
+# TODO-CONTENT — açık içerik kalemleri (haber sitesi)
 
-Güncel durum: 2026-11-21. Teslim belgesi: `TESLIM.md`.
-Yayın denetimi: `npm run check:content` (yer tutucu bulursa çıkış kodu 1).
+Güncel durum: 2026-11-28. Teslim belgesi: `TESLIM.md`.
+Yayın denetimi: `npm run check:content` (yer tutucu ya da boş künye alanı bulursa çıkış kodu 1).
 
 Durum: ☐ bekliyor · ☑ tamam
 
-## Müşteriden beklenen
+## Yayından önce zorunlu
 
 | # | İçerik | Nerede | Not |
 |---|---|---|---|
-| ☐ | **KVKK metni hukuki kontrolü** | `src/content/legal.ts` | Ticari unvan, MERSİS no, açık adres ve VERBİS durumu eklenmeli. Metin sitenin bugün yaptığı işlemeye göre yazıldı. |
-| ☐ | Sosyal hesap adresleri: LinkedIn, Instagram, YouTube | `src/content/site.ts` → `site.social` | Girilmedikçe sitede ve JSON-LD'de otomatik gizli. |
-| ☐ | "Biz kimiz" görseli | `src/content/home.ts` → `about.image` | Şu an kontrol odası. Saha arşivinden gerçek kare önerilir. |
-| ☐ | Görsel izinleri | `public/images/` | Savaşın Çocukları ve saha fotoğraflarındaki kişiler için izin kontrolü (PDF not 05). |
-| ☐ | Reklam / sponsor | `src/components/SiteChrome.tsx` → `<AdSlot>` | İçerik verilmezse yayında hiçbir şey çizilmez. Sponsor gelince `children` olarak eklenir. |
+| ☐ | **Künye:** yayın sahibi, sorumlu yazı işleri müdürü, yönetim yeri, telefon | `src/content/kunye.ts` | 5187 sayılı Basın Kanunu. Boş alanlar sayfada gösterilmez ama denetim uyarır. |
+| ☐ | KVKK metni hukuki kontrolü | `src/content/legal.ts` | Ticari unvan, MERSİS, adres, VERBİS durumu. |
+| ☐ | WordPress bağlantısı (`WP_URL`) ve ilk haberler | `wordpress/README.md` | Bağlanana kadar ana sayfa "yayın akışı çok yakında" gösterir. |
+| ☐ | SMTP (haber ihbarı formu) | `docs/deploy-cpanel.md` § 6 | |
 
-## Sunucu / WordPress (siz)
+## Sonra
 
-| # | İş | Belge |
+| # | İçerik | Nerede |
 |---|---|---|
-| ☐ | SMTP ortam değişkenleri (form e-postası) | `docs/deploy-cpanel.md` § 6 |
-| ☐ | cms.elis360news.com SSL, WPGraphQL + ELIS360 Headless eklentileri, wp-config gizli anahtarları | `wordpress/README.md` |
-| ☐ | GitHub değişkeni `WP_URL` + cPanel'de WP_* değişkenleri | `docs/deploy-cpanel.md` § 6 |
-| ☐ | 2–3 editör hesabı; uçtan uca test (yayımla → görünür, önizle) | `wordpress/README.md` |
+| ☐ | Sosyal hesap adresleri (girilmedikçe otomatik gizli) | `src/content/site.ts` → `site.social` |
+| ☐ | Reklam / sponsor (verilmedikçe hiçbir şey çizilmez) | `src/components/SiteChrome.tsx` → `<AdSlot>`, ana sayfa billboard |
+| ☐ | Google News Publisher Center, Search Console | — |
+| ☐ | Yeni kategori gerekirse (ör. Ekonomi, Spor) | TESLIM.md § 3 |
 
-## Tamamlananlar (2026-11)
+## Tamamlananlar (2026-11-28)
 
 | ☑ | Kalem |
 |---|---|
-| ☑ | Her menü başlığı ayrı sayfa; `/fikserlik` → `/fixer-in-turkiye`, `/haberler` → `/projeler` (308) |
-| ☑ | 2026-11-23 revizyonu: menüde "Projeler", Journal yazı yokken gizli (`/haber` → `/projeler`), "Özel görüntüler" → Fikserlik, Fikserlik başlığı Türkçe, iki yeni hızlı destek seçeneği, görsellerde önyükleme + bulanık ön izleme |
-| ☑ | İngilizce sürüm `/en/…` — yayında (2026-11-21, müşteri onayı); 9 sayfa, yeniden yazılmış metin, hreflang, iki dilli site haritası, dil anahtarı |
-| ☑ | Arama sayfası `/ara`, `/en/search` (kurumsal sayfalar + WordPress yazıları) |
-| ☑ | KVKK `/kvkk` ve Privacy notice `/en/privacy`; form altında bağlantı |
-| ☑ | İki dilli 404 ve hata sayfaları; güvenlik başlıkları (HSTS, CSP frame-ancestors, nosniff…) |
-| ☑ | WhatsApp +90 543 228 89 21 (mobil sabit düğme, iletişim, footer, sayfa sonu şeritleri; dile göre hazır mesaj) |
-| ☑ | Son dakika şeridi kaldırıldı; hero "güven göstergeleri" paneli yerine rakam şeridi |
-| ☑ | Marka & PR ve Prodüksiyon ana görselleri: Pexels stok (marka filmi seti, gerçek yayın rejisi) — `docs/image-credits.md`. Kendi çekiminiz gelince aynı adla değiştirin. |
-| ☑ | Renk paleti PDF'e göre; logo eskizden çizildi; site ikonu, paylaşım görseli |
+| ☑ | elis360news.com → haber sitesi; kurumsal site `elis360medya-kurumsal` dalında korunuyor (elis360medya.com) |
+| ☑ | Kurumsal ve `/en` adresleri elis360medya.com'a 308 |
+| ☑ | Haber ana sayfası, 6 kategori sayfası, son dakika, künye + yayın ilkeleri, RSS, haber ihbarı formu |
+| ☑ | Son dakika şeridi (WordPress'ten, animasyonsuz), paylaşım bağlantıları, görselsiz haber için markalı kutu |
+| ☑ | NewsMediaOrganization şeması, yeni paylaşım görseli, KVKK haber sitesine göre güncel |
+| ☑ | WordPress eklentisi 1.1.0 (kategori adresleri) |

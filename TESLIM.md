@@ -1,110 +1,121 @@
-# ELIS360 NEWS — teslim belgesi
+# ELIS360 NEWS — haber sitesi teslim belgesi
 
-Tarih: 2026-11-21 · Alan adı: https://www.elis360news.com · CMS: https://cms.elis360news.com/wp
+Tarih: 2026-11-28 · Alan adı: https://www.elis360news.com · CMS: https://cms.elis360news.com/wp
 
-Bu belge sitenin ne olduğunu, nasıl yayına alındığını, içeriğin nasıl değiştirildiğini ve neyin
-açık kaldığını tek yerde toplar. Ayrıntılı kılavuzlar: `docs/deploy-cpanel.md`, `wordpress/README.md`.
+2026-11-28'de elis360news.com kurumsal siteden **haber sitesine** dönüştürüldü. Tema, header ve footer
+tasarımı aynen korundu; içerik haber yayınına göre yeniden kuruldu.
 
-## 1. Neler teslim ediliyor
+| | Kaynak | Alan adı |
+|---|---|---|
+| **Haber sitesi** (bu dal) | `claude/new-session-y41gd2` | www.elis360news.com |
+| **Kurumsal site** (eski sürüm, korunuyor) | `elis360medya-kurumsal` dalı | www.elis360medya.com |
 
-| Dil | Sayfalar |
+Eski kurumsal adresler (`/fixer-in-turkiye`, `/produksiyon`, `/marka-pr`, `/belgesel`, `/projeler`,
+`/haberler`, `/fikserlik`, `/en/…`) www.elis360medya.com'daki karşılıklarına **kalıcı (308)** yönlenir;
+arama motoru değeri yeni alan adına taşınır.
+
+## 1. Sayfalar
+
+| Adres | İçerik |
 |---|---|
-| Türkçe | `/` · `/fixer-in-turkiye` · `/produksiyon` · `/marka-pr` · `/belgesel` · `/projeler` · `/iletisim` · `/ara` · `/kvkk` · `/haber` (WordPress haber portalı: yazı, kategori, önizleme) |
-| English | `/en` · `/en/fixer-in-turkiye` · `/en/production` · `/en/brand-pr` · `/en/documentary` · `/en/projects` · `/en/contact` · `/en/search` · `/en/privacy` |
+| `/` | Manşet (en yeni "özel haber", yoksa en yeni yazı) + öne çıkanlar, son haberler, kategori blokları (Gündem, Türkiye, İzmir ve Ege, Dünya), koyu Video bloğu, Özel dosyalar, sponsorlu içerik, bülten. Aynı haber sayfada iki kez çıkmaz. |
+| `/gundem` `/turkiye` `/izmir-ve-ege` `/dunya` `/video` `/ozel-dosyalar` | Kategori sayfaları: manşet + kart ızgarası + "Daha eski haberler" sayfalaması |
+| `/son-dakika` | Tüm haberler, en yeni en üstte, sayfalı |
+| `/haber/[yazı]` | Haber: özel haber / sponsorlu etiketleri, YouTube videosu, paylaşım bağlantıları, son eklenenler |
+| `/kunye` | Künye, yayın ilkeleri, düzeltme politikası |
+| `/iletisim` | Haber ihbarı ve iletişim formu (konu: ihbar, fotoğraf/video, düzeltme ve cevap hakkı, reklam, diğer) |
+| `/ara` | Arama: önce haberler, sonra kategoriler ve sabit sayfalar |
+| `/kvkk` | KVKK aydınlatma metni (haber sitesine ve kaynak gizliliğine göre güncellendi) |
+| `/rss.xml` · `/sitemap.xml` · `/news-sitemap.xml` | RSS, site haritası, Google News haritası (son 48 saat) |
 
-- **İngilizce metinler** çeviri değil, yabancı yayın kuruluşları ve yapımcılar için yeniden yazıldı.
-  Görsellerin alternatif metinleri, form hata mesajları, e-posta konusu (`[EN]`), WhatsApp hazır mesajı ve
-  hava durumu da İngilizce. Haber portalı (Journal) Türkçe yazılardan oluştuğu için yalnızca Türkçe sitede.
-- **Dil anahtarı** bulunduğunuz sayfanın diğer dildeki karşılığına gider (Belgesel ↔ Documentary).
-- **İletişim formu** JavaScript kapalıyken de çalışır; spam koruması: kaynak denetimi, görünmez alan,
-  3 sn zaman tuzağı, 10 dakikada 5 deneme sınırı, bağlantı denetimi.
-- **Erişilebilirlik:** 19 sayfa × 2 genişlik (390 / 1440 px) axe-core WCAG 2.2 AA + best-practice
-  denetimi — ihlal yok; yatay taşma yok; hareket azaltma tercihinde iki animasyon da kapalı.
-- **SEO:** sayfa başına başlık/açıklama, canonical, hreflang (tr / en / x-default), iki dilli site
-  haritası, Google News haritası, JSON-LD (Organization, Service, BreadcrumbList, ContactPage).
-- **Güvenlik:** HSTS, X-Content-Type-Options, Referrer-Policy, X-Frame-Options, Permissions-Policy,
-  CSP (frame-ancestors / form-action / object-src / base-uri); `X-Powered-By` kapalı;
-  uygulama dosyaları `.htaccess` ile dışarıya kapalı (deploy § 4).
+**Header ve footer:** tasarım birebir aynı.
+- **Logo satırı:** alt başlık "Haber • Gündem • Dosya • Video", sağdaki düğme **Haber ihbarı**.
+- **Yapışkan menü:** Ana sayfa, Son dakika, kategoriler.
+- **Son dakika şeridi:** yalnızca WordPress'te "Son dakika" işaretli yazı varken görünür; animasyon yok.
+- **Footer:** "Kategoriler" ve "Kurumsal" sütunları (Künye, İletişim, RSS, ELIS360 Medya).
 
-## 2. İngilizce sürüm — yayında
+**Görseli olmayan haber:** gri kutu yerine markalı koyu kutu (amblem) çizilir.
 
-2026-11-21'de müşteri onayıyla İngilizce sürüm dil anahtarıyla birlikte yayına alındı: menüde TR · EN,
-footer'da "English", hreflang ve iki dilli site haritası açık; /en sayfaları arama motorlarına açık.
+**WordPress'te henüz yazı yokken:** ana sayfa "Yayın akışı çok yakında" mesajı, haber ihbarı düğmesi ve
+bülten kutusu gösterir. Kategoriler "henüz haber yok" der. Site hiçbir durumda boş ya da kırık görünmez.
 
-Metin düzeltmeleri için `docs/ceviri-onay.md` (TR ve EN yan yana) kullanılabilir.
-İngilizceyi geçici olarak yayından çekmek gerekirse: GitHub → Settings → Secrets and variables → Actions →
-Variables → `NEXT_PUBLIC_EN_LIVE` = `0` → yeniden derleme. Sayfalar açık kalır ama noindex olur ve menüden kalkar.
+**SEO:**
+- `NewsMediaOrganization` şeması (yayın ilkeleri, düzeltme politikası ve künye bağlantılarıyla), `NewsArticle`, `BreadcrumbList`.
+- Kategori ve haber başına başlık/açıklama; sayfalanmış eski listeler `noindex`.
+- Sponsorlu yazılar `noindex` ve `Article` (haber olarak sıralanmaz).
+- Haber kimliğiyle yeni paylaşım görseli (`public/og.jpg`).
 
-## 3. Yayına alma (cPanel)
+## 2. Yayına alma (cPanel)
 
-İlk kurulum adım adım: `docs/deploy-cpanel.md`. **Güncelleme** (bu teslimat dahil):
+İlk kurulum adımları: `docs/deploy-cpanel.md` (değişmedi). **Bu güncelleme için:**
 
-1. GitHub → Actions → son "Build" çalışması → `elis360-site` paketini indirin
-   (ya da yerelde `npm run build:cpanel` → `elis360-site.zip`).
-2. cPanel → **Setup Node.js App** → uygulama → **Stop App**.
-3. File Manager → `elis360news.com` → eski `.next` klasörünü silin → zip'i yükleyip **Extract**.
-   `.htaccess`, `.well-known` ve `node_modules` bağlantısına dokunmayın.
-4. `package.json` değiştiyse **Run NPM Install**. Bu teslimatta bağımlılıklar değişmedi.
-5. **Start App** / **Restart**.
-6. Kontrol: `/`, `/en`, `/kvkk`, `/ara?q=belgesel` açılıyor; `/package.json` → 404; formdan deneme mesajı.
+1. cPanel → **Setup Node.js App** → elis360news.com uygulaması → **Stop App**.
+2. File Manager → `elis360news.com` → eski `.next` klasörünü silin. Eski `public/images` klasörünü de silebilirsiniz; artık kullanılmıyor.
+3. `elis360-site.zip` yükle → **Extract** → zip'i sil.
+4. **Start App** — bağımlılıklar değişmedi, "Run NPM Install" gerekmez.
+5. Kontrol: `/`, `/gundem`, `/kunye`, `/iletisim`; `/fixer-in-turkiye` → elis360medya.com'a gidiyor.
 
-**Ortam değişkenleri** (cPanel → Setup Node.js App → Environment variables). Değerleri sohbet ya da
-e-postayla paylaşmayın; yalnızca cPanel'e girin.
+**Kurumsal site (elis360medya.com):**
+- cPanel'de alan adı eklenir, SSL açılır ve ayrı bir Node.js uygulaması kurulur. Adımlar `docs/deploy-cpanel.md` ile aynı, yalnızca klasör ve alan adı farklı.
+- Paket `elis360medya-kurumsal` dalından üretilir (`elis360medya-kurumsal.zip`).
+- O dalda `/haber` adresleri www.elis360news.com'a yönlenir.
 
-| Değişken | Ne zaman | Açıklama |
-|---|---|---|
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | Hemen | Formun e-posta göndermesi. Yoksa form hata verir ve ziyaretçiye e-posta adresi gösterilir. |
-| `CONTACT_TO` | İsteğe bağlı | Formun gideceği adres (varsayılan info@elis360news.com) |
-| `WP_URL` | WordPress hazır olunca | `https://cms.elis360news.com/wp` — GitHub değişkeni olarak da girilmeli |
-| `WP_WEBHOOK_SECRET`, `WP_PREVIEW_SECRET`, `WP_PREVIEW_USER`, `WP_PREVIEW_APP_PASSWORD` | WordPress hazır olunca | `wordpress/README.md` |
+**WordPress eklentisi 1.1.0:** kategori bağlantıları yeni adreslere (`/gundem` vb.) gider.
+`wordpress/elis360-headless.zip` → Eklentiler → Yeni ekle → Yükle → "Mevcut olanı değiştir".
 
-Derleme anında okunan (GitHub → Variables): `WP_URL`, `NEXT_PUBLIC_EN_LIVE`.
-`NEXT_PUBLIC_SITE_URL` iş akışında sabit: `https://www.elis360news.com`.
+**Ortam değişkenleri:** öncekiyle aynı (`SMTP_*`, `WP_URL`, `WP_WEBHOOK_SECRET`, `WP_PREVIEW_*`).
+Haberlerin görünmesi için `WP_URL` hem cPanel'de hem GitHub değişkenlerinde tanımlı olmalı.
+`NEXT_PUBLIC_EN_LIVE` artık kullanılmıyor.
 
-## 4. İçerik nasıl değiştirilir
+## 3. İçerik
 
-Kurumsal sayfa metinleri kodun yanındaki içerik dosyalarındadır (WordPress'te değil). Değişiklik →
-GitHub'da commit → Actions paketi üretir → § 3 Güncelleme.
+- **Haberler:** WordPress (cms.elis360news.com/wp/wp-admin). Yazı → kategori seçin → öne çıkan görsel → sağdaki
+  "ELIS360 — haber ayarları": *Son dakika* (şeritte ve son dakika vurgusunda), *Özel haber* (manşet önceliği ve
+  rozet), *Sponsorlu* (+ sponsor adı), *Video adresi* (YouTube). Yayımlanan yazı en geç 60 sn'de, webhook kuruluysa
+  hemen görünür. Editör kılavuzu: `wordpress/README.md`.
+- **Sabit metinler** (kodda):
 
-| Ne | Türkçe | English |
-|---|---|---|
-| Ana sayfa | `src/content/home.ts` | `src/content/en/home.ts` |
-| Hizmet sayfaları, Projeler/Projects | `src/content/pages.ts` | `src/content/en/pages.ts` |
-| Menü, footer, e-posta, WhatsApp, sosyal hesaplar | `src/content/site.ts` | `src/content/en/site.ts` |
-| Düğmeler, form etiketleri, hata mesajları | `src/i18n/ui.ts` (`tr`) | `src/i18n/ui.ts` (`en`) |
-| KVKK / Privacy | `src/content/legal.ts` (`kvkk`) | `src/content/legal.ts` (`privacy`) |
-| Fotoğraflar ve alternatif metinleri | `public/images/`, `src/content/images.ts` | `src/content/en/images.ts` |
+  | Ne | Dosya |
+  |---|---|
+  | Menü, footer, e-posta, WhatsApp, sosyal hesaplar | `src/content/site.ts` |
+  | Kategori açıklamaları, ana sayfa başlıkları, boş durum | `src/content/news.ts` |
+  | Künye ve yayın ilkeleri | `src/content/kunye.ts` |
+  | İletişim metni ve konu seçenekleri | `src/content/home.ts` |
+  | KVKK | `src/content/legal.ts` |
+  | Düğme ve form metinleri | `src/i18n/ui.ts` |
 
-İngilizce dosyalar Türkçe dosyalarla aynı yapıdadır: bir alan eklenip karşılığı unutulursa derleme hata
-verir. Metin değişince `npm run translations` çeviri onay dosyasını yeniler.
+- **Kategori eklemek:**
+  1. WordPress'te aynı kısa adla kategori açın.
+  2. `src/lib/wp/types.ts` → `NEWS_CATEGORIES` listesine ekleyin.
+  3. `src/content/news.ts` dosyasına açıklamasını yazın.
+  4. `src/content/site.ts` içinde menüye ve footer'a ekleyin.
 
-**ELIS360 Journal** (haberler, `/haber`) WordPress'ten gelir (cms.elis360news.com/wp/wp-admin). Yayında hiç yazı yokken
-Journal bağlantıları gizlenir ve `/haber` Projeler sayfasına yönlenir; ilk yazı yayımlanınca kendiliğinden açılır.
-Yayımlanan yazı sitede 60 sn içinde,
-webhook kuruluysa hemen görünür. Editör kılavuzu: `wordpress/README.md`.
+## 4. Doğrulama (2026-11-28)
 
-## 5. Geliştirici notları
+- `tsc`, `eslint`, üretim derlemesi: temiz.
+- Gerçekçi WordPress taklidiyle (26 yazı + sponsorlu, 6 kategori, video, sponsorlu, son dakika, sayfalama) uçtan uca test.
+- axe-core WCAG 2.2 AA + best-practice: 13 sayfa × 390 / 1440 px → ihlal yok, yatay taşma yok.
+- Yönlendirmeler: kurumsal adresler ve `/en/*` → elis360medya.com (308), `/haber` → `/`, `/haber/kategori/x` → `/x`.
+- cPanel paketi CloudLinux benzeri ortamda (node_modules bağlantısı ile) çalıştırıldı: tüm sayfalar 200, görsel optimizasyonu çalışıyor.
+- WordPress bağlı değilken boş durum ekranı ve kategori sayfaları denetlendi.
 
-- Next.js 16.4.6 (App Router, Turbopack) · React 19.3.1 · Tailwind 3.4 · Node 24. Bağımlılıklar sabit sürüm.
-- İki kök layout: `src/app/(tr)/layout.tsx` ve `src/app/en/layout.tsx`; ortak iskelet `src/components/SiteChrome.tsx`.
-  Diller arası geçiş tam sayfa yüklemesidir (her dilin kendi `<html lang>` değeri olduğu için).
-- **Yapışkan navigasyon `<header>`'ın içine taşınmamalı** — gerekçe `StickyNav.tsx` ve `SiteChrome.tsx` içinde.
-- Çentik (kesik köşe) yalnızca üç yerde; animasyon yalnızca iki (hero nişangâhı, durum noktası) ve
-  `prefers-reduced-motion` ile kapanır; tek kırılım noktası 960 px. Tasarım kuralları: `docs/design-tokens.md`.
-- Komutlar: `npm run dev` · `npm run build` · `npm run lint` · `npm run typecheck` ·
-  `npm run check:content` (yer tutucu denetimi) · `npm run translations` · `npm run build:cpanel`.
-- Yerelde WordPress yokken örnek haberler görünür; yayında görünmez (`WP_FIXTURES=1` ile zorlanabilir).
-
-## 6. Açık kalemler
+## 5. Açık kalemler
 
 | # | Kalem | Sorumlu |
 |---|---|---|
-| 1 | KVKK metnine ticari unvan, MERSİS, adres, VERBİS durumu; hukukçu kontrolü | Müşteri / hukuk |
-| 2 | SMTP değişkenleri ve canlı form testi | Müşteri (cPanel) |
-| 3 | WordPress: SSL, eklentiler, wp-config anahtarları, `WP_URL`, editör hesapları | Müşteri — `wordpress/README.md` |
-| 4 | Sosyal hesap adresleri; Marka & PR ve "Biz kimiz" için özgün görseller | Müşteri |
-| 5 | Fotoğraflardaki kişiler için kullanım izinleri | Müşteri |
-| 6 | Google Search Console: alan adı doğrulama, `sitemap.xml` ve `news-sitemap.xml` gönderimi | Müşteri |
+| 1 | **Künye:** yayın sahibi, sorumlu yazı işleri müdürü, yönetim yeri adresi, telefon (`src/content/kunye.ts`). Basın Kanunu gereği yayına çıkmadan önce. `npm run check:content` bunları listeler. | Müşteri / hukuk |
+| 2 | WordPress: SSL, eklentiler (1.1.0), wp-config anahtarları, `WP_URL`, editör hesapları | Müşteri — `wordpress/README.md` |
+| 3 | SMTP değişkenleri ve canlı form testi (haber ihbarları info@ adresine düşer) | Müşteri |
+| 4 | elis360medya.com: alan adı, SSL, ayrı Node.js uygulaması, kurumsal paket | Müşteri |
+| 5 | KVKK metninin hukukçu kontrolü (ticari unvan, MERSİS, adres) | Müşteri / hukuk |
+| 6 | Sosyal hesap adresleri (`site.social`) | Müşteri |
+| 7 | Google Search Console + Google News Publisher Center başvurusu; `sitemap.xml` ve `news-sitemap.xml` gönderimi | Müşteri |
 
-Bilinen sınır: form deneme sınırı sunucu belleğindedir; uygulama yeniden başlayınca sıfırlanır.
-Tek sunuculu cPanel kurulumu için yeterli.
+## 6. Geliştirici notları
+
+- **Sürümler:** Next.js 16.4.6 (App Router, Turbopack) · React 19.3.1 · Tailwind 3.4 · Node 24.
+- **Yapışkan navigasyon `<header>`'ın içine taşınmamalı.** Gerekçesi `StickyNav.tsx` ve `SiteChrome.tsx` içinde.
+- **Kategori adresleri:** `src/app/(tr)/[kategori]` altında; yalnızca `NEWS_CATEGORIES` listesindekiler çalışır (`dynamicParams=false`), başka adres 404 verir.
+- **Sayfalama:** WPGraphQL imleci (`?sonra=…`) ile çalışır.
+- **Yerel geliştirme:** `npm run dev` WordPress yokken örnek veriyle çalışır. Üretim derlemesinde örnek veri asla görünmez (`WP_FIXTURES=1` ile zorlanabilir).
+- **Komutlar:** `npm run dev`, `npm run build`, `npm run lint`, `npm run typecheck`, `npm run check:content`, `npm run images`, `npm run build:cpanel`.

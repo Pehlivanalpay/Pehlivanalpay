@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await sendMail(input, locale)
+    await sendMail(input)
   } catch (err) {
     console.error('[contact] e-posta gönderilemedi', err)
     return reply({ ok: false, error: m.failed(site.email) }, 502)
@@ -111,17 +111,18 @@ export async function POST(req: NextRequest) {
   return reply({ ok: true }, 200)
 }
 
-async function sendMail(input: ContactInput, locale: 'tr' | 'en' = 'tr') {
+async function sendMail(input: ContactInput) {
   const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env
   const text = [
-    `Destek türü: ${input.need || '—'}`,
+    `Konu: ${input.need || '—'}`,
     `Ad soyad: ${input.name}`,
-    `Kurum: ${input.org || '—'}`,
     `E-posta: ${input.email}`,
-    `Ülke: ${input.country || '—'}`,
-    `Çekim şehri: ${input.city || '—'}`,
-    `Tarihler: ${input.dates || '—'}`,
-    `Ekip ihtiyacı: ${input.team || '—'}`,
+    `Kurum: ${input.org || '—'}`,
+    `Olayın yeri: ${input.city || '—'}`,
+    `Ne zaman: ${input.dates || '—'}`,
+    // Eski formdan gelebilecek alanlar (boşsa yazılmaz)
+    ...(input.country ? [`Ülke: ${input.country}`] : []),
+    ...(input.team ? [`Ekip: ${input.team}`] : []),
     '',
     input.message,
   ].join('\n')
@@ -149,7 +150,7 @@ async function sendMail(input: ContactInput, locale: 'tr' | 'en' = 'tr') {
     to: process.env.CONTACT_TO ?? site.email,
     // Yanıtla → doğrudan formu dolduran kişiye. Adres doğrulamadan geçti (validate).
     replyTo: { name: input.name, address: input.email },
-    subject: `${locale === 'en' ? '[EN] ' : ''}${input.need ? `[${input.need}] ` : ''}Proje talebi: ${input.name}${input.org ? ` (${input.org})` : ''}`,
+    subject: `[ELIS360 NEWS] ${input.need || 'İletişim'}: ${input.name}${input.org ? ` (${input.org})` : ''}`,
     text, // yalnızca düz metin — kullanıcı girdisi HTML olarak yorumlanmaz
   })
 }

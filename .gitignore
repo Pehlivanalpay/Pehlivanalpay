@@ -9,3 +9,6 @@ next-env.d.ts
 .vercel
 deploy/
 elis360-site.zip
+
+# Yerel test görselleri (WordPress taklidi)
+public/demo/

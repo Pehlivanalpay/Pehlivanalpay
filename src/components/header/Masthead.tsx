@@ -21,8 +21,7 @@ export function Masthead({ locale }: MastheadProps) {
         </span>{' '}
         <span className="flex flex-col gap-1.5">
           <span className="font-mono text-[14px] font-medium leading-none tracking-[0.32em] text-onDark-glass">NEWS</span>
-          {/* lang="en": İngilizce alt başlık — Türkçe büyük harf dönüşümü "İ" yapmasın */}
-          <span lang="en" className="hidden font-mono text-[9px] font-medium uppercase leading-none tracking-[0.2em] text-onDark-glass lg:block">
+          <span className="hidden font-mono text-[9px] font-medium uppercase leading-none tracking-[0.2em] text-onDark-glass lg:block">
             {site.tagline}
           </span>
         </span>

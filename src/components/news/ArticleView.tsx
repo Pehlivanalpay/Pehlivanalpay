@@ -1,9 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { LatestList } from './LatestList'
-import { CategoryStrip } from './CategoryStrip'
+import { ShareLinks } from './ShareLinks'
 import { CategoryTag } from '@/components/ui/CategoryTag'
-import { MediaFrame } from '@/components/ui/MediaFrame'
 import { newsDateLong } from '@/lib/format'
 import type { NewsArticle, NewsPost } from '@/lib/wp/types'
 import { youtubeId } from '@/lib/youtube'
@@ -16,7 +15,7 @@ import { youtubeId } from '@/lib/youtube'
  */
 export function ArticleView({ post, latest, preview = false }: { post: NewsArticle; latest: NewsPost[]; preview?: boolean }) {
   const yt = youtubeId(post.videoUrl)
-  const crumbs = [{ label: 'Haber', href: '/haber' }, ...(post.category ? [{ label: post.category.name, href: `/haber/kategori/${post.category.slug}` }] : [])]
+  const crumbs = [{ label: 'Ana sayfa', href: '/' }, ...(post.category ? [{ label: post.category.name, href: `/${post.category.slug}` }] : [])]
 
   return (
     <main>
@@ -25,7 +24,6 @@ export function ArticleView({ post, latest, preview = false }: { post: NewsArtic
           Önizleme — bu sayfa yayımlanmadı · <Link href="/api/preview/exit" className="underline">Önizlemeden çık</Link>
         </p>
       )}
-      <CategoryStrip active={post.category?.slug} />
       <div className="shell py-[clamp(40px,4.5vw,64px)]">
         <div className="grid grid-cols-1 gap-y-14 lg:grid-cols-12 lg:gap-x-6">
           <article className="min-w-0 lg:col-span-8">
@@ -87,11 +85,11 @@ export function ArticleView({ post, latest, preview = false }: { post: NewsArtic
                 />
                 {post.image.alt && <figcaption className="mt-2.5 font-mono text-[11px] tracking-[0.06em] text-ink-muted">{post.image.alt}</figcaption>}
               </figure>
-            ) : (
-              <MediaFrame image={null} label="[Haber görseli]" ratio="16/9" sizes="66vw" className="mb-8" />
-            )}
+            ) : null}
 
             <div className="article-body max-w-[720px]" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+
+            {!preview && <ShareLinks title={post.title} path={`/haber/${post.slug}`} className="mt-10 max-w-[720px]" />}
 
             <footer className="mt-12 max-w-[720px] border-t-2 border-ink pt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
               {post.author && <p className="mb-1.5">Hazırlayan: <span className="text-ink">{post.author}</span></p>}
